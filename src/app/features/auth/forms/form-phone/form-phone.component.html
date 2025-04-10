@@ -1,0 +1,38 @@
+<div class="bg-white rounded-lg shadow-md p-8 relative max-w-md mx-auto">
+  <icon-control
+    iconClass="icon-[hugeicons--arrow-left-01] w-8 h-8 text-gray-700 hover:text-[#E91E63] transition-colors cursor-pointer absolute top-4 left-4"
+    (click)="onPreviousStep.emit()"
+  />
+
+  <div class="flex justify-center mb-8 pt-6">
+    <icon-control
+      iconClass="icon-[hugeicons--call] w-20 h-16 rounded-full bg-[#E91E63] flex items-center justify-center"
+    />
+  </div>
+  
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">Verificación de Teléfono</h2>
+  <div class="w-16 h-1 bg-[#E91E63] mx-auto mb-6"></div>
+
+  <p class="text-gray-600 mb-8 max-w-xs mx-auto text-center">
+    Introduce tu número de teléfono para recibir un código de verificación
+  </p>
+
+  <form [formGroup]="phoneForm" (ngSubmit)="onSubmit()" class="mb-6">
+    <form-phone-control [form]="phoneForm" controlName="phoneNumber" label="" />
+    <p class="mt-2 text-xs text-gray-500 text-left">
+      Formato: +52 555 123 456 7 (10 dígitos después del código de país)
+    </p>
+
+    <button-control
+      buttonClass="w-full py-3 mt-6 bg-[#E91E63] text-white rounded-md font-medium hover:bg-[#D81B60] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+      type="submit"
+      [text]="isLoading() ? 'Enviando...' : 'Enviar Código'"
+      [hasDisabledCondition]="true"
+      [disabledCondition]="isLoading() || phoneForm.invalid"
+      [hasIconClass]="isLoading()"
+      [hasIconClassHidden]="true"
+      iconClass="-ml-1 mr-2 h-4 w-4 icon-[line-md--loading-loop] animate-spin"
+    />
+  </form>
+</div>
+

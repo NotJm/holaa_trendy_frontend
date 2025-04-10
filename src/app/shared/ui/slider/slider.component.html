@@ -1,0 +1,34 @@
+<section *ngIf="categories.length > 0 else loadingTemplate" class="relative mx-auto px-4">
+  <owl-carousel-o #owlCarousel [options]="carouselOptions">
+    @for (category of categories; track category.id;) {
+    <ng-template carouselSlide>
+      <item-slider
+        [category]="category"
+        (onSelectedCategory)="redirectToProduct($event)"
+      />
+    </ng-template>
+    }
+  </owl-carousel-o>
+
+  <button-control
+    buttonClass="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-10"
+    [hasIconClass]="true"
+    iconClass="w-12 h-12 icon-[hugeicons--arrow-left-01]"
+    (onClick)="prev()"
+    text=""
+  />
+
+  <button-control
+    buttonClass="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-10"
+    [hasIconClass]="true"
+    iconClass="w-12 h-12 icon-[hugeicons--arrow-right-01]"
+    (onClick)="next()"
+    text=""
+  />
+</section>
+
+<ng-template #loadingTemplate>
+  <loading message="No se encontraron categorias para mostrar"/>
+</ng-template>
+
+

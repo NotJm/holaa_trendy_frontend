@@ -1,0 +1,27 @@
+/* Estilos para los interruptores (switches) */
+.switch-transition {
+    transition-property: background-color, transform;
+    transition-duration: 200ms;
+  }
+  
+  /* Estilos para los efectos de hover en botones */
+  button:focus {
+    outline: none;
+  }
+  
+  /* Estilos para las pestañas activas */
+  .tab-active {
+    color: #4f46e5;
+    border-bottom-color: #4f46e5;
+  }
+  
+  /* Animaciones suaves para transiciones */
+  .tab-content {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Estilos para inputs con foco */
+  input:focus, textarea:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 1px #4f46e5;
+  }

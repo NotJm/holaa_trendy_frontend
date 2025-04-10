@@ -1,0 +1,29 @@
+/* Estilos adicionales si los necesitas */
+:host {
+    display: block;
+    height: 100%;
+  }
+  
+  /* Animación para el hover de los items */
+  a {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Estilo para el scroll si el contenido es muy largo */
+  nav {
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  
+  nav::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  nav::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  nav::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 20px;
+  }

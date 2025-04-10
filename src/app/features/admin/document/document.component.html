@@ -1,0 +1,411 @@
+<div class="min-h-screen bg-gray-50 p-6">
+  <div class="max-w-7xl mx-auto">
+    <!-- Encabezado con breadcrumbs -->
+    <div class="mb-8">
+      <div class="flex items-center text-sm text-gray-500 mb-2">
+        <a href="#" class="hover:text-indigo-600">Inicio</a>
+        <svg class="h-4 w-4 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+        <a href="#" class="hover:text-indigo-600">Administración</a>
+        <svg class="h-4 w-4 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+        <span class="text-indigo-600 font-medium">Documentos Regulatorios</span>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800">Documentos Regulatorios</h1>
+      <p class="mt-2 text-gray-600">Gestione los documentos legales y regulatorios de la plataforma</p>
+    </div>
+
+    <!-- Tarjetas de resumen -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-sm font-medium text-gray-500 uppercase">Total Documentos</p>
+            <p class="text-2xl font-bold text-gray-800 mt-1">{{ totalDocuments }}</p>
+          </div>
+          <div class="bg-indigo-100 p-3 rounded-full">
+            <svg class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-sm font-medium text-gray-500 uppercase">Documentos Vigentes</p>
+            <p class="text-2xl font-bold text-gray-800 mt-1">
+              {{ activeDocumentsCount }}
+            </p>
+          </div>
+          <div class="bg-green-100 p-3 rounded-full">
+            <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-sm font-medium text-gray-500 uppercase">Documentos No Vigentes</p>
+            <p class="text-2xl font-bold text-gray-800 mt-1">
+              {{ inactiveDocumentsCount }}
+            </p>
+          </div>
+          <div class="bg-red-100 p-3 rounded-full">
+            <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de acciones y filtros -->
+    <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <button
+          (click)="openAddModal()"
+          class="flex items-center justify-center bg-indigo-600 text-white font-medium rounded-lg px-6 py-2.5 hover:bg-indigo-700 transition duration-200 shadow-xs"
+        >
+          <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Agregar Nuevo Documento
+        </button>
+        
+        <div class="flex flex-col md:flex-row gap-3">
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="Buscar por título"
+              [(ngModel)]="titleFilter"
+              (input)="applyFilters()"
+              class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full"
+            />
+          </div>
+          
+          <select
+            [(ngModel)]="statusFilter"
+            (change)="applyFilters()"
+            class="px-4 py-2 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            <option value="">Todos los Estados</option>
+            <option value="Vigente">Vigente</option>
+            <option value="No Vigente">No Vigente</option>
+            <option value="Eliminado">Eliminado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de documentos -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Título
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Contenido
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Fecha de Efectividad
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Versión
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Estado
+              </th>
+              <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let document of displayedDocuments" class="hover:bg-gray-50 transition-colors duration-200">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">{{ document.title }}</div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="text-sm text-gray-500 max-w-xs truncate">{{ document.content }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-500">{{ document.effective_date | date }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-500">v{{ document.version }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span *ngIf="document.isDelete" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                  Eliminado
+                </span>
+                <span *ngIf="!document.isDelete && document.current" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  Vigente
+                </span>
+                <span *ngIf="!document.isDelete && !document.current" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                  No Vigente
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex justify-end space-x-2">
+                  <button
+                    (click)="openEditModal(document)"
+                    class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 rounded-md px-3 py-1.5 transition duration-200 flex items-center"
+                  >
+                    <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                    Editar
+                  </button>
+                  <button
+                    (click)="deleteDocument(document._id)"
+                    class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 rounded-md px-3 py-1.5 transition duration-200 flex items-center"
+                  >
+                    <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                    Eliminar
+                  </button>
+                  <button
+                    *ngIf="!document.current && !document.isDelete"
+                    (click)="activeDocument(document._id, document.current)"
+                    class="text-green-600 hover:text-green-900 bg-green-50 hover:bg-green-100 rounded-md px-3 py-1.5 transition duration-200 flex items-center"
+                  >
+                    <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Activar
+                  </button>
+                </div>
+              </td>
+            </tr>
+            
+            <!-- Estado vacío -->
+            <tr *ngIf="displayedDocuments.length === 0">
+              <td colspan="6" class="px-6 py-10 text-center">
+                <div class="flex flex-col items-center justify-center">
+                  <svg class="h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  <p class="text-gray-500 text-lg font-medium">No se encontraron documentos</p>
+                  <p class="text-gray-400 mt-1">Intente con otros filtros o agregue un nuevo documento</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex items-center justify-between bg-white px-4 py-3 rounded-lg shadow-md">
+      <div class="flex-1 flex justify-between sm:hidden">
+        <button
+          (click)="setPage(currentPage - 1)"
+          [disabled]="currentPage === 1"
+          class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Anterior
+        </button>
+        <button
+          (click)="setPage(currentPage + 1)"
+          [disabled]="currentPage === getTotalPages().length"
+          class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Siguiente
+        </button>
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Mostrando <span class="font-medium">{{ (currentPage - 1) * documentsPerPage + 1 }}</span> a 
+            <span class="font-medium">{{ getLastItemIndex() }}</span> de 
+            <span class="font-medium">{{ totalDocuments }}</span> documentos
+          </p>
+        </div>
+        <div>
+          <nav class="relative z-0 inline-flex rounded-md shadow-xs -space-x-px" aria-label="Pagination">
+            <button
+              (click)="setPage(currentPage - 1)"
+              [disabled]="currentPage === 1"
+              class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span class="sr-only">Anterior</span>
+              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <button
+              *ngFor="let page of getTotalPages()"
+              (click)="setPage(page)"
+              [ngClass]="currentPage === page ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'"
+              class="relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+            >
+              {{ page }}
+            </button>
+            <button
+              (click)="setPage(currentPage + 1)"
+              [disabled]="currentPage === getTotalPages().length"
+              class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span class="sr-only">Siguiente</span>
+              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para agregar documento -->
+  <div
+    *ngIf="isAddMode"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-opacity duration-300"
+  >
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 overflow-hidden transform transition-all duration-300">
+      <div class="bg-indigo-600 px-6 py-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-medium text-white">Agregar Nuevo Documento</h3>
+          <button
+            (click)="closeModals()"
+            class="text-white hover:text-indigo-100 focus:outline-hidden"
+          >
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <form (ngSubmit)="createDocument()" [formGroup]="formDocument" class="p-6">
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Título del Documento</label>
+          <select
+            id="title"
+            name="title"
+            formControlName="title"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            <option value="Politicas de Privacidad">Políticas de Privacidad</option>
+            <option value="Términos y condiciones">Términos y Condiciones</option>
+            <option value="Deslinde legal">Deslinde Legal</option>
+          </select>
+          <div *ngIf="formDocument.get('title')?.invalid && formDocument.get('title')?.touched" class="text-red-500 text-xs mt-1">
+            El título es obligatorio
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="content" class="block text-sm font-medium text-gray-700 mb-1">Contenido del Documento</label>
+          <textarea
+            id="content"
+            name="content"
+            formControlName="content"
+            rows="6"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Ingrese el contenido del documento..."
+          ></textarea>
+          <div *ngIf="formDocument.get('content')?.invalid && formDocument.get('content')?.touched" class="text-red-500 text-xs mt-1">
+            El contenido es obligatorio
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-3 mt-6">
+          <button
+            type="button"
+            (click)="closeModals()"
+            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            [disabled]="formDocument.invalid"
+            class="px-4 py-2 border border-transparent rounded-md shadow-xs text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Guardar Documento
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal para editar documento -->
+  <div
+    *ngIf="isEditMode"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 transition-opacity duration-300"
+  >
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 overflow-hidden transform transition-all duration-300">
+      <div class="bg-indigo-600 px-6 py-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-medium text-white">Editar Documento</h3>
+          <button
+            (click)="closeModals()"
+            class="text-white hover:text-indigo-100 focus:outline-hidden"
+          >
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <form (ngSubmit)="editDocument()" class="p-6">
+        <div class="mb-4">
+          <label for="edit-title" class="block text-sm font-medium text-gray-700 mb-1">Título del Documento</label>
+          <select
+            id="edit-title"
+            name="title"
+            [(ngModel)]="currentDocument.title"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            <option value="Politicas de Privacidad">Políticas de Privacidad</option>
+            <option value="Términos y condiciones">Términos y Condiciones</option>
+            <option value="Deslinde legal">Deslinde Legal</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label for="edit-content" class="block text-sm font-medium text-gray-700 mb-1">Contenido del Documento</label>
+          <textarea
+            id="edit-content"
+            name="content"
+            [(ngModel)]="currentDocument.content"
+            rows="6"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500"
+          ></textarea>
+        </div>
+
+        <div class="flex justify-end space-x-3 mt-6">
+          <button
+            type="button"
+            (click)="closeModals()"
+            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="px-4 py-2 border border-transparent rounded-md shadow-xs text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Actualizar Documento
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

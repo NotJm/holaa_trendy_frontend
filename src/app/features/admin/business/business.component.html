@@ -1,0 +1,186 @@
+<div class="p-2">
+  <!-- Encabezado -->
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+    Perfil de la Empresa
+  </h2>
+
+  <!-- Contenedor de cuadrícula -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Sección de Slogan -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">Slogan</h3>
+      <form>
+        <div>
+          <label for="slogan" class="block text-sm font-medium text-gray-700"
+            >Slogan</label
+          >
+          <input
+            id="slogan"
+            name="slogan"
+            type="text"
+            [(ngModel)]="businessProfile.slogan"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-blue-400 focus:border-blue-400"
+          />
+        </div>
+        <div class="mt-4">
+          <button
+            type="button"
+            (click)="updateIncidentConfiguration()"
+            class="w-full py-2 bg-blue-400 text-white font-medium rounded-md hover:bg-blue-500 focus:outline-hidden focus:ring-2 focus:ring-blue-400"
+          >
+            Guardar Slogan
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Sección de Logo -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">Logo</h3>
+      <div class="logo-upload-container">
+        <h2 class="text-xl font-bold mb-4">Subir logo</h2>
+
+        <!-- Botón para abrir el widget de Cloudinary -->
+        <button
+          (click)="openCloudinaryWidget()"
+          class="bg-blue-500 text-white font-bold py-2 px-4 rounded-sm hover:bg-blue-700 transition-colors duration-200"
+        >
+          Subir logo
+        </button>
+
+        <!-- Vista previa del logo subido -->
+        <div *ngIf="businessProfile.logo" class="mt-4">
+          <h3 class="text-lg font-semibold mb-2">Vista previa del logo:</h3>
+          <img
+            [src]="businessProfile.logo"
+            alt="Logo subido"
+            class="max-w-full h-auto shadow-lg rounded-lg"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Título de la Página -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">
+        Título de la Página
+      </h3>
+      <form>
+        <div>
+          <label for="titlePage" class="block text-sm font-medium text-gray-700"
+            >Título de la Página</label
+          >
+          <input
+            id="titlePage"
+            name="titlePage"
+            type="text"
+            [(ngModel)]="businessProfile.titlePage"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-blue-400 focus:border-blue-400"
+          />
+        </div>
+        <div class="mt-4">
+          <button
+            type="button"
+            (click)="updateIncidentConfiguration()"
+            class="w-full py-2 bg-blue-400 text-white font-medium rounded-md hover:bg-blue-500 focus:outline-hidden focus:ring-2 focus:ring-blue-400"
+          >
+            Guardar Título de la Página
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Sección de Dirección -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">Dirección</h3>
+      <form>
+        <div>
+          <label for="address" class="block text-sm font-medium text-gray-700"
+            >Dirección</label
+          >
+          <input
+            id="address"
+            name="address"
+            type="text"
+            [(ngModel)]="businessProfile.address"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-blue-400 focus:border-blue-400"
+          />
+        </div>
+        <div class="mt-4">
+          <button
+            type="button"
+            (click)="updateIncidentConfiguration()"
+            class="w-full py-2 bg-blue-400 text-white font-medium rounded-md hover:bg-blue-500 focus:outline-hidden focus:ring-2 focus:ring-blue-400"
+          >
+            Guardar Dirección
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Sección de Correo Electrónico -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">
+        Correo Electrónico
+      </h3>
+      <form>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Correo Electrónico</label
+          >
+          <input
+            id="email"
+            name="email"
+            type="email"
+            [(ngModel)]="businessProfile.email"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-blue-400 focus:border-blue-400"
+          />
+        </div>
+        <div class="mt-4">
+          <button
+            type="button"
+            (click)="updateIncidentConfiguration()"
+            class="w-full py-2 bg-blue-400 text-white font-medium rounded-md hover:bg-blue-500 focus:outline-hidden focus:ring-2 focus:ring-blue-400"
+          >
+            Guardar Correo Electrónico
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Sección de Teléfono -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">Teléfono</h3>
+      <form>
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700"
+            >Teléfono</label
+          >
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            [(ngModel)]="businessProfile.phone"
+            required
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-blue-400 focus:border-blue-400"
+          />
+        </div>
+        <div class="mt-4">
+          <button
+            type="button"
+            (click)="updateIncidentConfiguration()"
+            class="w-full py-2 bg-blue-400 text-white font-medium rounded-md hover:bg-blue-500 focus:outline-hidden focus:ring-2 focus:ring-blue-400"
+          >
+            Guardar Teléfono
+          </button>
+        </div>
+      </form>
+    </div>
+
+   
+  </div>
+</div>

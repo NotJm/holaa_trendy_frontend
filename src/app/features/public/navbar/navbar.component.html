@@ -1,0 +1,71 @@
+<!-- Top social bar -->
+<top-social-bar *ngIf="isVisible()" />
+<!-- Barra de navegacion -->
+<nav
+  *ngIf="isVisible()"
+  #navbar
+  class="bg-white border-b border-[#E0E0E0] sticky top-0 z-50"
+>
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-24">
+      <!-- Logo -->
+      <image-control
+        src="https://res.cloudinary.com/djy0fxyoq/image/upload/v1741215143/logo_ix9ohv.webp"
+        alt="HOLAA Trendy"
+        imageClass="h-16 md:h-18 me-5"
+        [isImageLink]="true"
+        imageLinkClass="shrink-0 transform hover:scale-105 transition-transform duration-200"
+        imageLink="/"
+      />
+
+      <!-- Links de navegacion -->
+      <div class="hidden lg:flex items-center space-x-10">
+        <navigation-link
+          text="Mas vendidos"
+          [hasIconClass]="true"
+          iconClass="icon-[noto--fire]"
+          fragment="bestSellers"
+          link="/"
+        />
+
+        <navigation-link
+          text="Mega ofertas"
+          [hasIconClass]="true"
+          iconClass="icon-[streamline--discount-percent-badge-solid]"
+          fragment="bestOffers"
+          link="/"
+        />
+
+        <navigation-link
+          text="Recien Llegados"
+          [hasIconClass]="true"
+          iconClass="icon-[twemoji--new-button]"
+          fragment="newArrivals"
+          link="/"
+        />
+      </div>
+
+      <div class="flex-1 max-w-2xl mx-10 relative">
+        <control-search-products
+          (onSearchForm)="onSearch($event)"
+          [showResults]="showResults"
+          [products]="products"
+        />
+      </div>
+
+      <!-- Iconos de la derecha -->
+      <div class="flex items-center space-x-8">
+        <icon-link-control
+          iconFilled="icon-[mdi--heart]"
+          icon="icon-[mdi--heart-outline]"
+          link="/wishlist"
+        />
+
+        <icon-link-control
+          icon="icon-[hugeicons--shopping-bag-02]"
+          link="/cart"
+        />
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,29 @@
+::ng-deep .owl-theme .owl-dots .owl-dot span {
+  width: 8px;
+  height: 8px;
+  margin: 5px 4px;
+  background: #D1D5DB;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .owl-theme .owl-dots .owl-dot.active span {
+  width: 16px;
+  background: #2563EB;
+  border-radius: 4px;
+}
+
+::ng-deep .owl-theme .owl-dots .owl-dot:hover span {
+  background: #2563EB;
+}
+
+::ng-deep .owl-theme .owl-nav.disabled + .owl-dots {
+  margin-top: 20px;
+}
+
+.invert-carousel .owl-carousel {
+  direction: rtl; /* Invierte la dirección del carrusel */
+}
+
+.invert-carousel .owl-carousel .item {
+  direction: ltr; /* Restablece la dirección del texto dentro de los elementos */
+}

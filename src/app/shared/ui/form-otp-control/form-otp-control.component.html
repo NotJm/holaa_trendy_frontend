@@ -1,0 +1,15 @@
+<div class="flex justify-center gap-2 mb-4" [formGroup]="form">
+  @for (i of [0, 1, 2, 3, 4, 5]; track i) {
+  <input
+    #otpInput
+    type="text"
+    inputmode="numeric"
+    maxlength="1"
+    [formControlName]="'digit' + i"
+    class="w-10 h-12 text-center text-xl font-bold border-2 border-gray-400 rounded-md focus:outline-hidden focus:border-[#E91E63"
+    otpFocusNext
+    [index]="i"
+    [inputs]="otpInputsElements"
+  />
+  }
+</div>

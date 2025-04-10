@@ -1,0 +1,106 @@
+<div
+  class="bg-white cursor-pointer border rounded-xl shadow-xs hover:shadow-md transition-all duration-300 group overflow-hidden h-[570px]"
+>
+  <div class="p-4 flex flex-col h-full">
+    <!-- Imagen y Botones -->
+    <div
+      class="aspect-w-4 aspect-h-5 mb-4 relative overflow-hidden rounded-lg"
+      style="min-height: 400px"
+    >
+      <image-control
+        (click)="onClickProduct.emit(product.code)"
+        [src]="product.imgUri"
+        [alt]="product.name"
+        imageClass="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+      />
+
+      <!-- Botones superiores (wishlist y agregar al carrito) -->
+      <div class="absolute top-2 right-2 flex gap-2 z-10">
+        <!-- Botón de wishlist -->
+        <button-control
+          [hasIconClass]="true"
+          buttonClass="flex justify-center items-center p-2 rounded-full bg-white/80 backdrop-blur-xs hover:text-[#E91E63] transition-all duration-300 group/fav "
+          iconClass="w-6 h-6 icon-[mdi--heart-outline]"
+          (onClick)="addWishlistEvent.emit(product.code)"
+        />
+
+        <button-control
+          [hasIconClass]="true"
+          buttonClass="flex justify-center items-center p-2 rounded-full bg-white/80 backdrop-blur-xs hover:text-[#E91E63] transition-all duration-300 group/fav "
+          iconClass="w-6 h-6 icon-[hugeicons--shopping-bag-02]"
+          (onClick)="addToCartEvent.emit(product.code)"
+        />
+      </div>
+
+      <!-- Etiqueta de descuento -->
+      @if (product.discount > 0) {
+      <div
+        class="absolute top-2 left-2 bg-black text-white px-2 py-1 rounded-full text-base font-bold"
+      >
+        {{ product.discount | number : '1.0-0' }}% OFF
+      </div>
+      }
+    </div>
+
+    <!-- Información del producto -->
+    <div class="flex flex-col grow">
+      <h2
+        class="text-md font-medium text-gray-900 mb-1 line-clamp-1 relative overflow-hidden"
+      >
+        <span class="block mask-fade">
+          {{ product.name }}
+        </span>
+      </h2>
+
+      <div class="flex items-baseline gap-2 mb-2">
+        @if (product.discount > 0) {
+        <span class="text-2xl font-bold text-gray-900">{{
+          product.finalPrice | currency : 'MXN' : 'symbol' : '1.2-2'
+        }}</span>
+        <span class="text-sm text-gray-500 line-through">{{
+          product.price | currency : 'MXN' : 'symbol' : '1.2-2'
+        }}</span>
+        } @else {
+        <span class="text-2xl font-bold text-gray-900">{{
+          product.price | currency : 'MXN' : 'symbol' : '1.2-2'
+        }}</span>
+        }
+      </div>
+
+      <!-- Categorías -->
+      <div class="text-xs text-gray-500 mb-2">
+        {{ product.categoryName | titlecase }} • {{ product.subCategoryName }}
+      </div>
+
+      <!-- Colores y Tallas -->
+      <div class="flex items-center gap-4 mb-4">
+        @if (product.colorsNames.length > 0) {
+        <div class="flex items-center gap-1">
+          @for (color of product.colorsNames.slice(0, 3); track color) {
+          <div
+            class="w-4 h-4 rounded-full border border-gray-300"
+            [style.background-color]="color"
+          ></div>
+          } @if (product.colorsNames.length > 3) {
+          <span class="text-xs text-gray-600"
+            >+{{ product.colorsNames.length - 3 }}</span
+          >
+          }
+        </div>
+        } @if (product.sizesNames.length > 0) {
+        <div class="flex items-center gap-1">
+          @for (size of product.sizesNames.slice(0, 3); track size) {
+          <span class="text-xs border border-gray-300 rounded-sm px-1.5 py-0.5">{{
+            size
+          }}</span>
+          } @if (product.sizesNames.length > 3) {
+          <span class="text-xs text-gray-600"
+            >+{{ product.sizesNames.length - 3 }}</span
+          >
+          }
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

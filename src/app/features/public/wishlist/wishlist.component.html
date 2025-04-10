@@ -1,0 +1,66 @@
+<div class="min-h-screen bg-background">  
+  <div class="bg-primary/5 py-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl md:text-4xl font-bold text-center text-foreground">Mi Lista de Deseos</h1>
+      <p class="text-center text-muted-foreground mt-2 max-w-xl mx-auto">
+        Descubre tu colección personal de prendas favoritas, cuidadosamente seleccionadas para tu estilo único.
+      </p>
+    </div>
+  </div>
+  
+  <main class="container mx-auto py-12 px-4">
+    @if (loading()) {
+      <div class="flex justify-center items-center py-20">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    } @else if (wishlist && wishlist.wishListItems.length === 0) {
+      <div class="text-center py-16">
+        <h2 class="text-xl font-semibold mb-4">Tu lista de deseos está vacía</h2>
+        <p class="text-muted-foreground mb-8">Explora nuestro catálogo y añade tus prendas favoritas</p>
+        <a routerLink="/catalog" class="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-2 rounded-md">
+          Explorar catálogo
+        </a>
+      </div>
+    } @else if (wishlist) {
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 text-sm font-medium border rounded-full">
+            {{ wishlist.wishListItems.length }} Artículos
+          </span>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="text-xs font-medium px-3 py-1.5 border rounded-md hover:bg-secondary/50">
+            Más recientes
+          </button>
+          <button class="text-xs font-medium px-3 py-1.5 border rounded-md hover:bg-secondary/50">
+            Precio: Menor a Mayor
+          </button>
+        </div>
+      </div>
+      
+      <div class="space-y-6">
+        @for (item of wishlist.wishListItems; track item.product.code) {
+          <app-wishlist-item 
+            [item]="item" 
+            (removeItem)="removeFromWishlist($event)"
+            (addToCart)="addToCart($event)">
+          </app-wishlist-item>
+        }
+      </div>
+      
+      <div class="mt-12 text-center">
+        <p class="text-muted-foreground mb-4">¿Quieres descubrir más prendas para tu colección?</p>
+        <a routerLink="/catalog" class="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-2 rounded-md inline-block">
+          Explorar catálogo
+        </a>
+      </div>
+    }
+  </main>
+  
+  <footer class="bg-card border-t border-border py-8 mt-12">
+    <div class="container mx-auto px-4 text-center text-sm text-muted-foreground">
+      <p>© 2025 Chic Boutique. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>
+

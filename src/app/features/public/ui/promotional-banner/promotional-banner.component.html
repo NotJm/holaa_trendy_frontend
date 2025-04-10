@@ -1,0 +1,25 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-12">
+  <div class="relative flex justify-center">
+    <image-control
+      src="https://res.cloudinary.com/djy0fxyoq/image/upload/v1741090015/promo_vfna0n.webp"
+      alt="Modelos mostrando ropa de temporada"
+      imageClass="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 max-w-md h-auto object-contain"
+    />
+  </div>
+
+  <div class="flex justify-center items-center flex-col md:text-left space-y-6">
+    <h2 class="text-center text-6xl font-bebas text-black mb-2">
+      {{ title }}
+    </h2>
+    <div class="text-center text-9xl font-bebas text-black leading-none">
+      {{ discount }}
+    </div>
+    <p class="text-center font-bebas text-4xl text-black">
+      {{ subtitle }}
+    </p>
+    <button-control
+      buttonClass="inline-block font-bebas mx-auto px-12 py-4 border-2 border-[#E91E63] text-black hover:bg-[#D81B60] hover:text-white transition-colors duration-300 text-3xl"
+      text="COMPRA AHORA"
+    />
+  </div>
+</div>

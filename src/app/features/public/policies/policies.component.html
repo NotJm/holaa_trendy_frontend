@@ -1,0 +1,240 @@
+<div class="relative min-h-screen w-full bg-linear-to-b from-white to-blue-50 py-16 px-4 sm:px-6 lg:px-8">
+  <!-- Subtle Background Elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-blue-50 opacity-40 rounded-bl-full"></div>
+    <div class="absolute bottom-0 left-0 w-1/4 h-1/4 bg-blue-50 opacity-40 rounded-tr-full"></div>
+  </div>
+  
+  <div class="relative max-w-5xl mx-auto">
+    <!-- Header -->
+    <header class="text-center mb-16">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Políticas de la empresa</h1>
+      <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+        En Holaa Trendy, nos comprometemos a garantizar la mejor experiencia para
+        nuestros clientes a través de políticas claras y justas.
+      </p>
+      
+      <!-- Elegant Navigation -->
+      <div class="mt-10 flex flex-wrap justify-center gap-2 sm:gap-4">
+        <a *ngFor="let section of ['Devoluciones', 'Privacidad', 'Seguridad', 'Calidad', 'Envío']"
+           [href]="'#' + section.toLowerCase()"
+           class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 border-b-2 border-transparent hover:border-blue-500 transition-all">
+          {{section}}
+        </a>
+      </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="space-y-16">
+      <!-- Devoluciones -->
+      <section id="devoluciones" class="scroll-mt-16">
+        <div class="bg-white rounded-xl shadow-xs border border-gray-100 overflow-hidden">
+          <div class="p-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+              <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 inline-flex items-center justify-center mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path><path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"></path><path d="M12 3v6"></path></svg>
+              </span>
+              Política de devoluciones
+            </h2>
+            <p class="text-gray-600 leading-relaxed">
+              Aceptamos devoluciones dentro de los 30 días posteriores a la compra
+              siempre que los productos se encuentren en su estado original. Entendemos
+              que la satisfacción del cliente es primordial, por lo que facilitamos
+              este proceso para garantizar su tranquilidad al realizar compras con nosotros.
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Privacidad -->
+      <section id="privacidad" class="scroll-mt-16">
+        <div class="bg-white rounded-xl shadow-xs border border-gray-100 overflow-hidden">
+          <div class="p-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+              <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 inline-flex items-center justify-center mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </span>
+              Política de privacidad
+            </h2>
+            <p class="text-gray-600 leading-relaxed mb-8">
+              Nos comprometemos a proteger la privacidad de nuestros clientes y la
+              seguridad de sus datos personales. Su confianza es fundamental para nosotros.
+            </p>
+            
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 mb-8">
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Derechos ARCO (Acceso, Rectificación, Cancelación y Oposición)</h3>
+              <p class="text-gray-600 mb-4">
+                De acuerdo con la legislación vigente en materia de protección de datos personales, los usuarios tienen derecho a:
+              </p>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>Acceder a sus datos personales almacenados en nuestra plataforma.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>Rectificar información incorrecta o desactualizada.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>Cancelar sus datos cuando ya no sean necesarios para los fines para los cuales fueron recopilados.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>Oponerse al tratamiento de sus datos en determinadas circunstancias.</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
+              <h4 class="text-lg font-medium text-gray-800 mb-3">¿Cómo ejercer sus derechos ARCO?</h4>
+              <p class="text-gray-600 mb-4">
+                Para ejercer estos derechos, los usuarios pueden enviar una solicitud al correo electrónico [tu correo de contacto] con el asunto "Solicitud ARCO", incluyendo:
+              </p>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>Nombre completo y documento de identidad.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>Descripción clara del derecho que desea ejercer.</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-500 mr-2">•</span>
+                  <span>Datos de contacto para recibir respuesta.</span>
+                </li>
+              </ul>
+              <p class="text-gray-600 mt-4">
+                Nos comprometemos a responder en un plazo máximo de 20 días hábiles.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Seguridad -->
+      <section id="seguridad" class="scroll-mt-16">
+        <div class="bg-white rounded-xl shadow-xs border border-gray-100 overflow-hidden">
+          <div class="p-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+              <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 inline-flex items-center justify-center mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
+              </span>
+              Políticas de Seguridad
+            </h2>
+            
+            <div class="space-y-8">
+              <div class="bg-gray-50 p-6 rounded-lg border border-gray-100">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Tiempo de Inactividad y Cierre de Sesión Automático</h3>
+                <p class="text-gray-600 mb-4">
+                  Por seguridad, nuestra plataforma cerrará sesión automáticamente tras un período de inactividad:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h4 class="font-medium text-gray-800 mb-2">Usuarios normales</h4>
+                    <p class="text-gray-600">1 hora de inactividad</p>
+                  </div>
+                  <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h4 class="font-medium text-gray-800 mb-2">Administradores y empleados</h4>
+                    <p class="text-gray-600">15 minutos de inactividad</p>
+                  </div>
+                </div>
+                <p class="text-gray-600 mt-4">
+                  Este mecanismo protege la información del usuario y previene accesos no autorizados.
+                </p>
+              </div>
+              
+              <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Medidas adicionales de seguridad</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 inline-flex items-center justify-center mr-3 shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="m12 8 3 3-3 3-3-3 3-3Z"></path></svg>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-800">Encriptación SSL</h4>
+                      <p class="text-gray-600 text-sm">En todas nuestras páginas</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 inline-flex items-center justify-center mr-3 shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-800">Almacenamiento seguro</h4>
+                      <p class="text-gray-600 text-sm">De contraseñas y datos sensibles</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 inline-flex items-center justify-center mr-3 shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-800">Monitoreo constante</h4>
+                      <p class="text-gray-600 text-sm">De actividades sospechosas</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 inline-flex items-center justify-center mr-3 shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v-4"></path><path d="M12 8h.01"></path><circle cx="12" cy="12" r="10"></circle></svg>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-800">Actualizaciones regulares</h4>
+                      <p class="text-gray-600 text-sm">De nuestros sistemas de seguridad</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Calidad -->
+      <section id="calidad" class="scroll-mt-16">
+        <div class="bg-white rounded-xl shadow-xs border border-gray-100 overflow-hidden">
+          <div class="p-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+              <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 inline-flex items-center justify-center mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-6 4 3 7-7-4-7 4 3-7-6-4h7l3-7z"></path></svg>
+              </span>
+              Política de calidad
+            </h2>
+            <p class="text-gray-600 leading-relaxed">
+              Nos aseguramos de que todos nuestros productos cumplan con los más
+              altos estándares de calidad y satisfacción del cliente. Cada producto
+              pasa por rigurosos controles antes de llegar a sus manos, garantizando
+              así una experiencia excepcional con cada compra.
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Envío -->
+      <section id="envio" class="scroll-mt-16">
+        <div class="bg-white rounded-xl shadow-xs border border-gray-100 overflow-hidden">
+          <div class="p-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
+              <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 inline-flex items-center justify-center mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2h-1"></path><path d="M5 12V7a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v5"></path></svg>
+              </span>
+              Política de envío
+            </h2>
+            <p class="text-gray-600 leading-relaxed">
+              Ofrecemos envíos nacionales con tiempos de entrega que varían entre
+              3 y 7 días hábiles dependiendo de la ubicación. Trabajamos con los
+              mejores servicios de mensajería para garantizar que sus productos
+              lleguen en perfectas condiciones y en el menor tiempo posible.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="mt-20 text-center text-gray-500 text-sm">
+      <p>© 2025 Holaa Trendy. Todos los derechos reservados.</p>
+    </footer>
+  </div>
+</div>

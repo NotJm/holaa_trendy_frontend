@@ -1,0 +1,11 @@
+<a
+  *ngIf="isImageLink; else withoutImageLink"
+  [ngClass]="isImageLink ? imageLinkClass : ''"
+  [routerLink]="imageLink"
+>
+  <img unpic [src]="src ? src : ''" [alt]="alt" [ngClass]="imageClass" />
+</a>
+
+<ng-template #withoutImageLink>
+  <img unpic [src]="src ? src : ''" [alt]="alt" [ngClass]="imageClass" />
+</ng-template>

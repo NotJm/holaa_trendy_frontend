@@ -1,0 +1,158 @@
+<div class="flex flex-col h-screen overflow-hidden relative">
+  <animated-background></animated-background>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <div
+      class="max-w-4xl bg-white/95 dark:bg-gray-900/95 rounded-xl shadow-2xl overflow-hidden transition-all duration-300 p-8"
+    >
+      <!-- Profile Header -->
+      <div class="flex items-center mb-8 p-4 bg-linear-to-r rounded-lg">
+        <div class="relative group">
+          <div
+            class="absolute inset-0 rounded-full bg-linear-to-r from-[#E91E63] to-[#000000] blur-xs opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+          <div
+            class="relative h-20 w-20 border-2 border-[#E91E63] shadow-md rounded-full overflow-hidden flex items-center justify-center bg-white text-[#E91E63] text-xl"
+          >
+            <image-control
+              src="{{ avatar() }}"
+              alt="Avatar"
+              imageClass="h-full w-full rounded-full"
+            />
+          </div>
+        </div>
+        <div class="ml-6">
+          <p class="text-lg font-bold text-[#000000]">
+            {{ username() | titlecase }}
+          </p>
+          <p class="text-sm text-[#E91E63]">
+            {{ email() }}
+          </p>
+          <div class="mt-2 flex space-x-2">
+            <span
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#E91E63] text-white"
+            >
+              Premium
+            </span>
+            <span
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#E0E0E0] text-[#000000]"
+            >
+              Verified
+            </span>
+          </div>
+        </div>
+      </div>
+      <p *ngIf="isFirstTime()" class="text-sm text-[#E91E63] mb-2">
+        * Si es la primera vez que ingresas tus datos, por favor llena todos los
+        campos.
+      </p>
+      <div class="w-full">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div *ngIf="activeTab() === 'address'" class="space-y-5">
+            <div>
+              <input-control
+                [form]="profileForm"
+                controlName="address"
+                label="Dirección"
+                iconClass="icon-[hugeicons--map-pinpoint-01]"
+                errorMessage="Dirección es requerida"
+                placeholder="Dirección"
+                [autocomplete]="'off'"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <input-control
+                [form]="profileForm"
+                controlName="postCode"
+                label="Código Postal"
+                iconClass="icon-[hugeicons--map-pinpoint-01]"
+                errorMessage="Código Postal es requerido"
+                placeholder="Código Postal"
+                [autocomplete]="'off'"
+              />
+
+              <input-control
+                [form]="profileForm"
+                controlName="colony"
+                label="Colonia"
+                iconClass="icon-[hugeicons--map-pinpoint-01]"
+                errorMessage="Colonia es requerida"
+                placeholder="Colonia"
+                [autocomplete]="'off'"
+              />
+            </div>
+
+            <div class="grid grid-cols-3 gap-4">
+              <input-control
+                [form]="profileForm"
+                controlName="town"
+                label="Ciudad"
+                iconClass="icon-[hugeicons--map-pinpoint-01]"
+                errorMessage="Ciudad es requerida"
+                placeholder="Ciudad"
+                [autocomplete]="'off'"
+              />
+
+              <input-control
+                [form]="profileForm"
+                controlName="municipality"
+                label="Municipio"
+                iconClass="icon-[hugeicons--map-pinpoint-01]"
+                errorMessage="Municipio es requerido"
+                placeholder="Municipio"
+                [autocomplete]="'off'"
+              />
+
+              <input-control
+                [form]="profileForm"
+                controlName="state"
+                label="Estado"
+                iconClass="icon-[hugeicons--map-pinpoint-01]"
+                errorMessage="Estado es requerido"
+                placeholder="Estado"
+                [autocomplete]="'off'"
+              />
+            </div>
+
+            <div>
+              <form-text-area-control
+                [form]="profileForm"
+                type="text-area"
+                controlName="description"
+                label="Descripción"
+                iconClass="icon-[hugeicons--map-pinpoint-01]"
+                errorMessage="Descripción es requerida"
+                placeholder="Descripción"
+              />
+            </div>
+          </div>
+
+          <div class="mt-6 flex justify-between">
+            <!-- Botón adicional para regresar al inicio -->
+            <a
+              routerLink="/"
+              class="flex items-center gap-2 px-4 py-2 rounded-md border border-[#E0E0E0] hover:bg-[#E0E0E0]/20 transition-colors duration-300 cursor-pointer"
+              aria-label="Volver al inicio"
+            >
+              <span
+                class="icon-[hugeicons--arrow-left-01] h-4 w-4 text-[#E91E63]"
+              ></span>
+              <span class="text-[#000000] dark:text-white">Volver</span>
+            </a>
+
+            <button-control
+              [text]="isLoading() ? 'Guardando...' : 'Guardar cambios'"
+              [hasIconClass]="isLoading()"
+              iconClass="-ml-1 mr-3 h-5 w-5 icon-[line-md--loading-loop]"
+              [hasDisabledCondition]="true"
+              [disabledCondition]="profileForm.invalid || isLoading()"
+              type="submit"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+@switch (step()) {
+  @case ('email') {
+    <form-email (onNextStep)="step.set('success')"/>
+  }
+
+  @case ('success') {
+    <success-view
+      successTitle="Link de recuperación enviado"
+      successMessage="Revisa tu correo para continuar con el restablecimiento de contraseña. Si ya seguiste el enlace, puedes cerrar esta pestaña."
+      [hasButton]="false"
+    />
+  }
+}

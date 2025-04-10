@@ -1,0 +1,43 @@
+<div *ngIf="isAvailableComponent()" class="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+  <div @fadeIn class="max-w-lg w-full text-center">
+    <!-- Icono animado -->
+    <div @scaleIn class="w-32 h-32 mx-auto mb-8 relative">
+      <div class="absolute inset-0 bg-[#E91E63] rounded-full opacity-20 animate-ping"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <!-- Cambia la forma de aplicar la animación -->
+        <svg 
+          [@heartBeat]="heartState"
+          xmlns="http://www.w3.org/2000/svg" 
+          width="64" 
+          height="64" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="#E91E63" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          class="w-16 h-16">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Título -->
+    <h1 @fadeInDelay class="text-4xl font-bold text-black mb-4">
+      ¡Volveremos pronto!
+    </h1>
+
+    <!-- Descripción -->
+    <p @fadeInDelayMedium class="text-lg text-black/70 mb-8">
+      Estamos mejorando nuestro sitio para brindarte una experiencia aún mejor.
+      ¡Gracias por tu paciencia!
+    </p>
+
+
+    <!-- Información de contacto -->
+    <div @fadeInDelayLonger class="text-black/70 text-sm">
+      <p>¿Necesitas ayuda urgente?</p>
+      <p>Escríbenos a <a href="mailto:soporte@ejemplo.com" class="text-[#E91E63] hover:underline">HOLAATrendy.soporte&#64;ejemplo.com</a></p>
+    </div>
+  </div>
+</div>

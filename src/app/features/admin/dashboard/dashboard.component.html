@@ -1,0 +1,19 @@
+<!-- Contenedor principal -->
+<div class="min-h-screen bg-gray-50">
+  <!-- Sidebar fijo (ya está fijo por sus propias clases) -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Contenido principal con margen izquierdo para el sidebar -->
+  <main class="ml-64 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-xs h-16 fixed top-0 right-0 left-64 z-10 flex items-center px-6">
+      <h1 class="text-xl font-semibold text-gray-800">Panel de Administración</h1>
+    </header>
+
+    <!-- Contenido con padding superior para el header -->
+    <div class="pt-16 p-6">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
+

@@ -1,0 +1,29 @@
+<div class="flex flex-col h-screen overflow-hidden relative">
+  <!-- Animated Background -->
+  <animated-background></animated-background>
+  <div class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    
+  @switch (step()) {
+    @case ('login') {
+      <form-login (onNextStep)="step.set('pending')" />   
+    }
+
+    @case ('pending') {
+      <success-view
+        successTitle="Link de verificación enviado"
+        successMessage="Revisa tu correo para continuar con la verificación de tu cuenta. Si ya seguiste el enlace, puedes cerrar esta pestaña."
+        [hasButton]="false"
+      />
+    }
+
+    @case ('success') {
+      <success-view
+      successTitle="Verificación Exitosa"
+      successMessage="Tu cuenta ha sido verificada correctamente."
+      [hasButton]="false"
+      />
+    }
+
+  }
+  </div>
+</div>

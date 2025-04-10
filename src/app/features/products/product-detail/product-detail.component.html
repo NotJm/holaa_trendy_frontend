@@ -1,0 +1,447 @@
+<!-- Product View -->
+<div class="bg-[#FFFFFF] min-h-screen" *ngIf="loading() && product">
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col lg:flex-row gap-12">
+      <!-- Product Images -->
+      <div class="w-full lg:w-3/5">
+        <div class="flex flex-row lg:flex-row gap-4">
+          <!-- Thumbnails -->
+          <div
+            class="hidden lg:flex flex-col gap-3 overflow-y-auto max-h-[600px] w-20"
+          >
+            <div
+              *ngFor="let image of product.images; let i = index"
+              class="cursor-pointer border rounded-md overflow-hidden"
+              [ngClass]="{
+                'border-[#E91E63] ring-1 ring-[#E91E63]': selectedImage === i,
+                'border-[#E0E0E0]': selectedImage !== i
+              }"
+              (click)="setSelectedImage(i)"
+            >
+              <image-control
+                [src]="image"
+                [alt]="'Miniatura de ' + product.name + ' ' + (i + 1)"
+                imageClass="w-full h-auto object-cover aspect-square"
+              />
+            </div>
+          </div>
+
+          <!-- Main Image with Zoom -->
+          <div class="flex-1 relative rounded-xl overflow-hidden bg-[#F8F8F8]">
+            <lib-ngx-image-zoom
+              zoomMode="hover"
+              [thumbImage]="product.images[selectedImage] || product.imgUri"
+              [fullImage]="product.images[selectedImage] || product.imgUri"
+              [magnification]="2"
+              [enableLens]="false"
+              [lensWidth]="200"
+              [lensHeight]="200"
+              class="w-full h-auto object-cover aspect-square"
+            ></lib-ngx-image-zoom>
+          </div>
+        </div>
+
+        <!-- Mobile Thumbnails -->
+        <div class="flex lg:hidden gap-2 mt-4 overflow-x-auto pb-2">
+          <div
+            *ngFor="let image of product.images; let i = index"
+            class="cursor-pointer border rounded-md overflow-hidden min-w-16 w-16 h-16"
+            [ngClass]="{
+              'border-[#E91E63]': selectedImage === i,
+              'border-[#E0E0E0]': selectedImage !== i
+            }"
+            (click)="setSelectedImage(i)"
+          >
+            <image-control
+              [src]="image"
+              [alt]="'Miniatura de ' + product.name + ' ' + (i + 1)"
+              imageClass="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Details -->
+      <div class="w-full lg:w-2/5">
+        <div class="top-8">
+          <div
+            class="flex items-center gap-2 text-base text-[#E91E63] font-medium mb-2"
+          >
+            <span>{{ product.categoryName | titlecase }}</span>
+          </div>
+
+          <h1 class="text-3xl font-bold text-[#000000]">{{ product.name }}</h1>
+
+          <div class="mt-6">
+            <div class="flex items-baseline gap-3">
+              <span class="text-3xl font-bold text-[#000000]">{{
+                product.finalPrice | currency : 'MXN' : 'symbol' : '1.0-0'
+              }}</span>
+              <span
+                *ngIf="product.discount > 0"
+                class="text-lg line-through text-gray-400"
+                >{{
+                  product.price | currency : 'MXN' : 'symbol' : '1.0-0'
+                }}</span
+              >
+            </div>
+            <p
+              *ngIf="product.discount > 0"
+              class="text-[#E91E63] text-sm font-medium mt-1"
+            >
+              ¡Ahorra
+              {{ product.discount | currency : 'MXN' : 'symbol' : '1.0-0' }} ({{
+                calculateDiscountPercentage()
+              }}%)!
+            </p>
+          </div>
+
+          <div class="mt-8 space-y-6">
+            <!-- Color Selection -->
+            <div *ngIf="product.colorsNames.length > 0">
+              <div class="flex justify-between items-center mb-3">
+                <span class="font-medium"> Color Disponibles </span>
+              </div>
+              <div class="flex gap-3">
+                <button
+                  *ngFor="let color of product.colorsNames"
+                  class="w-10 h-10 rounded-full relative"
+                  [ngClass]="{ 'border border-gray-200': color === 'Blanco' }"
+                  [style.background-color]="color"
+                  (click)="setSelectedColor(color)"
+                >
+                  <span
+                    *ngIf="isColorSelected(color)"
+                    class="absolute inset-0 flex items-center justify-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      [ngClass]="{
+                        'text-white': color !== 'Blanco',
+                        'text-black': color === 'Blanco'
+                      }"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Size Selection -->
+            <div *ngIf="product.sizesNames.length > 0">
+              <div class="flex justify-between items-center mb-3">
+                <span class="font-medium">
+                  Talla: <span class="font-normal">{{ selectedSize }}</span>
+                </span>
+                <button class="text-sm text-[#E91E63] hover:underline">
+                  Guía de tallas
+                </button>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button
+                  *ngFor="let size of product.sizesNames"
+                  class="h-10 min-w-[40px] px-3 rounded-md border"
+                  [ngClass]="{
+                    'border-[#E91E63] bg-[#E91E63] text-white':
+                      isSizeSelected(size),
+                    'border-[#E0E0E0] hover:border-gray-400':
+                      !isSizeSelected(size)
+                  }"
+                  (click)="setSelectedSize(size)"
+                >
+                  {{ size }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Quantity -->
+            <div>
+              <span class="font-medium block mb-3">Cantidad</span>
+              <div
+                class="flex items-center border border-[#E0E0E0] rounded-md w-fit"
+              >
+                <button
+                  class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-black"
+                  (click)="decreaseQuantity()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+                <span class="w-12 text-center">{{ quantity }}</span>
+                <button
+                  class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-black"
+                  (click)="increaseQuantity()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Add to Cart -->
+            <div class="flex gap-3">
+              <button
+                class="flex-1 bg-[#000000] hover:bg-[#333333] h-12 text-white rounded-md flex items-center justify-center"
+                (click)="addToCart()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-2"
+                >
+                  <path
+                    d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+                  ></path>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                Agregar al carrito
+              </button>
+              <button
+                class="h-12 w-12 border-[#E0E0E0] border rounded-md flex items-center justify-center"
+                (click)="addToWishlist()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  [ngClass]="{
+                    'fill-[#E91E63] text-[#E91E63]': selectedColor === 'Rosa'
+                  }"
+                >
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Shipping Info -->
+            <div class="flex items-center gap-3 p-3 bg-[#F8F8F8] rounded-lg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-[#E91E63]"
+              >
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+              <div>
+                <p class="text-sm font-medium">Envío gratuito</p>
+                <p class="text-xs text-gray-500">
+                  En pedidos superiores a $599
+                </p>
+              </div>
+            </div>
+
+            <!-- Product Details Accordion -->
+            <div class="w-full">
+              <details class="group">
+                <summary
+                  class="flex justify-between items-center cursor-pointer py-2 text-base font-medium"
+                >
+                  <span>Descripción</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="transform group-open:rotate-180"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </summary>
+                <div class="text-sm text-gray-600 pt-2 pb-4">
+                  <p>{{ product.description }}</p>
+                </div>
+              </details>
+
+              <details class="group border-t">
+                <summary
+                  class="flex justify-between items-center cursor-pointer py-2 text-base font-medium"
+                >
+                  <span>Detalles del producto</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="transform group-open:rotate-180"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </summary>
+                <div class="text-sm text-gray-600 pt-2 pb-4">
+                  <ul class="list-disc pl-5 space-y-1">
+                    <li>100% Algodón</li>
+                    <li>Manga corta</li>
+                    <li>Cuello redondo</li>
+                    <li>Estampado floral</li>
+                    <li>Lavado a máquina en frío</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="group border-t">
+                <summary
+                  class="flex justify-between items-center cursor-pointer py-2 text-base font-medium"
+                >
+                  <span>Envío y devoluciones</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="transform group-open:rotate-180"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </summary>
+                <div class="text-sm text-gray-600 pt-2 pb-4">
+                  <p class="mb-2">
+                    <strong>Envío:</strong> Entrega estimada de 3-5 días
+                    hábiles. Envío gratuito en pedidos superiores a $599.
+                  </p>
+                  <p>
+                    <strong>Devoluciones:</strong> Devoluciones gratuitas dentro
+                    de los 30 días posteriores a la recepción.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <featured-products
+    id="sameProducts"
+    titleP="Productos similares"
+    description="Descubre nuestros productos similares"
+    [products]="sameProducts"
+  />
+
+  <featured-products
+    id="bestSellers"
+    titleP="Top 10 de la semana"
+    description="Descubre nuestros productos más populares"
+    [products]="bestSellers"
+  />
+
+  <featured-products
+    id="bestOffers"
+    titleP="Ofertas"
+    description="Descubre nuestros productos en oferta"
+    [products]="bestOffers"
+  />
+
+  <featured-products
+    id="newArrivals"
+    titleP="Recien Llegados"
+    description="Descubre nuestros productos más recientes"
+    [products]="newArrivals"
+  />
+</div>
+
+<!-- Error State -->
+<div *ngIf="error()" class="flex justify-center items-center min-h-screen">
+  <div class="text-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="mx-auto text-red-500 mb-4"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <h2 class="text-xl font-bold mb-2">Error al cargar el producto</h2>
+    <p class="text-gray-600 mb-4">
+      No pudimos cargar la información del producto. Por favor, intenta
+      nuevamente más tarde.
+    </p>
+    <button
+      class="bg-[#000000] text-white px-4 py-2 rounded-md hover:bg-[#333333]"
+      (click)="fetchProductByCode(product?.code || '')"
+    >
+      Reintentar
+    </button>
+  </div>
+</div>

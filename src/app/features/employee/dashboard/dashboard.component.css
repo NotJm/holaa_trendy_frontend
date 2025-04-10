@@ -1,0 +1,30 @@
+/* Puedes agregar estilos adicionales específicos aquí si los necesitas */
+/* La mayoría de los estilos están manejados por Tailwind */
+
+/* Ejemplo de estilo para la barra de desplazamiento personalizada */
+nav::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  nav::-webkit-scrollbar-track {
+    background: #1f2937;
+  }
+  
+  nav::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 2px;
+  }
+  
+  nav::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+  }
+  
+  /* Animación para el hover de los enlaces */
+  a {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Estilo para el estado activo del enlace que no se puede manejar fácilmente con Tailwind */
+  .router-link-active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }

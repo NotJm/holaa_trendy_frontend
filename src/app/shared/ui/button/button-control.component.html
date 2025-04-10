@@ -1,0 +1,14 @@
+<button
+  [ngClass]="[buttonClass, isIconRight ? 'flex-row-reverse' : 'flex-row']"
+  (click)="onClick.emit()"
+  [disabled]="hasDisabledCondition ? disabledCondition : null"
+  [type]="type"
+>
+  <span
+    *ngIf="hasIconClass"
+    [ngClass]="hasIconClass ? iconClass : ''"
+    [class.hidden]="hasIconClassHidden ? iconClassHidden : ''"
+  ></span>
+  {{ text }}
+  <ng-content></ng-content>
+</button>

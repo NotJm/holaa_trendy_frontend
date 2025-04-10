@@ -1,9 +1,47 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {
+  ApplicationConfig,
+  inject,
+  provideAppInitializer,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import {
+  PreloadAllModules,
+  provideRouter,
+  withInMemoryScrolling,
+  withPreloading,
+} from '@angular/router';
 
-import { routes } from './app.routes';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { routes } from './app.routes';
+import { errorInterceptor } from './core/interceptor/error.interceptor';
+import { provideCountdown } from 'ngx-countdown';
+import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
+import { WINDOW } from './core/constants/constants';
+import { QuicklinkStrategy } from 'ngx-quicklink';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay())]
+  providers: [
+    { provide: WINDOW, useFactory: () => window},
+    provideHotToastConfig(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideCountdown({ format: 'mm:ss' }),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled',
+      }),
+      withPreloading(QuicklinkStrategy),
+    ),
+    provideClientHydration(withEventReplay()),
+    provideAnimations(),
+    provideHttpClient(withFetch(), withInterceptors([errorInterceptor])), provideCharts(withDefaultRegisterables()),
+  ],
 };

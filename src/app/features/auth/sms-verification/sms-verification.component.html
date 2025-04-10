@@ -1,0 +1,29 @@
+@switch (step) { 
+  @case ('phone') {
+    <form-phone
+      (onNextStep)="step = $event"
+      (phoneNumber)="phoneNumber.set($event)"
+      (onPreviousStep)="this.onCancel.emit()"
+      [enable]="enable"
+    />
+  } 
+  @case ('otp') {
+    <form-otp 
+      (onNextStep)="step = $event" 
+      (onPreviousStep)="step = 'phone'"
+      [phone]="phoneNumber()" 
+      [enable]="enable"
+    />
+  }
+  @case ('success') {
+    <success-view
+      successTitle="Verificación Exitosa"
+      successMessage="Tu número de teléfono ha sido verificado correctamente."
+      (onClick)="onNextStep.emit()"
+      [hasCustomButtonText]="true"
+      customButtonText="Recuperar contraseña"
+    />
+  }
+}
+
+

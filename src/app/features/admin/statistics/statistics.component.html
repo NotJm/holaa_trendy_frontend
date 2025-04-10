@@ -1,0 +1,134 @@
+<div class="min-h-screen bg-gray-50 p-6">
+  <div class="max-w-7xl mx-auto">
+    <!-- Encabezado -->
+    <div class="mb-8">
+      <div class="flex items-center text-sm text-gray-500 mb-2">
+        <a href="#" class="hover:text-blue-600">Inicio</a>
+        <icon-control
+          iconClass="icon-[hugeicons--arrow-right-01] h-4 w-4 mx-2 mt-1"
+        />
+        <span class="text-blue-600 font-medium">Inventario</span>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800">Ventas</h1>
+      <p class="mt-2 text-gray-600">
+        HOLAA Trendy - Predicción de Agotamiento de Stock
+      </p>
+    </div>
+
+    <!-- Tarjetas de métricas principales -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <metric-card
+        titleCard="Stock Inicial"
+        [metric]="886"
+        measurement="unidades"
+        iconClass="icon-[hugeicons--package] h-6 w-6 text-sm flex items-center"
+        borderAccentColor="border-blue-500"
+        textAccentColor="text-blue-600"
+      />
+
+      <metric-card
+        titleCard="Ventas Totales"
+        [metric]="141"
+        measurement="Marzo - Abril"
+        iconClass="icon-[hugeicons--chart-breakout-circle] h-6 w-6 text-sm flex items-center"
+        borderAccentColor="border-green-500"
+        textAccentColor="text-green-600"
+      />
+
+      <metric-card
+        titleCard="Categoria Top"
+        [metric]="'Pantalones'"
+        measurement="Mas vendidos"
+        iconClass="icon-[hugeicons--crown] h-6 w-6 text-sm flex items-center"
+        borderAccentColor="border-purple-500"
+        textAccentColor="text-purple-600"
+      />
+
+      <metric-card
+        titleCard="Proximo Agotamiento"
+        [metric]="'Interiores'"
+        measurement="Requiere reposicion"
+        iconClass="icon-[hugeicons--alert-circle] h-6 w-6 text-sm flex items-center"
+        borderAccentColor="border-red-500"
+        textAccentColor="text-red-600"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <select-control
+        titleSelect="Categorias"
+        [hasDefaultValue]="true"
+        defaultValue=""
+        defaultLabel="Seleccione una categoría"
+        [items]="categories"
+        idKey="id"
+        valueKey="name"
+        (onItemSelected)="onCategorySelected($event)"
+      />
+
+      <!-- <date-range
+        (onStartDateSelected)="onStartDateSelected($event)"
+        (onEndDateSelected)="onEndDateSelected($event)"
+      /> -->
+      
+      <input-control
+        label="Stock Inicial"
+        iconClass="icon-[hugeicons--backpack-01]"
+        placeholder="Stock Inicial"
+        [inputValue]="'886'"
+        [useFormControl]="false"
+      />
+      <input-control
+        label="Stock Restante"
+        iconClass="icon-[hugeicons--backpack-01]"
+        placeholder="Stock Restante"
+        [inputValue]="isCategorySelected() ? `100` : 'Seleccione una categoria'"
+        [useFormControl]="false"
+      />
+      <!-- <button-control/> -->
+    </div>
+
+    <!-- Contenedor principal que siempre ocupa todo el ancho -->
+    <div class="w-full">
+      <!-- Mensaje de selección de categoría -->
+      <div
+        *ngIf="!isCategorySelected()"
+        class="flex justify-center items-center min-h-[400px]"
+      >
+        <div class="text-center max-w-md px-4 py-8">
+          <icon-control
+            iconClass="w-20 h-20 mx-auto mb-6 text-gray-400 icon-[hugeicons--search-01]"
+          />
+
+          <h1 class="text-2xl font-semibold text-gray-900 mb-4">
+            Selecciona una categoria
+          </h1>
+          <p class="text-gray-500 mb-8">
+            Para comenzar el análisis, selecciona una categoria del menú
+            desplegable.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tabla de estadísticas -->
+      <div *ngIf="isCategorySelected() && !isProductSelected()">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8">
+          <product-sales-pie-chart [data]="backupSalesByCategory" [categorySelected]="this.categorySelected"/>
+          <stock-compare-sale-chart [data]="backupSalesByCategory" />
+        </div>  
+        <stadistic-table
+          [salesData]="filterSalesByCategory"
+          (actionClick)="onProductSelected($event)"
+        />
+        
+      </div>
+
+      <product-sale-card 
+        *ngIf="isProductSelected()" 
+        [productSales]="salesByProduct" 
+        (onReturn)="isProductSelected.set($event)"
+      />
+      
+    </div>
+  </div>
+</div>

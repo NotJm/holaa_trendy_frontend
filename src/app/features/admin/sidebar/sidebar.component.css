@@ -1,0 +1,44 @@
+/* Estilos adicionales para animaciones o personalizaciones */
+.router-link-active {
+    position: relative;
+  }
+  
+  /* Efecto de transición para los elementos del menú */
+  a {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #4f46e5;
+    transition: width 0.3s ease;
+  }
+  
+  a:hover::after {
+    width: 100%;
+  }
+  
+  /* Animación para el badge "New" */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .bg-indigo-100 {
+    animation: pulse 2s infinite;
+  }
+  
+  

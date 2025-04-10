@@ -1,0 +1,18 @@
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, #E91E63, #FF4081);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

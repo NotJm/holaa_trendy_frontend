@@ -1,0 +1,13 @@
+<a
+  [routerLink]="link || null"
+  (click)="redirectToSection($event)"
+  [ngClass]="[linkClass, isIconRight ? 'flex-row-reverse' : 'flex-row']"
+
+>
+  <span
+    *ngIf="hasIconClass"
+    [ngClass]="hasIconClass ? iconClass : ''"
+    class="w-6 h-6 mr-2"
+  ></span>
+  {{ text }}
+</a>

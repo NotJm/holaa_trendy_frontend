@@ -1,0 +1,68 @@
+<div class="min-h-screen bg-linear-to-b from-white to-gray-50 flex items-center justify-center p-4">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
+    <!-- Left Content -->
+    <div class="flex-1 text-center lg:text-left space-y-8">
+      <!-- Animated 404 Text -->
+      <div 
+        class="relative text-[150px] md:text-[200px] leading-none"
+      >
+        <div class="animate-float text-left font-wedgie">{{ error }}</div>
+      </div>
+
+      <!-- Error Message -->
+      <div class="space-y-4">
+        <h1 class="text-4xl md:text-5xl font-bold font-josefina_sans text-gray-800">
+          {{ title }}
+        </h1>
+        <p class="text-lg text-gray-600 max-w-xl mx-auto font-josefina_sans lg:mx-0">
+          {{ subtitle }}
+        </p>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+        <a 
+          routerLink="/"
+          class="inline-flex cursor-pointer items-center px-8 py-3 rounded-full bg-[#E91E63] text-white font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          Regresar al inicio
+        </a>
+        <a 
+          routerLink="/contact"
+          class="inline-flex items-center px-8 py-3 rounded-full border-2 border-[#E91E63] text-[#E91E63] font-semibold transition-all duration-300 hover:bg-[#E91E63] hover:text-white"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          ¿Necesitas ayuda?
+        </a>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="mt-8 space-y-2">
+        <p class="text-gray-600 font-medium">Enlaces rápidos:</p>
+        <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+          <a routerLink="/mas-vendidos" class="text-[#E91E63] hover:underline">Más vendidos</a>
+          <a routerLink="/mega-ofertas" class="text-[#E91E63] hover:underline">Mega ofertas</a>
+          <a routerLink="/recien-llegados" class="text-[#E91E63] hover:underline">Recién llegados</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Image -->
+    <div class="flex-1 relative">
+      <img 
+        unpic
+        src="./assets/images/404-fashion.png" 
+        alt="Fashion Model" 
+        class="max-w-full h-auto transform transition-transform duration-500"
+      >
+      <!-- Decorative Elements -->
+      <div class="absolute -top-4 -left-4 w-24 h-24 bg-[#E91E63] opacity-10 rounded-full blur-xl animate-pulse"></div>
+      <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-[#E91E63] opacity-10 rounded-full blur-xl animate-pulse delay-150"></div>
+    </div>
+  </div>
+</div>

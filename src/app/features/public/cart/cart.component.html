@@ -1,0 +1,114 @@
+<div
+  class="min-h-screen bg-linear-to-br from-white to-[#E0E0E0]/30 py-8 px-4 sm:px-6 lg:px-8"
+>
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-cinzel font-bold text-[#000000]">
+        Mi Bolsa ({{ cart()?.cartItems?.length || 0 }})
+      </h1>
+      <div class="flex items-center space-x-4">
+        <label class="flex items-center space-x-2 cursor-pointer group">
+          <input
+            type="checkbox"
+            class="form-checkbox h-5 w-5 text-[#E91E63] rounded-sm border-2 border-[#E0E0E0]"
+          />
+          <span
+            class="text-sm font-popins text-[#000000] group-hover:text-[#E91E63] transition-colors duration-200"
+          >
+            Seleccionar todo
+          </span>
+        </label>
+        <button
+          class="text-sm font-popins text-[#E91E63] hover:text-[#000000] transition-colors duration-200"
+        >
+          Borrar seleccionados
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Products List -->
+      <div class="lg:col-span-2 space-y-4">
+        <!-- Product Card -->
+        <div
+          class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+        >
+          @for(cartItem of cart()?.cartItems; track cartItem.id) {
+          <cart-item
+            [cartItem]="cartItem"
+            (onIncreaseQuantity)="onIncreaseQuantity($event, cartItem.quantity)"
+            (onDecreaseQuantity)="onDecreaseQuantity($event, cartItem.quantity)"
+            (onDeleteProduct)="onDeleteProduct($event)"
+          />
+          }
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-xl shadow-lg p-6 sticky top-28">
+          <h2 class="font-cinzel font-bold text-2xl text-[#000000] mb-6">
+            Resumen
+          </h2>
+
+          <div class="space-y-4">
+            <div class="flex justify-between text-sm font-popins">
+              <span class="text-gray-600">Subtotal</span>
+              <span class="font-medium text-[#000000]"
+                >$ {{ formatPrice(subTotal + shippingCost) }}</span
+              >
+            </div>
+
+            <div class="flex justify-between text-sm font-popins">
+              <span class="text-gray-600">Costo de envío</span>
+              <span class="font-medium text-[#000000]">$ {{ shippingCost }} MXN</span>
+            </div>
+
+            <div class="border-t border-[#E0E0E0] pt-4">
+              <div class="flex justify-between font-cinzel">
+                <span class="font-bold text-lg text-[#000000]"
+                  >Total estimado</span
+                >
+                <span class="font-bold text-lg text-[#000000]"
+                  >$ {{ formatPrice(subTotal + shippingCost) }}</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Continue Button -->
+          <button-control
+            [text]="isLoading() ? 'Comprando...' : 'Comprar'"
+            [hasIconClass]="isLoading()"
+            iconClass="-ml-1 mr-2 h-4 w-4 icon-[line-md--loading-loop] animate-spin"
+            [hasDisabledCondition]="true"
+            (onClick)="onBuyProducts()"
+            [disabledCondition]="isLoading()"
+          />
+       
+          <!-- Security Badge -->
+          <div class="mt-6 space-y-4">
+            <div
+              class="flex items-center justify-center space-x-2 text-sm font-popins text-gray-600"
+            >
+              <span
+                class="icon-[mdi--shield-check-outline] w-5 h-5 text-[#E91E63]"
+              ></span>
+              <span>Compra 100% segura</span>
+            </div>
+
+            <div class="flex justify-center">
+              <img
+                src="./assets/images/33ab2c0a-5981-49ae-a7cc-ea2b2939aa66.png"
+                alt="Métodos de pago"
+                class="w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

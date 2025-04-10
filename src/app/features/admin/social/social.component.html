@@ -1,0 +1,281 @@
+<div class="col-span-1 md:col-span-2 bg-white rounded-xl shadow-lg p-6">
+  <h3 class="text-2xl font-bold text-gray-800 mb-6">Redes Sociales</h3>
+  <button
+    (click)="openAddSocialSiteModal()"
+    class="bg-blue-600 text-white font-semibold rounded-lg px-6 py-2 mb-6 hover:bg-blue-700 transition duration-200 shadow-lg transform hover:scale-105"
+  >
+    Agregar Red Social
+  </button>
+
+  <!-- Modal para agregar red social -->
+  <div
+    *ngIf="isAddSocialSiteOpen"
+    class="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50"
+  >
+    <div
+      class="bg-white rounded-lg shadow-xl p-8 w-full max-w-lg transform transition-all duration-300 ease-in-out scale-95"
+    >
+      <h3 class="text-2xl font-bold text-gray-900 mb-6">Agregar Red Social</h3>
+
+      <form [formGroup]="formSocialSite" (ngSubmit)="addSocialSite()">
+        <!-- Nombre de la red social -->
+        <div class="mb-5">
+          <label
+            for="socialName"
+            class="block text-sm font-medium text-gray-700"
+            >Nombre</label
+          >
+          <input
+            id="socialName"
+            name="name"
+            type="text"
+            formControlName="name"
+            required
+            class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:border-transparent transition ease-in-out duration-200"
+          />
+        </div>
+
+        <!-- URL de la red social -->
+        <div class="mb-5">
+          <label for="socialUrl" class="block text-sm font-medium text-gray-700"
+            >URL</label
+          >
+          <input
+            id="socialUrl"
+            name="url"
+            type="url"
+            formControlName="url"
+            required
+            class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:border-transparent transition ease-in-out duration-200"
+          />
+        </div>
+
+        <!-- Descripción de la red social -->
+        <div class="mb-5">
+          <label
+            for="socialDescription"
+            class="block text-sm font-medium text-gray-700"
+            >Descripción</label
+          >
+          <textarea
+            id="socialDescription"
+            name="description"
+            formControlName="description"
+            rows="3"
+            class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:border-transparent transition ease-in-out duration-200"
+          ></textarea>
+        </div>
+
+        <!-- Botón para subir el icono a Cloudinary -->
+        <div class="mb-5">
+          <button
+            type="button"
+            (click)="openCloudinaryWidget()"
+            class="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out transform hover:scale-105 focus:outline-hidden focus:ring-4 focus:ring-blue-400"
+          >
+            Subir Icono
+          </button>
+        </div>
+
+        <!-- Vista previa del icono subido -->
+        <div *ngIf="formSocialSite.get('icon')?.value" class="mt-5 text-center">
+          <h3 class="text-lg font-semibold text-gray-700 mb-4">
+            Vista previa del icono:
+          </h3>
+          <img
+            [src]="formSocialSite.get('icon')?.value"
+            alt="Icono de la red social"
+            class="w-20 h-20 mx-auto shadow-lg rounded-full border-2 border-gray-300"
+          />
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="flex justify-end mt-8 space-x-4">
+          <button
+            type="button"
+            (click)="closeAddSocialSiteModal()"
+            class="px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition duration-200 ease-in-out transform hover:scale-105 focus:outline-hidden"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            [disabled]="formSocialSite.invalid"
+            class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 ease-in-out transform hover:scale-105 focus:outline-hidden"
+          >
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal para editar red social -->
+  <div
+    *ngIf="isEditSocialSiteOpen"
+    class="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-50"
+  >
+    <div
+      class="bg-white rounded-lg shadow-xl p-8 w-full max-w-lg transform transition-all duration-300 ease-in-out scale-95"
+    >
+      <h3 class="text-2xl font-bold text-gray-900 mb-6">Editar Red Social</h3>
+
+      <form (ngSubmit)="editSocialSite()">
+        <!-- Nombre de la red social -->
+        <div class="mb-5">
+          <label
+            for="socialName"
+            class="block text-sm font-medium text-gray-700"
+            >Nombre</label
+          >
+          <input
+            id="socialName"
+            name="name"
+            type="text"
+            [(ngModel)]="this.currentSocialSites.name"
+            required
+            class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:border-transparent transition ease-in-out duration-200"
+          />
+        </div>
+
+        <!-- URL de la red social -->
+        <div class="mb-5">
+          <label for="socialUrl" class="block text-sm font-medium text-gray-700"
+            >URL</label
+          >
+          <input
+            id="socialUrl"
+            name="url"
+            type="url"
+            [(ngModel)]="this.currentSocialSites.url"
+            required
+            class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:border-transparent transition ease-in-out duration-200"
+          />
+        </div>
+
+        <!-- Descripción de la red social -->
+        <div class="mb-5">
+          <label
+            for="socialDescription"
+            class="block text-sm font-medium text-gray-700"
+            >Descripción</label
+          >
+          <textarea
+            id="socialDescription"
+            name="description"
+            [(ngModel)]="this.currentSocialSites.description"
+            rows="3"
+            class="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:border-transparent transition ease-in-out duration-200"
+          ></textarea>
+        </div>
+
+        <!-- Botón para subir el icono a Cloudinary -->
+        <div class="mb-5">
+          <button
+            type="button"
+            (click)="openCloudinaryWidget()"
+            class="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out transform hover:scale-105 focus:outline-hidden focus:ring-4 focus:ring-blue-400"
+          >
+            Subir Icono
+          </button>
+        </div>
+
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">
+          Vista previa del icono:
+        </h3>
+        <img
+          [src]="this.currentSocialSites.icon"
+          alt="Icono de la red social"
+          class="w-20 h-20 mx-auto shadow-lg rounded-full border-2 border-gray-300"
+        />
+
+        <!-- Botones de acción -->
+        <div class="flex justify-end mt-8 space-x-4">
+          <button
+            type="button"
+            (click)="closeEditSocialSiteModal()"
+            class="px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition duration-200 ease-in-out transform hover:scale-105 focus:outline-hidden"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 ease-in-out transform hover:scale-105 focus:outline-hidden"
+          >
+            Actualizar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tabla de Redes Sociales -->
+  <div class="overflow-x-auto mt-6">
+    <table
+      class="min-w-full bg-white divide-y divide-gray-200 rounded-lg shadow-lg overflow-hidden"
+    >
+      <thead class="bg-gray-100">
+        <tr>
+          <th
+            class="px-6 py-3 text-left text-sm font-bold text-gray-600 uppercase tracking-wider"
+          >
+            Nombre
+          </th>
+          <th
+            class="px-6 py-3 text-left text-sm font-bold text-gray-600 uppercase tracking-wider"
+          >
+            Icono
+          </th>
+          <th
+            class="px-6 py-3 text-left text-sm font-bold text-gray-600 uppercase tracking-wider"
+          >
+            URL
+          </th>
+          <th
+            class="px-6 py-3 text-left text-sm font-bold text-gray-600 uppercase tracking-wider"
+          >
+            Descripción
+          </th>
+          <th
+            class="px-6 py-3 text-left text-sm font-bold text-gray-600 uppercase tracking-wider"
+          >
+            Acciones
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr
+          *ngFor="let social of socialSites; let i = index"
+          class="hover:bg-gray-50 transition ease-in-out duration-150"
+        >
+          <td class="px-6 py-4 text-sm text-gray-800">{{ social.name }}</td>
+          <td class="px-6 py-4 text-sm text-gray-800">
+            <img
+              [src]="social.icon"
+              alt="Icono de la red social"
+              class="w-10 h-10 mx-auto shadow-lg rounded-full border-2 border-gray-300"
+            />
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-800">{{ social.url }}</td>
+          <td class="px-6 py-4 text-sm text-gray-800">
+            {{ social.description }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-800 space-x-2">
+            <button
+              (click)="openEditSocialEditModal(social)"
+              class="bg-green-600 text-white rounded-md px-3 py-1 mr-2 hover:bg-green-700 transition duration-200"
+            >
+              Editar
+            </button>
+            <button
+              (click)="deleteSocialSite(social)"
+              class="bg-red-600 text-white rounded-md px-3 py-1 hover:bg-red-700 transition duration-200"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

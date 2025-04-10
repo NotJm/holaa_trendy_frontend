@@ -1,0 +1,270 @@
+<div class="bg-gray-50 min-h-screen">
+    <!-- Encabezado del perfil -->
+    <div class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+          <div class="flex items-center">
+            <a routerLink="/admin/home" class="text-indigo-600 hover:text-indigo-800 mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            </a>
+            <h1 class="text-2xl font-bold text-gray-900">Mi Perfil</h1>
+          </div>
+          <div class="mt-4 md:mt-0">
+            <button (click)="saveProfile()" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
+              Guardar Cambios
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Contenido principal -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Tarjeta de perfil -->
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="p-6 text-center">
+              <div class="relative inline-block">
+                <img [src]="user.avatar" alt="Foto de perfil" class="h-32 w-32 rounded-full object-cover border-4 border-indigo-100 mx-auto">
+                <button class="absolute bottom-0 right-0 bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </button>
+              </div>
+              <h2 class="mt-4 text-xl font-semibold text-gray-900">{{ user.name }}</h2>
+              <p class="text-indigo-600">{{ user.role }}</p>
+              <div class="mt-4 flex justify-center space-x-3">
+                <button class="p-2 text-gray-500 hover:text-indigo-600 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </button>
+                <button class="p-2 text-gray-500 hover:text-indigo-600 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </button>
+                <button class="p-2 text-gray-500 hover:text-indigo-600 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="border-t border-gray-200 px-6 py-4">
+              <div class="flex items-center py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span class="text-sm text-gray-700">{{ user.email }}</span>
+              </div>
+              <div class="flex items-center py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span class="text-sm text-gray-700">{{ user.phone }}</span>
+              </div>
+              <div class="flex items-center py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span class="text-sm text-gray-700">{{ user.location }}</span>
+              </div>
+              <div class="flex items-center py-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="text-sm text-gray-700">Miembro desde {{ user.joinDate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Contenido de pestañas -->
+        <div class="lg:col-span-3">
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <!-- Navegación de pestañas -->
+            <div class="border-b border-gray-200">
+              <nav class="flex -mb-px">
+                <button (click)="setActiveTab('info')" 
+                        [ngClass]="{'border-indigo-500 text-indigo-600': activeTab === 'info', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'info'}"
+                        class="py-4 px-6 border-b-2 font-medium text-sm focus:outline-hidden transition-colors">
+                  Información Personal
+                </button>
+                <button (click)="setActiveTab('security')" 
+                        [ngClass]="{'border-indigo-500 text-indigo-600': activeTab === 'security', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'security'}"
+                        class="py-4 px-6 border-b-2 font-medium text-sm focus:outline-hidden transition-colors">
+                  Seguridad
+                </button>
+                <button (click)="setActiveTab('activity')" 
+                        [ngClass]="{'border-indigo-500 text-indigo-600': activeTab === 'activity', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'activity'}"
+                        class="py-4 px-6 border-b-2 font-medium text-sm focus:outline-hidden transition-colors">
+                  Actividad
+                </button>
+                <button (click)="setActiveTab('settings')" 
+                        [ngClass]="{'border-indigo-500 text-indigo-600': activeTab === 'settings', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'settings'}"
+                        class="py-4 px-6 border-b-2 font-medium text-sm focus:outline-hidden transition-colors">
+                  Configuración
+                </button>
+              </nav>
+            </div>
+  
+            <!-- Contenido de la pestaña de información personal -->
+            <div *ngIf="activeTab === 'info'" class="p-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
+                  <input type="text" id="name" name="name" [(ngModel)]="user.name" 
+                         class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                  <input type="email" id="email" name="email" [(ngModel)]="user.email" 
+                         class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                  <input type="tel" id="phone" name="phone" [(ngModel)]="user.phone" 
+                         class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                  <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Ubicación</label>
+                  <input type="text" id="location" name="location" [(ngModel)]="user.location" 
+                         class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="md:col-span-2">
+                  <label for="bio" class="block text-sm font-medium text-gray-700 mb-1">Biografía</label>
+                  <textarea id="bio" name="bio" rows="4" [(ngModel)]="user.bio" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Contenido de la pestaña de seguridad -->
+            <div *ngIf="activeTab === 'security'" class="p-6">
+              <div class="mb-8">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Cambiar Contraseña</h3>
+                <div class="grid grid-cols-1 gap-4">
+                  <div>
+                    <label for="current-password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña Actual</label>
+                    <input type="password" id="current-password" name="current-password" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500">
+                  </div>
+                  <div>
+                    <label for="new-password" class="block text-sm font-medium text-gray-700 mb-1">Nueva Contraseña</label>
+                    <input type="password" id="new-password" name="new-password" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500">
+                  </div>
+                  <div>
+                    <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirmar Nueva Contraseña</label>
+                    <input type="password" id="confirm-password" name="confirm-password" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500">
+                  </div>
+                  <div>
+                    <button (click)="updatePassword()" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
+                      Actualizar Contraseña
+                    </button>
+                  </div>
+                </div>
+              </div>
+  
+              <div>
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Autenticación de Dos Factores</h3>
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div>
+                    <h4 class="text-sm font-medium text-gray-900">Autenticación de Dos Factores</h4>
+                    <p class="text-sm text-gray-500 mt-1">Añade una capa adicional de seguridad a tu cuenta</p>
+                  </div>
+                  <div class="flex items-center">
+                    <button (click)="toggleSetting('twoFactorAuth')" 
+                            [ngClass]="{'bg-indigo-600': settings.twoFactorAuth, 'bg-gray-200': !settings.twoFactorAuth}"
+                            class="relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <span [ngClass]="{'translate-x-5': settings.twoFactorAuth, 'translate-x-0': !settings.twoFactorAuth}"
+                            class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm transform ring-0 transition ease-in-out duration-200"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Contenido de la pestaña de actividad -->
+            <div *ngIf="activeTab === 'activity'" class="p-6">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Actividad Reciente</h3>
+              <div class="space-y-4">
+                <div *ngFor="let activity of activities" class="flex items-start p-4 bg-gray-50 rounded-lg">
+                  <div class="shrink-0 mr-4">
+                    <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-900">{{ activity.action }}</p>
+                    <p class="text-xs text-gray-500 mt-1">{{ activity.date }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Contenido de la pestaña de configuración -->
+            <div *ngIf="activeTab === 'settings'" class="p-6">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Preferencias</h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div>
+                    <h4 class="text-sm font-medium text-gray-900">Notificaciones</h4>
+                    <p class="text-sm text-gray-500 mt-1">Recibir notificaciones en la aplicación</p>
+                  </div>
+                  <div class="flex items-center">
+                    <button (click)="toggleSetting('notifications')" 
+                            [ngClass]="{'bg-indigo-600': settings.notifications, 'bg-gray-200': !settings.notifications}"
+                            class="relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <span [ngClass]="{'translate-x-5': settings.notifications, 'translate-x-0': !settings.notifications}"
+                            class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm transform ring-0 transition ease-in-out duration-200"></span>
+                    </button>
+                  </div>
+                </div>
+  
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div>
+                    <h4 class="text-sm font-medium text-gray-900">Actualizaciones por Email</h4>
+                    <p class="text-sm text-gray-500 mt-1">Recibir actualizaciones y noticias por email</p>
+                  </div>
+                  <div class="flex items-center">
+                    <button (click)="toggleSetting('emailUpdates')" 
+                            [ngClass]="{'bg-indigo-600': settings.emailUpdates, 'bg-gray-200': !settings.emailUpdates}"
+                            class="relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <span [ngClass]="{'translate-x-5': settings.emailUpdates, 'translate-x-0': !settings.emailUpdates}"
+                            class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm transform ring-0 transition ease-in-out duration-200"></span>
+                    </button>
+                  </div>
+                </div>
+  
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div>
+                    <h4 class="text-sm font-medium text-gray-900">Modo Oscuro</h4>
+                    <p class="text-sm text-gray-500 mt-1">Cambiar a tema oscuro</p>
+                  </div>
+                  <div class="flex items-center">
+                    <button (click)="toggleSetting('darkMode')" 
+                            [ngClass]="{'bg-indigo-600': settings.darkMode, 'bg-gray-200': !settings.darkMode}"
+                            class="relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <span [ngClass]="{'translate-x-5': settings.darkMode, 'translate-x-0': !settings.darkMode}"
+                            class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm transform ring-0 transition ease-in-out duration-200"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
