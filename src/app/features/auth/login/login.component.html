@@ -5,7 +5,7 @@
     
   @switch (step()) {
     @case ('login') {
-      <form-login (onNextStep)="step.set('pending')" />   
+      <form-login (onNextStep)="step.set('success')" />   
     }
 
     @case ('pending') {
@@ -18,10 +18,14 @@
 
     @case ('success') {
       <success-view
-      successTitle="Verificación Exitosa"
-      successMessage="Tu cuenta ha sido verificada correctamente."
-      [hasButton]="false"
+        successTitle="¡Hola de nuevo, hermosa!"
+        successMessage="Tu estilo te estaba esperando. Explora lo mejor de la moda que tenemos para ti 💖"
+        [hasButton]="true"
+        [hasCustomButtonText]="true"
+        customButtonText="Descubrir Novedades"
+        (onClick)="onSuccess()"
       />
+    
     }
 
   }

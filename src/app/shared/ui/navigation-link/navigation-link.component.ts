@@ -1,51 +1,61 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import {
+    Component,
+    Input,
+    OnChanges,
+    SimpleChanges
+} from '@angular/core';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { IconControlComponent } from '../controls/icon-control/icon-control.component';
 
 @Component({
   selector: 'navigation-link',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, RouterModule, IconControlComponent],
   templateUrl: './navigation-link.component.html',
 })
 export class NavigationLinkComponent {
-  @Input({ required: true }) text!: string;
-  @Input() linkClass: string = 'flex items-center text-[#000000] hover:text-[#E91E63] transition-colors text-lg cursor-pointer';
-  @Input() hasIconClass: boolean = false;
+  // Only properties for the link are required, the rest are optional
+  @Input({ required: true }) link!: string;
+  @Input({ required: true }) linkText!: string;
+  @Input({ required: true }) linkClass: string = '';
+  @Input() linkActiveClass: string = '';
+
+  // Only properties for custom the link
+  @Input() hasIcon?: boolean = false;
+  @Input() iconClass?: string;
   @Input() isIconRight: boolean = false;
-  @Input() iconClass: string = ''
+
+  // Only other optional properties for example (fragment, hasTooltip, tooltip, etc.)
   @Input() fragment!: string;
-  @Input() link?: string;
-
-  constructor(
-    private readonly router: Router,
-  ) {}
-
   
-  redirectToSection(event: Event) {
+  constructor(private readonly router: Router) {}
+
+  onRedirectToSection(event: Event): void {
     event.preventDefault();
 
-    if (this.link) {
-      this.router.navigate([this.link], { fragment: this.fragment }).then(() => {
-        setTimeout(() => this.scrollToSection(event), 100)
-      })
-    } else {
-      this.scrollToSection(event);
+    if (!this.link) {
+      return this.onScrollToSection(event);
     }
+
+    this.router.navigate([this.link], { fragment: this.fragment }).then(() => {
+      setTimeout(() => this.onScrollToSection(event), 100);
+    });
   }
 
-  scrollToSection(event: Event) {
+  onScrollToSection(event: Event): void {
     event.preventDefault();
 
     const element = document.getElementById(this.fragment);
-    if (element) {
 
-      const yOffset = -80;
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition + yOffset;
+    const yOffset = -80; // Adjust this value to your needs (e.g., header height)
 
-      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-    }
+    if (!element) return;
+
+    const elementPosition =
+      element.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition + yOffset;
+
+    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
   }
-
 }

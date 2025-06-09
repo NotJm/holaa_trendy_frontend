@@ -6,17 +6,20 @@
     class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4"
   >
     <div class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">{{ titleP }}</h2>
-      <p class="text-muted-foreground">{{ description }}</p>
+      <h2 class="text-2xl font-karla font-semibold tracking-tight">
+        {{ titleFeatured }}
+      </h2>
+      <p class="font-karla text-muted-foreground">{{ description }}</p>
     </div>
 
     <navigation-link
-      text="Ver todo"
-      [hasIconClass]="true"
+      link=""
+      linkText="Ver todo"
+      linkClass=""
+      [hasIcon]="true"
       [isIconRight]="true"
-      iconClass="icon-[hugeicons--arrow-right-02]"
+      iconClass="icon-[mdi--arrow-right-circle] w-5 h-5"
     />
-
   </div>
 
   <!-- Carousel -->
@@ -44,7 +47,7 @@
     <div class="hidden md:block">
       <button-control
         buttonClass="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 shadow-lg rounded-full p-3 -ml-6 hover:scale-110 transition-all hover:bg-white"
-        [hasIconClass]="true"
+        [hasIcon]="true"
         iconClass="w-6 h-6 icon-[hugeicons--arrow-left-01]"
         (onClick)="prev()"
         text=""
@@ -52,7 +55,7 @@
 
       <button-control
         buttonClass="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 shadow-lg rounded-full p-3 -mr-4 hover:scale-110 transition-all hover:bg-white"
-        [hasIconClass]="true"
+        [hasIcon]="true"
         iconClass="w-6 h-6 icon-[hugeicons--arrow-right-01]"
         (onClick)="next()"
         text=""
@@ -62,5 +65,5 @@
 </section>
 
 <ng-template #loadingTemplate>
-  <loading message="No se pudo encontrar productos especiales" />
+  <loading-view loadingMessage="No se pudo encontrar productos especiales" />
 </ng-template>

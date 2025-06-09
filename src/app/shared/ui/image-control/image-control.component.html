@@ -3,9 +3,9 @@
   [ngClass]="isImageLink ? imageLinkClass : ''"
   [routerLink]="imageLink"
 >
-  <img unpic [src]="src ? src : ''" [alt]="alt" [ngClass]="imageClass" />
+  <img unpic [src]="src ? src : ''" [alt]="alt" [class]="imageClass" />
 </a>
 
 <ng-template #withoutImageLink>
-  <img unpic [src]="src ? src : ''" [alt]="alt" [ngClass]="imageClass" />
+  <img unpic [src]="src ? src : ''" [alt]="alt" [class]="imageClass" />
 </ng-template>

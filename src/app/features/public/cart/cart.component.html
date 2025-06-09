@@ -80,8 +80,8 @@
 
           <!-- Continue Button -->
           <button-control
-            [text]="isLoading() ? 'Comprando...' : 'Comprar'"
-            [hasIconClass]="isLoading()"
+            [textButton]="isLoading() ? 'Comprando...' : 'Comprar'"
+            [hasIcon]="isLoading()"
             iconClass="-ml-1 mr-2 h-4 w-4 icon-[line-md--loading-loop] animate-spin"
             [hasDisabledCondition]="true"
             (onClick)="onBuyProducts()"

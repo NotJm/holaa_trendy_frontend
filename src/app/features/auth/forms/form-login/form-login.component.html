@@ -1,20 +1,39 @@
 <div class="flex items-center justify-center w-full h-full p-3 sm:p-4 z-10">
-  <div class="flex w-full max-w-4xl bg-white/95 dark:bg-gray-900/95 rounded-xl shadow-2xl overflow-hidden transition-all duration-300">
-    
+  <div
+    class="flex w-full max-w-4xl bg-white/95 dark:bg-gray-900/95 rounded-xl shadow-2xl overflow-hidden transition-all duration-300"
+  >
     <!-- Left Side - Carousel Section -->
     <div class="hidden lg:block lg:w-1/2 relative">
       <owl-carousel-o [options]="carouselOptions" class="h-full">
-        <ng-template carouselSlide *ngFor="let slide of carouselSlides; let i = index">
-          <div class="relative h-full" [attr.aria-label]="'Slide ' + (i + 1) + ' of ' + carouselSlides.length">
+        <ng-template
+          carouselSlide
+          *ngFor="let slide of carouselSlides; let i = index"
+        >
+          <div
+            class="relative h-full"
+            [attr.aria-label]="
+              'Slide ' + (i + 1) + ' of ' + carouselSlides.length
+            "
+          >
             <img
               [src]="slide.imageSrc"
               [alt]="slide.alt"
               class="object-cover w-full h-[600px]"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-black/10 flex flex-col justify-end p-6">
-              <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 animate__animated animate__fadeInUp">{{ slide.title }}</h2>
-              <p class="text-sm sm:text-base text-white/90 animate__animated animate__fadeInUp animate__delay-1s">{{ slide.description }}</p>
+            <div
+              class="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-black/10 flex flex-col justify-end p-6"
+            >
+              <h2
+                class="text-2xl sm:text-3xl font-bold text-white mb-2 animate__animated animate__fadeInUp"
+              >
+                {{ slide.title }}
+              </h2>
+              <p
+                class="text-sm sm:text-base text-white/90 animate__animated animate__fadeInUp animate__delay-1s"
+              >
+                {{ slide.description }}
+              </p>
             </div>
           </div>
         </ng-template>
@@ -22,45 +41,64 @@
     </div>
 
     <!-- Right Side - Form Section -->
-    <div class="w-full lg:w-1/2 p-4 sm:p-6 flex flex-col h-full overflow-y-auto max-h-[80vh] lg:max-h-[600px]">
+    <div
+      class="w-full lg:w-1/2 p-4 sm:p-6 flex flex-col h-full overflow-y-auto max-h-[80vh] lg:max-h-[600px]"
+    >
       <!-- Navigation Links -->
       <div class="flex justify-between items-center mb-4">
         <!-- Back Button -->
-        <button-control 
-          (onClick)="goBack()" 
+        <button-control
+          (onClick)="goBack()"
           buttonClass="text-gray-600 dark:text-gray-300 hover:text-[#E91E63] transition-colors duration-300"
-          [hasIconClass]="true"
+          [hasIcon]="true"
           iconClass="icon-[hugeicons--arrow-left-02] w-5 h-5"
           ariaLabel="Volver atrás"
         />
-        
+
         <!-- Home Button - Added for accessibility -->
-        <navigation-link 
-          text=""
-          linkClass="text-gray-600 dark:text-gray-300 hover:text-[#E91E63] transition-colors duration-300"
-          [hasIconClass]="true"
-          iconClass="icon-[mdi--home-outline] w-6 h-6"
-          ariaLabel="Ir al inicio"
+        <navigation-link
           link="/"
+          linkText=""
+          linkClass="text-gray-600 dark:text-gray-300 hover:text-[#E91E63] transition-colors duration-300"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--home-outline] w-6 h-6"
         />
       </div>
 
       <!-- Logo and Title -->
       <div class="text-center mb-4 sm:mb-5">
-        <image-control src="assets/webp/logo.webp" alt="HOLAA Trendy Logo" imageClass="h-8 sm:h-10 mx-auto mb-3" />
-        <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1 animate__animated animate__fadeIn">Iniciar Sesión</h1>
-        <p class="text-sm text-gray-600 dark:text-gray-300 animate__animated animate__fadeIn animate__delay-1s">¡Bienvenida de nuevo!</p>
+        <image-control
+          src="assets/webp/logo.webp"
+          alt="HOLAA Trendy Logo"
+          imageClass="h-8 sm:h-10 mx-auto mb-3"
+        />
+        <h1
+          class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1 animate__animated animate__fadeIn"
+        >
+          Iniciar Sesión
+        </h1>
+        <p
+          class="text-sm text-gray-600 dark:text-gray-300 animate__animated animate__fadeIn animate__delay-1s"
+        >
+          ¡Bienvenida de nuevo!
+        </p>
       </div>
 
       <!-- Form -->
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col grow space-y-4 animate__animated animate__fadeIn animate__delay-2s">
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        class="flex flex-col grow space-y-4 animate__animated animate__fadeIn animate__delay-2s"
+      >
         <div class="space-y-4">
           <input-control
-            [form]="loginForm"
+            [useFormControl]="true"
+            [formGroup]="loginForm"
             controlName="username"
             autocomplete="username"
             label="Nombre de Usuario"
-            iconClass="icon-[mdi--account-outline]"
+            [hasIcon]="true"
+            iconClass="icon-[mdi--account-outline] absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500"
             errorMessage="Introduzca un nombre usuario válido"
             placeholder="Nombre de usuario"
             ariaDescribedby="username-error"
@@ -78,9 +116,11 @@
           />
 
           <!-- Remember Me & Forgot Password -->
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+          <div
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0"
+          >
             <button-control
-              text="¿Olvidaste tu contraseña?"
+              textButton="¿Olvidaste tu contraseña?"
               buttonClass="text-xs sm:text-sm font-medium text-[#E91E63] hover:text-[#D81B60] transition-colors duration-300 focus:outline-hidden focus:ring-2 focus:ring-[#E91E63] focus:ring-offset-2 rounded-sm"
               (onClick)="redirectToForgotPassword()"
             />
@@ -91,9 +131,9 @@
           <!-- Submit Button -->
           <button-control
             buttonClass="w-full flex justify-center py-2 sm:py-3 px-4 border border-transparent rounded-lg shadow-xs text-sm font-medium text-white bg-[#E91E63] hover:bg-[#D81B60] focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-[#E91E63] transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-            [text]="isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'"
-            [hasIconClass]="isLoading"
-            type="submit"
+            [textButton]="isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'"
+            [hasIcon]="isLoading"
+            typeButton="submit"
             iconClass="-ml-1 mr-2 h-4 w-4 icon-[line-md--loading-loop] animate-spin"
             [hasDisabledCondition]="true"
             [disabledCondition]="loginForm.invalid || isLoading"
@@ -104,9 +144,9 @@
             <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
               ¿No tienes una cuenta?
               <navigation-link
-                text="Regístrate aquí"
-                linkClass="font-medium text-[#E91E63] hover:text-[#D81B60] transition-colors duration-300 focus:outline-hidden focus:ring-2 focus:ring-[#E91E63] focus:ring-offset-2 rounded-sm"
                 link="/auth/signup"
+                linkClass="font-medium text-[#E91E63] hover:text-[#D81B60] transition-colors duration-300 focus:outline-hidden focus:ring-2 focus:ring-[#E91E63] focus:ring-offset-2 rounded-sm"
+                linkText="Regístrate aquí"
               />
             </p>
           </div>

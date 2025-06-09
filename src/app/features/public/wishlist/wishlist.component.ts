@@ -1,10 +1,10 @@
-import { Component, Input, type OnInit, signal } from "@angular/core"
 import { CommonModule } from "@angular/common"
+import { Component, Input, type OnInit, signal } from "@angular/core"
 import { RouterLink } from "@angular/router"
-import { WishlistItemComponent } from "../wishlist-item/wishlist-item.component"
-import { WishList, WishListItem } from "../../../core/interfaces/wishlist.interface"
 import { Product } from "../../../core/interfaces/products.interface"
-import { WishlistService } from '../../../core/providers/wishlist.service';
+import { WishList, WishListItem } from "../../../core/interfaces/wishlist.interface"
+import { WishlistService } from '../../../core/providers/api/wishlist.service'
+import { WishlistItemComponent } from "../wishlist-item/wishlist-item.component"
 
 @Component({
   selector: "app-wishlist",

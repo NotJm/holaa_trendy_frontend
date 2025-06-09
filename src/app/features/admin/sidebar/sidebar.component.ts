@@ -1,74 +1,86 @@
-import { Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../../core/providers/auth.service';
+import { delay, Subject, takeUntil, tap } from 'rxjs';
+import { AuthService } from '../../../core/providers/api/auth.service';
+import { UserService } from '../../../core/providers/api/user.service';
 import { ImageControlComponent } from '../../../shared/ui/image-control/image-control.component';
-import { UserService } from '../../../core/providers/user.service';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { NavigationLinkComponent } from '../../../shared/ui/navigation-link/navigation-link.component';
+import { IUserWithAvatar } from '../../../core/interfaces/users.interface';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
+import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule, ImageControlComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ImageControlComponent,
+    NavigationLinkComponent,
+    ButtonControlComponent,
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  #destroy$ = new Subject<void>();
+
+  userAvatar: string = 'https://avatar.iran.liara.run/public/34';
+  userName: string = 'Admin';
+  userEmail: string = 'user@example.com';
+
+  isLoading = signal<boolean>(false);
+
 
   constructor(
-    private readonly authService: AuthService,
-    private readonly userService: UserService,
     private readonly router: Router,
+    private readonly userService: UserService,
+    private readonly authService: AuthService
   ) {}
 
-  isCollapsed = false;
-
-    /** A signal for handling the user's avatar */
-    avatar = computed(() => this.userService.avatar());
-
-    /** A signal for handling the user's username */
-    username = computed(() => this.userService.username());
-  
-    /** A signal for handling the user's email */
-    email = computed(() => this.userService.email());
-
-  toggleSidebar() {
-    this.isCollapsed = !this.isCollapsed;
-  }
-
-  logout() {
-    this.authService.logOut().subscribe({
-      next: () => {
-        this.router.navigate(['/auth/login']);
-      },
-    });
-  }
-
   ngOnInit(): void {
-    this.initializeAuthState();
+    this.getUserData();
+  }
+
+  private getUserData(): void {
+    const cachedUser = this.userService.getCachedUser();
+
+    if (cachedUser) {
+      this.setUserData(cachedUser);
+    }
+
+    this.userService
+      .getUserData()
+      .pipe(takeUntil(this.#destroy$))
+      .subscribe({
+        next: (response: IApiResponse) => this.setUserData(response.data),
+      });
+  }
+
+  private setUserData(userData: IUserWithAvatar): void {
+    this.userAvatar = userData.avatar ?? '';
+    this.userEmail = userData.email ?? '';
+    this.userName = userData.username ?? '';
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.#destroy$.next();
+    this.#destroy$.complete();
   }
 
-  private initializeAuthState(): void {
+  logout(): void {
     this.authService
-      .checkSession()
-      .pipe(takeUntil(this.destroy$))
+      .logOut()
+      .pipe(
+        takeUntil(this.#destroy$),
+        tap(() => this.isLoading.set(true)),
+        delay(2000)
+      )
       .subscribe({
-        next: (response: IApiResponse) => {
-          if (response.data.authenticate) {
-            this.userService.getAvatar().subscribe()
-          }
-        },
-        error: () => {
-          this.router.navigate(['/auth/login']);
-        },
+        next: () => this.router.navigate(['/auth/login']),
+        error: () => this.router.navigate(['/auth/login']),
+        complete: () => this.isLoading.set(false)
       });
   }
 }

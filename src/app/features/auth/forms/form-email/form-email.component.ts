@@ -10,7 +10,7 @@ import {
 import { HotToastService } from '@ngxpert/hot-toast';
 import { finalize, tap } from 'rxjs';
 import { IApiResponse } from '../../../../core/interfaces/api.response.interface';
-import { AuthService } from '../../../../core/providers/auth.service';
+import { AuthService } from '../../../../core/providers/api/auth.service';
 import { ButtonControlComponent } from '../../../../shared/ui/button/button-control.component';
 import { InputControlComponent } from '../../../../shared/ui/controls/input-control/input-control.component';
 

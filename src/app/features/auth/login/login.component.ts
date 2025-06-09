@@ -5,19 +5,20 @@ import {
   inject,
   OnDestroy,
   OnInit,
-  signal
+  signal,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { Subscription } from 'rxjs';
-import { IApiResponse } from '../../../core/interfaces/api.response.interface';
-import { AuthService } from '../../../core/providers/auth.service';
+import { AuthService } from '../../../core/providers/api/auth.service';
 import { FooterService } from '../../../core/providers/footer.service';
 import { NavbarService } from '../../../core/providers/navbar.service';
 import { AnimatedBackgroundComponent } from '../../../shared/animated-background/animated-background.component';
 import { SuccessViewComponent } from '../../../shared/success-view/success-view.component';
 import { FormLoginComponent } from '../forms/form-login/form-login.component';
+import { UserService } from '../../../core/providers/api/user.service';
+import { IApiResponse } from '../../../core/interfaces/api.response.interface';
 
 @Component({
   selector: 'app-login',
@@ -32,19 +33,19 @@ import { FormLoginComponent } from '../forms/form-login/form-login.component';
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  private router = inject(Router);
-  private authService = inject(AuthService);
-  private cdr = inject(ChangeDetectorRef);
-
   step = signal<'login' | 'pending' | 'success'>('login');
   token = signal<string | null>(null);
+  isLoading = signal<boolean>(false);
+  tokenVerification: boolean = false;
 
   accountVerificationSubscription: Subscription = Subscription.EMPTY;
 
   constructor(
+    private readonly router: Router,
     private readonly navbarService: NavbarService,
     private readonly footerService: FooterService,
-    private readonly activatedRoute: ActivatedRoute,
+    private readonly authService: AuthService,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -52,19 +53,20 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.step.set(params['step'] || 'login');
       this.token.set(params['token'] || null);
     });
-    
+
     if (this.accountVerificationSubscription) {
       this.accountVerificationSubscription.unsubscribe();
     }
 
-    const token = this.token();
+    if (this.tokenVerification) {
+      const token = this.token();
 
-    if (token) {
-      this.accountVerificationSubscription = this.authService.accountVerification(token).subscribe({
-        next: (response: IApiResponse | null) => this.onSuccess(response),
-      })
+      if (token) {
+        this.accountVerificationSubscription = this.authService.accountVerification(token).subscribe({
+          next: (response: IApiResponse | null) => this.onSuccess(response),
+        })
+      }
     }
-
 
     this.navbarService.hide();
     this.footerService.hide();
@@ -75,12 +77,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.footerService.show();
   }
 
-  onSuccess(response: IApiResponse | null): void {
-    this.cdr.detectChanges();
+  onSuccess(response?: IApiResponse | null): void {
+    this.authService.updateAuthState(true);
+    this.isLoading.set(true);
     setTimeout(() => {
-      this.router.navigate(['/'],{ replaceUrl: true })
-    }, 3000)
+      this.isLoading.set(false);
+      this.router.navigate(['/'], { replaceUrl: true });
+    }, 3000);
   }
-
-  onError(): void {}
 }

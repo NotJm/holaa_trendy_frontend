@@ -6,7 +6,7 @@ import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { finalize } from 'rxjs';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
 import { Product } from '../../../core/interfaces/products.interface';
-import { ProductsService } from '../../../core/providers/products.service';
+import { ProductsService } from '../../../core/providers/api/products.service';
 import { ImageControlComponent } from '../../../shared/ui/image-control/image-control.component';
 import { FeaturedProductsComponent } from "../../public/featured-products/featured-products.component";
 

@@ -4,12 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../../core/providers/api/auth.service';
 import { FooterService } from '../../../core/providers/footer.service';
 import { NavbarService } from '../../../core/providers/navbar.service';
 import { AnimatedBackgroundComponent } from '../../../shared/animated-background/animated-background.component';
-import { SignupFormComponent } from '../forms/form-signup/signup-form.component';
 import { SuccessViewComponent } from "../../../shared/success-view/success-view.component";
-import { AuthService } from '../../../core/providers/auth.service';
+import { SignupFormComponent } from '../forms/form-signup/signup-form.component';
 
 @Component({
   selector: 'app-signup',

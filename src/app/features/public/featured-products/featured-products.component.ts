@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { Product } from '../../../core/interfaces/products.interface';
-import { AuthService } from '../../../core/providers/auth.service';
-import { CartService } from '../../../core/providers/cart.service';
-import { WishlistService } from '../../../core/providers/wishlist.service';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { AuthService } from '../../../core/providers/api/auth.service';
+import { CartService } from '../../../core/providers/api/cart.service';
+import { WishlistService } from '../../../core/providers/api/wishlist.service';
+import { LoadingComponent } from '../../../shared/loading-view/loading-view.component';
 import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 import { NavigationLinkComponent } from '../../../shared/ui/navigation-link/navigation-link.component';
 import { ProductCardComponent } from '../../products/ui/product-card/product-card.component';
@@ -27,7 +27,7 @@ import { ProductCardComponent } from '../../products/ui/product-card/product-car
   styleUrls: ['./featured-products.component.css'],
 })
 export class FeaturedProductsComponent {
-  @Input({ required: true }) titleP!: string;
+  @Input({ required: true }) titleFeatured!: string;
   @Input({ required: true }) description!: string;
   @Input({ required: true }) products!: Product[];
   @Input() invert?: boolean = false;
@@ -49,9 +49,10 @@ export class FeaturedProductsComponent {
     pullDrag: false,
     dots: false,
     rewind: true,
+    
     navSpeed: 1000,
     smartSpeed: 1000,
-    autoplay: true,
+    autoplay: false,
     autoplayTimeout: 5000,
     autoplayHoverPause: true,
     responsive: {

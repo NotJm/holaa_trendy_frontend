@@ -5,8 +5,7 @@ import {
   CompanyProfile,
   UpdateBusinessProfile,
 } from "../../../core/interfaces/business.profile";
-import { SocialSite, UpdateSocialSite } from "../../../core/interfaces/social.site";
-import { AdminService } from "../../../core/providers/admin.service";
+import { AdminService } from "../../../core/providers/api/admin.service";
 
 @Component({
     selector: "app-business",

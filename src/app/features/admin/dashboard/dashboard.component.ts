@@ -1,10 +1,10 @@
-import { Component, inject, OnDestroy, OnInit } from "@angular/core"
 import { CommonModule } from "@angular/common"
+import { Component, inject, OnDestroy, OnInit } from "@angular/core"
 import { Router, RouterModule } from "@angular/router"
-import { AuthService } from "../../../core/providers/auth.service" // Asegúrate de que esta ruta sea correcta
-import { SidebarComponent } from "../sidebar/sidebar.component"
-import { NavbarService } from "../../../core/providers/navbar.service"
+import { AuthService } from "../../../core/providers/api/auth.service"; // Asegúrate de que esta ruta sea correcta
 import { FooterService } from "../../../core/providers/footer.service"
+import { NavbarService } from "../../../core/providers/navbar.service"
+import { SidebarComponent } from "../sidebar/sidebar.component"
 
 @Component({
   selector: "app-dashboard",

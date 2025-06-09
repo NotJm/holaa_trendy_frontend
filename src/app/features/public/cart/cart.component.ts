@@ -1,16 +1,15 @@
+import { Platform } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Cart } from '../../../core/interfaces/cart.interface';
-import { CartService } from '../../../core/providers/cart.service';
-import { CartItemComponent } from '../ui/cart-item/cart-item.component';
-import { SaleService } from '../../../core/providers/sale.service';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { BeforeLoadingService } from '../../../core/providers/before-loading.service';
-import { Platform } from '@angular/cdk/platform';
+import { finalize, Subscription } from 'rxjs';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
-import { finalize, Subscription, tap } from 'rxjs';
+import { Cart } from '../../../core/interfaces/cart.interface';
+import { CartService } from '../../../core/providers/api/cart.service';
+import { SaleService } from '../../../core/providers/api/sale.service';
 import { ButtonControlComponent } from "../../../shared/ui/button/button-control.component";
+import { CartItemComponent } from '../ui/cart-item/cart-item.component';
 
 @Component({
   selector: 'app-cart',

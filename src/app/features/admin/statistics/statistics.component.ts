@@ -7,20 +7,16 @@ import {
   ISaleByCategory,
   IStockDepletionTime,
 } from '../../../core/interfaces/sales.interface';
-import { CategoryService } from '../../../core/providers/category.service';
-import { SaleService } from '../../../core/providers/sale.service';
-import { DateRangeComponent } from '../../../shared/ui/controls/date-range-control/date-range.component';
+import { CategoryService } from '../../../core/providers/api/category.service';
+import { SaleService } from '../../../core/providers/api/sale.service';
 import { IconControlComponent } from '../../../shared/ui/controls/icon-control/icon-control.component';
 import { InputControlComponent } from '../../../shared/ui/controls/input-control/input-control.component';
 import { SelectControlComponent } from '../../../shared/ui/controls/select-control/select-control.component';
+import { ProductSalesPieChartComponent } from "../ui/charts/category-sales-pie-chart.component";
+import { StockCompareSaleChartComponent } from "../ui/charts/stock-compare-sale-chart.component";
 import { MetricCardComponent } from '../ui/metric-card/metric-card.component';
 import { StadisticTableComponent } from '../ui/stadisctic-table/stadistic-table.component';
-import { parse } from 'date-fns';
 import { ProductSaleCardComponent } from './ui/product-sales/product-sale-card.component';
-import { StockCompareSaleChartComponent } from "../ui/charts/stock-compare-sale-chart.component";
-import { SalesTrendChartComponent } from "../ui/charts/sale-trend-chart.component";
-import { ButtonControlComponent } from "../../../shared/ui/button/button-control.component";
-import { ProductSalesPieChartComponent } from "../ui/charts/category-sales-pie-chart.component";
 
 @Component({
   selector: 'app-statistics',

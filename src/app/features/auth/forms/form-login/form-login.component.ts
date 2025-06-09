@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { finalize } from 'rxjs/operators';
 import { IApiResponse } from '../../../../core/interfaces/api.response.interface';
-import { AuthService } from '../../../../core/providers/auth.service';
+import { AuthService } from '../../../../core/providers/api/auth.service';
 import { ButtonControlComponent } from '../../../../shared/ui/button/button-control.component';
 import { InputControlComponent } from '../../../../shared/ui/controls/input-control/input-control.component';
 import { FormPasswordControlComponent } from '../../../../shared/ui/form-password-control/form-password-control.component';
@@ -98,7 +98,7 @@ export class FormLoginComponent {
     private readonly location: Location,
     private readonly toast: HotToastService,
     private readonly authService: AuthService,
-    private readonly cookieService: CookieService,
+    private readonly cookieService: CookieService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -115,7 +115,7 @@ export class FormLoginComponent {
         .logIn(credentials)
         .pipe(finalize(() => (this.isLoading = false)))
         .subscribe({
-          next: (response: IApiResponse) => this.onSuccess(response),
+          next: () => this.onSuccess(),
           error: (error: any) => this.onError(error),
         });
     }
@@ -129,8 +129,7 @@ export class FormLoginComponent {
     this.router.navigate(['/']);
   }
 
-  private onSuccess(response: IApiResponse): void {
-    this.toast.info(response.message, { position: 'top-right' });
+  private onSuccess(): void {
     this.onNextStep.emit();
   }
 

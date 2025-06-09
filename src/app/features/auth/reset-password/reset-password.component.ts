@@ -7,16 +7,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../core/providers/auth.service';
-import { DataService } from '../../../core/providers/data.service';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { AnimatedBackgroundComponent } from '../../../shared/animated-background/animated-background.component';
-import { FormPasswordControlComponent } from '../../../shared/ui/form-password-control/form-password-control.component';
-import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 import { finalize, tap } from 'rxjs';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
-import { NavbarService } from '../../../core/providers/navbar.service';
+import { AuthService } from '../../../core/providers/api/auth.service';
 import { FooterService } from '../../../core/providers/footer.service';
+import { NavbarService } from '../../../core/providers/navbar.service';
+import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
+import { FormPasswordControlComponent } from '../../../shared/ui/form-password-control/form-password-control.component';
 
 @Component({
   selector: 'reset-password',

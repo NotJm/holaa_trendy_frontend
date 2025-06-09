@@ -1,24 +1,21 @@
+import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
-  OnDestroy,
-  OnInit,
-  signal,
+  OnInit
 } from '@angular/core';
-import { SliderComponent } from '../../../shared/ui/slider/slider.component';
+import { Product } from '../../../core/interfaces/products.interface';
+import { ProductsService } from '../../../core/providers/api/products.service';
 import { FeaturedProductsComponent } from '../featured-products/featured-products.component';
 import { PromotionalBannerComponent } from '../ui/promotional-banner/promotional-banner.component';
 import { ServiceFeaturesComponent } from '../ui/service-features/service-features.component';
-import { ProductsService } from '../../../core/providers/products.service';
-import { Product } from '../../../core/interfaces/products.interface';
-import { CommonModule } from '@angular/common';
+import { SliderCategoriesComponent } from '../../../shared/ui/slider/slider-categories.component';
 @Component({
   selector: 'app-home',
   imports: [
     CommonModule,
     PromotionalBannerComponent,
     ServiceFeaturesComponent,
-    SliderComponent,
+    SliderCategoriesComponent,
     FeaturedProductsComponent,
   ],
   templateUrl: './home.component.html',

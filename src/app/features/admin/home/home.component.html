@@ -1,134 +1,218 @@
-<div class="flex h-screen bg-gray-50 dark:bg-gray-900">
-    <!-- Sidebar -->
-    <app-sidebar></app-sidebar>
-  
-    <!-- Main Content -->
-    <div class="flex flex-col flex-1 overflow-hidden">
-      <!-- Header -->
-      
-  
-      <!-- Main Content Area -->
-      <main class="flex-1 overflow-y-auto p-4 md:p-6">
-        <div class="max-w-7xl mx-auto">
-          <!-- Welcome Section -->
-          <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Bienvenido, Admin</h1>
-            <p class="text-gray-600 dark:text-gray-300 mt-1">Aquí está lo que está sucediendo con tu plataforma hoy.</p>
-          </div>
-  
-          <!-- Stats Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div *ngFor="let stat of dashboardStats" 
-                 class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-all duration-200 hover:shadow-lg border border-gray-100 dark:border-gray-700">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ stat.title }}</p>
-                  <p class="text-2xl font-bold text-gray-900 dark:text-white mt-1">{{ stat.value }}</p>
-                </div>
-                <div [ngClass]="{'bg-green-100 dark:bg-green-900': stat.trend === 'up', 'bg-red-100 dark:bg-red-900': stat.trend === 'down'}" 
-                     class="p-3 rounded-full">
-                  <span [ngClass]="{'text-green-600 dark:text-green-400': stat.trend === 'up', 'text-red-600 dark:text-red-400': stat.trend === 'down'}" 
-                        class="text-lg">
-                    <i [class]="'fas fa-' + stat.icon"></i>
-                  </span>
-                </div>
+<div class="flex h-screen dark:bg-gray-900">
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <!-- Cabecera -->
+
+    <!-- Area de Contenido principal -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-6">
+      <div class="max-w-7xl mx-auto">
+        <!-- Seccion de bienvenida -->
+        <div class="mb-8">
+          <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white font-karla">
+            ¡Bienvenido, {{ userName | titlecase }}!
+          </h1>
+          <p class="text-gray-600 dark:text-gray-300 mt-1 font-karla">
+            Aquí está lo que está sucediendo con tu plataforma hoy.
+          </p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div
+            *ngFor="let stat of dashboardStats"
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-all duration-200 hover:shadow-lg border border-gray-100 dark:border-gray-700"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {{ stat.title }}
+                </p>
+                <p
+                  class="text-2xl font-bold text-gray-900 dark:text-white mt-1"
+                >
+                  {{ stat.value }}
+                </p>
               </div>
-              <div class="mt-4">
-                <span [ngClass]="{'text-green-600 dark:text-green-400': stat.trend === 'up', 'text-red-600 dark:text-red-400': stat.trend === 'down'}" 
-                      class="text-sm font-medium">
-                  {{ stat.change }} desde el mes pasado
+              <div
+                [ngClass]="{
+                  'bg-green-100 dark:bg-green-900': stat.trend === 'up',
+                  'bg-red-100 dark:bg-red-900': stat.trend === 'down'
+                }"
+                class="p-3 rounded-full"
+              >
+                <span
+                  [ngClass]="{
+                    'text-green-600 dark:text-green-400': stat.trend === 'up',
+                    'text-red-600 dark:text-red-400': stat.trend === 'down'
+                  }"
+                  class="text-lg"
+                >
+                  <span [class]="'icon-[mdi--' + stat.icon"></span>
                 </span>
               </div>
             </div>
-          </div>
-  
-          <!-- Main Dashboard Content -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Recent Activity -->
-            <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-100 dark:border-gray-700">
-              <div class="p-6 border-b border-gray-100 dark:border-gray-700">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Actividad Reciente</h2>
-              </div>
-              <div class="p-6">
-                <div *ngFor="let activity of recentActivities" class="flex items-start mb-6 last:mb-0">
-                  <img [src]="activity.avatar" alt="User avatar" class="w-10 h-10 rounded-full mr-4">
-                  <div>
-                    <p class="text-sm text-gray-800 dark:text-white">
-                      <span class="font-medium">{{ activity.user }}</span> {{ activity.action }}
-                    </p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ activity.time }}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-b-lg">
-                <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">Ver toda la actividad</a>
-              </div>
-            </div>
-  
-            <!-- Tasks -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-100 dark:border-gray-700">
-              <div class="p-6 border-b border-gray-100 dark:border-gray-700">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Tareas</h2>
-              </div>
-              <div class="p-6">
-                <div *ngFor="let task of tasks" class="mb-4 last:mb-0">
-                  <div class="flex items-center">
-                    <div class="shrink-0 mr-3">
-                      <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500">
-                    </div>
-                    <div class="flex-1">
-                      <p class="text-sm font-medium text-gray-800 dark:text-white">{{ task.title }}</p>
-                      <div class="flex items-center mt-1">
-                        <span [ngClass]="{
-                          'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300': task.priority === 'high',
-                          'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300': task.priority === 'medium',
-                          'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300': task.priority === 'low'
-                        }" class="px-2 py-0.5 text-xs rounded-full">
-                          {{ task.priority }}
-                        </span>
-                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">Vence: {{ task.dueDate }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-b-lg">
-                <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">Ver todas las tareas</a>
-              </div>
-            </div>
-          </div>
-  
-          <!-- Quick Actions -->
-          <div class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-100 dark:border-gray-700">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Acciones Rápidas</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <button class="flex flex-col items-center justify-center p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors">
-                <span class="text-blue-600 dark:text-blue-400 text-xl mb-2">
-                  <i class="fas fa-user-plus"></i>
-                </span>
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Añadir empleado</span>
-              </button>
-              <button class="flex flex-col items-center justify-center p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors">
-                <span class="text-purple-600 dark:text-purple-400 text-xl mb-2">
-                  <i class="fas fa-chart-line"></i>
-                </span>
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Ver Reportes</span>
-              </button>
-              <button class="flex flex-col items-center justify-center p-4 bg-green-50 dark:bg-green-900/30 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors">
-                <span class="text-green-600 dark:text-green-400 text-xl mb-2">
-                  <i class="fas fa-cog"></i>
-                </span>
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Configuración</span>
-              </button>
-              <button class="flex flex-col items-center justify-center p-4 bg-amber-50 dark:bg-amber-900/30 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors">
-                <span class="text-amber-600 dark:text-amber-400 text-xl mb-2">
-                  <i class="fas fa-question-circle"></i>
-                </span>
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Ayuda</span>
-              </button>
+            <div class="mt-4">
+              <span
+                [ngClass]="{
+                  'text-green-600 dark:text-green-400': stat.trend === 'up',
+                  'text-red-600 dark:text-red-400': stat.trend === 'down'
+                }"
+                class="text-sm font-medium"
+              >
+                {{ stat.change }} desde el mes pasado
+              </span>
             </div>
           </div>
         </div>
-      </main>
-    </div>
+
+        <!-- Main Dashboard Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Recent Activity -->
+          <div
+            class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-100 dark:border-gray-700"
+          >
+            <div class="p-6 border-b border-gray-100 dark:border-gray-700">
+              <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+                Actividad Reciente
+              </h2>
+            </div>
+            <div class="p-6">
+              <div
+                *ngFor="let activity of recentActivities"
+                class="flex items-start mb-6 last:mb-0"
+              >
+                <img
+                  [src]="activity.avatar"
+                  alt="User avatar"
+                  class="w-10 h-10 rounded-full mr-4"
+                />
+                <div>
+                  <p class="text-sm text-gray-800 dark:text-white">
+                    <span class="font-medium">{{ activity.user }}</span>
+                    {{ activity.action }}
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    {{ activity.time }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-b-lg">
+              <a
+                href="#"
+                class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                >Ver toda la actividad</a
+              >
+            </div>
+          </div>
+
+          <!-- Tasks -->
+          <div
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-100 dark:border-gray-700"
+          >
+            <div class="p-6 border-b border-gray-100 dark:border-gray-700">
+              <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+                Tareas
+              </h2>
+            </div>
+            <div class="p-6">
+              <div *ngFor="let task of tasks" class="mb-4 last:mb-0">
+                <div class="flex items-center">
+                  <div class="shrink-0 mr-3">
+                    <input
+                      type="checkbox"
+                      class="form-checkbox h-5 w-5 text-blue-600 rounded-sm border-gray-300 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div class="flex-1">
+                    <p
+                      class="text-sm font-medium text-gray-800 dark:text-white"
+                    >
+                      {{ task.title }}
+                    </p>
+                    <div class="flex items-center mt-1">
+                      <span
+                        [ngClass]="{
+                          'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300':
+                            task.priority === 'high',
+                          'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300':
+                            task.priority === 'medium',
+                          'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300':
+                            task.priority === 'low'
+                        }"
+                        class="px-2 py-0.5 text-xs rounded-full"
+                      >
+                        {{ task.priority }}
+                      </span>
+                      <span
+                        class="text-xs text-gray-500 dark:text-gray-400 ml-2"
+                        >Vence: {{ task.dueDate }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-b-lg">
+              <a
+                href="#"
+                class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                >Ver todas las tareas</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div
+          class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-100 dark:border-gray-700"
+        >
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            Acciones Rápidas
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <button
+              class="flex flex-col items-center justify-center p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
+            >
+              <span class="text-blue-600 dark:text-blue-400 text-xl mb-2">
+                <i class="fas fa-user-plus"></i>
+              </span>
+              <span class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                >Añadir empleado</span
+              >
+            </button>
+            <button
+              class="flex flex-col items-center justify-center p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors"
+            >
+              <span class="text-purple-600 dark:text-purple-400 text-xl mb-2">
+                <i class="fas fa-chart-line"></i>
+              </span>
+              <span class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                >Ver Reportes</span
+              >
+            </button>
+            <button
+              class="flex flex-col items-center justify-center p-4 bg-green-50 dark:bg-green-900/30 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors"
+            >
+              <span class="text-green-600 dark:text-green-400 text-xl mb-2">
+                <i class="fas fa-cog"></i>
+              </span>
+              <span class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                >Configuración</span
+              >
+            </button>
+            <button
+              class="flex flex-col items-center justify-center p-4 bg-amber-50 dark:bg-amber-900/30 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors"
+            >
+              <span class="text-amber-600 dark:text-amber-400 text-xl mb-2">
+                <i class="fas fa-question-circle"></i>
+              </span>
+              <span class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                >Ayuda</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
+</div>

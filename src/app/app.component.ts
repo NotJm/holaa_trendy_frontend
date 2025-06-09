@@ -4,16 +4,15 @@ import {
   ChangeDetectorRef,
   Component,
   computed,
-  OnDestroy,
-  signal,
+  signal
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { AuthService } from './core/providers/auth.service';
-import { ServerService } from './core/providers/server.service';
+import { ServerService } from './core/providers/api/server.service';
 import { FooterComponent } from './features/public/footer/footer.component';
 import { NavbarComponent } from './features/public/navbar/navbar.component';
 import { MaintenanceComponent } from './shared/maintenance/maintenance.component';
+import { AuthService } from './core/providers/api/auth.service';
+import { UserService } from './core/providers/api/user.service';
 
 @Component({
   selector: 'app-root',
@@ -27,15 +26,13 @@ import { MaintenanceComponent } from './shared/maintenance/maintenance.component
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
+export class AppComponent implements AfterViewInit {
   isServerAvailable = computed(() => this.serverService.isAvailable);
   isRouterOutletLoaded = signal<boolean>(false);
-  private destroy$ = new Subject<void>();
 
   constructor(
     private readonly cdr: ChangeDetectorRef,
     private readonly serverService: ServerService,
-    private readonly authService: AuthService,
   ) {}
 
   onActivate() {
@@ -47,15 +44,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+
     this.cdr.detectChanges();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 
-  private initializeAuthState(): void {
-    this.authService.checkSession().pipe(takeUntil(this.destroy$)).subscribe();
-  }
 }

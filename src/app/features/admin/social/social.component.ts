@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CreateSocialSite, SocialSite, UpdateSocialSite } from '../../../core/interfaces/social.site';
-import { AdminService } from '../../../core/providers/admin.service';
-import { NotificationService } from '../../../core/providers/notification.service';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CreateSocialSite, SocialSite, UpdateSocialSite } from '../../../core/interfaces/social.site';
+import { AdminService } from '../../../core/providers/api/admin.service';
 
 @Component({
     selector: 'app-social',
@@ -32,7 +31,6 @@ export class SocialComponent implements OnInit {
    */
   constructor(
     private readonly adminService: AdminService,
-    private readonly notificationService: NotificationService,
     private readonly fb: FormBuilder
   ) {
     this.formSocialSite = fb.group({
@@ -60,10 +58,7 @@ export class SocialComponent implements OnInit {
         this.socialSites = socialSites
       },
       error:(err) => {
-        this.notificationService.error(
-          "Excepcion Producida",
-          "Error obteniendo datos de redes sociales"
-        )
+       
       }
     })
   }
@@ -103,28 +98,7 @@ export class SocialComponent implements OnInit {
     this.isAddSocialSiteOpen = false;
   }
 
-  addSocialSite(): void {
-    if (this.formSocialSite.valid) {
-      this.createSocialSites = { ...this.formSocialSite.value};
 
-      this.adminService.createSocialSite(this.createSocialSites).subscribe({
-        next: (response) => {
-          this.notificationService.success('Creado con exito', response.message);
-          this.loadSocialSites();
-          this.closeAddSocialSiteModal()
-        },
-        error: (error) => {
-          this.notificationService.error('Excepcion Producida', 'No se pudo crear la red social');
-        }
-      })
-
-    } else {
-      this.notificationService.error("Campos Invalidos", "Por favor, verifique los campos")
-    }
-
-
-
-  }
 
   openEditSocialEditModal(currentSocialSite: SocialSite): void {
     this.currentSocialSites = currentSocialSite;
@@ -144,31 +118,31 @@ export class SocialComponent implements OnInit {
     console.log(this.updateSocialSites);
 
     this.adminService.updateSocialSite(_id, this.updateSocialSites).subscribe({
-      next: (response) => {
-        this.notificationService.success('Actualizacion con exito', response.message)
+      // next: (response) => {
+      //   this.notificationService.success('Actualizacion con exito', response.message)
 
-        this.loadSocialSites()
+      //   this.loadSocialSites()
 
-        this.closeEditSocialSiteModal();
+      //   this.closeEditSocialSiteModal();
 
-      },
-      error: (err) => {
-        this.notificationService.error('Excepcion producida', 'Error al actualizar red social');
-      }
+      // },
+      // error: (err) => {
+      //   this.notificationService.error('Excepcion producida', 'Error al actualizar red social');
+      // }
     })
   }
 
   deleteSocialSite(currentSocialSite: SocialSite): void {
-    this.adminService.deleteSocialSite(currentSocialSite._id).subscribe({
-      next: (response) => {
-        this.notificationService.success('Eliminacion con exito', response.message)
+    // this.adminService.deleteSocialSite(currentSocialSite._id).subscribe({
+    //   next: (response) => {
+    //     this.notificationService.success('Eliminacion con exito', response.message)
 
-        this.loadSocialSites()
-      },
-      error: (err) => {
-        this.notificationService.error('Excepcion producida', 'Error al eliminar red social');
-      } 
-    })
+    //     this.loadSocialSites()
+    //   },
+    //   error: (err) => {
+    //     this.notificationService.error('Excepcion producida', 'Error al eliminar red social');
+    //   } 
+    // })
   }
 
   

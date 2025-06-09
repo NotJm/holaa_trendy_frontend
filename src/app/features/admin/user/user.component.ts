@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AdminService } from '../../../core/providers/admin.service';
+import { AdminService } from '../../../core/providers/api/admin.service';
 
 interface User {
   username: string;

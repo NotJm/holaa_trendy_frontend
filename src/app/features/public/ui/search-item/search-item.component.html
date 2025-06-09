@@ -1,0 +1,31 @@
+<div
+  class="p-4 hover:bg-gray-100 cursor-pointer transition-all duration-200 border-b border-gray-200 last:border-b-0"
+  (mouseenter)="onHoverEvent.emit()"
+  (mouseleave)="onLeaveEvent.emit()"
+  (blur)="onBlurEvent.emit()"
+  (click)="onProductEvent.emit(product)"
+>
+  <div class="flex items-center">
+    <div class="relative w-20 h-20 mr-4 overflow-hidden rounded-lg group">
+      <img
+        [src]="product.imgUri"
+        alt="{{ product.name }}"
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+      />
+      <div
+        class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      ></div>
+    </div>
+    <div class="grow">
+      <h3 class="text-xl font-semibold font-play-fair text-gray-800 mb-1">
+        {{ product.name }}
+      </h3>
+      <p class="text-mallow-melon font-bold font-karla">
+        {{ product.finalPrice | currency : "MXN" : "symbol" : "1.2-2" }}
+      </p>
+    </div>
+    <div class="text-gray-400 transition-colors duration-200">
+      <icon-control iconClass="icon-[mdi--search] w-6 h-6" />
+    </div>
+  </div>
+</div>

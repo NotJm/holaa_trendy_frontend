@@ -10,7 +10,7 @@ import { HotToastService } from '@ngxpert/hot-toast';
 import { CountdownComponent, CountdownEvent } from 'ngx-countdown';
 import { finalize, tap } from 'rxjs';
 import { IApiResponse } from '../../../../core/interfaces/api.response.interface';
-import { AuthService } from '../../../../core/providers/auth.service';
+import { AuthService } from '../../../../core/providers/api/auth.service';
 import { ButtonControlComponent } from '../../../../shared/ui/button/button-control.component';
 import { IconControlComponent } from '../../../../shared/ui/controls/icon-control/icon-control.component';
 import { FormOtpControlComponent } from '../../../../shared/ui/form-otp-control/form-otp-control.component';

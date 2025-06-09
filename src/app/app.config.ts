@@ -25,6 +25,7 @@ import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { WINDOW } from './core/constants/constants';
 import { QuicklinkStrategy } from 'ngx-quicklink';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { authInterceptor } from './core/interceptor/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

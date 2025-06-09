@@ -1,8 +1,6 @@
 <ng-container *ngIf="isServerAvailable() else maintenance"> 
   <app-navbar  *ngIf="isRouterOutletLoaded()"></app-navbar>
 
-  <!-- <announcement-modal *ngIf="isViewAvailable() && isRouterOutletLoaded()" modalId="offer"/> -->
-
   <router-outlet 
     (activate)="onActivate()"
     (deactivate)="onDesactivate()">

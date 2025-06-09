@@ -9,7 +9,7 @@ import { ImageControlComponent } from "../../../../shared/ui/image-control/image
   templateUrl: './promotional-banner.component.html',
 })
 export class PromotionalBannerComponent {
-    @Input({ required: true }) title!: string;
-    @Input({ required: true }) subtitle!: string;
-    @Input({ required: true }) discount!: string; 
+    @Input({ required: true }) titlePromotional!: string;
+    @Input({ required: true }) subtitleMessage!: string;
+    @Input({ required: true }) discountPercentage!: string; 
 }

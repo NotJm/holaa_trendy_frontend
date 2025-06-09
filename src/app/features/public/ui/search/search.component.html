@@ -1,0 +1,60 @@
+<div class="relative">
+  <input-control
+    #searchInput
+    [(value)]="keyword"
+    [useFormControl]="false"
+    [hasLabel]="false"
+    placeholder="¿Qué necesitas hoy? 😊"
+    enableAutocomplete="off"
+    inputType="text"
+    inputClass="w-full px-5 py-3 rounded-full border-2 border-[#E0E0E0] focus:border-mallow-melon ffocus:outline-none focus:ring-2 focus:ring-mallow-melon text-lg font-karla placeholder-gray-500 transition-colors duration-300"
+    (valueChange)="onSearch($event)"
+    (onFocusEvent)="onFocus()"
+    (onBlurEvent)="onBlur()"
+  />
+
+  <button-control
+    buttonClass="absolute right-4 top-8 transform -translate-y-1/2 text-mallow-melon hover:text-black transition-colors"
+    [hasIcon]="true"
+    iconClass="icon-[mdi--search] w-6 h-6"
+  />
+</div>
+
+<div
+  [@slideInOut]
+  class="absolute z-100 w-[80vh] mt-2 bg-white rounded-lg shadow-lg max-h-[70vh] overflow-y-auto overflow-x-hidden"
+>
+  <ng-container *ngIf="isFocused() && keyword.length > 0">
+    <ng-container *ngIf="isLoading(); else resutlsTemplate">
+      <div
+        class="flex flex-col items-center bg-mallow-melon text-white py-2 px-4 font-semibold font-karla"
+      >
+        <icon-control iconClass="icon-[eos-icons--loading] w-8 h-8" />
+        <span>Cargando</span>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-template #resutlsTemplate>
+  <div class="sticky top-0 z-10 bg-mallow-melon text-white py-2 px-4 font-semibold">
+    Resultados de búsqueda
+  </div>
+  <ng-container *ngIf="products.length > 0; else noResultsTemplate">
+    @for(product of products; track product.code) {
+    <search-item
+      [product]="product"
+      (onHoverEvent)="onHover($event)"
+      (onLeaveEvent)="onLeave($event)"
+      (onBlurEvent)="onBlur()"
+      (onProductEvent)="onProductClick($event)"
+    />
+    }
+  </ng-container>
+</ng-template>
+
+<ng-template #noResultsTemplate>
+  <div class="text-center py-4 text-gray-500 font-medium">
+    No se encontraron resultados.
+  </div>
+</ng-template>

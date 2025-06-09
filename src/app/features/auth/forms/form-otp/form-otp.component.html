@@ -44,10 +44,10 @@
         buttonClass="w-full py-3 bg-[#E91E63] text-white rounded-md font-medium hover:bg-[#D81B60] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mb-4"
         [hasDisabledCondition]="true"
         [disabledCondition]="isLoading() || otpForm.invalid"
-        [hasIconClass]="isLoading()"
+        [hasIcon]="isLoading()"
         [hasIconClassHidden]="true"
         iconClass="-ml-1 mr-2 h-4 w-4 icon-[line-md--loading-loop] animate-spin"
-        [text]="isLoading() ? 'Verificando' : 'Verificar'"
+        [textButton]="isLoading() ? 'Verificando' : 'Verificar'"
       />
     </form>
 

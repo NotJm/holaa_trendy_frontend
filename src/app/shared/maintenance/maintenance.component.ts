@@ -1,10 +1,9 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, NgZone, OnDestroy, OnInit, signal } from '@angular/core';
-import { ServerService } from '../../core/providers/server.service';
-import { ButtonControlComponent } from '../ui/button/button-control.component';
-import { catchError, delay, finalize, Observable, of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { catchError, finalize, of } from 'rxjs';
+import { ServerService } from '../../core/providers/api/server.service';
 
 @Component({
   selector: 'maintenance',

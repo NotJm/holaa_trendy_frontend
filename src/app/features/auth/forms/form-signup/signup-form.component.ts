@@ -14,7 +14,7 @@ import { finalize } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment.development';
 import { IApiResponse } from '../../../../core/interfaces/api.response.interface';
-import { AuthService } from '../../../../core/providers/auth.service';
+import { AuthService } from '../../../../core/providers/api/auth.service';
 import { FooterService } from '../../../../core/providers/footer.service';
 import { NavbarService } from '../../../../core/providers/navbar.service';
 import { ButtonControlComponent } from '../../../../shared/ui/button/button-control.component';

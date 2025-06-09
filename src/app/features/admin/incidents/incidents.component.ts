@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EmailConfiguration, UpdateEmailConfiguration } from '../../../core/interfaces/emal.configuration';
 import { IncidentConfiguration, UpdateIncidentConfiguration } from '../../../core/interfaces/incident.configuration';
-import { AdminService } from '../../../core/providers/admin.service';
+import { AdminService } from '../../../core/providers/api/admin.service';
 
 @Component({
     selector: 'app-incidents',

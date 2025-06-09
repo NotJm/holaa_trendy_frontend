@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Audit } from '../../../core/interfaces/audit.interface';
-import { AdminService } from '../../../core/providers/admin.service';
+import { AdminService } from '../../../core/providers/api/admin.service';
 @Component({
     selector: 'app-audit',
     imports: [CommonModule],

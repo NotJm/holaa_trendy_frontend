@@ -1,37 +1,44 @@
 <!-- Modales (Anuncio de ofertas) -->
 
-
 <!-- Seccion de banner promocional -->
-<section class="container mx-auto px-4 py-10">
+<section class="container mx-auto px-4 pt-10 pb-2">
   <!-- Banner promocional -->
   <promotional-banner
-    title="!DESCUENTO EXCLUSIVO¡"
-    subtitle="COMPRA AHORA Y AHORRA EN TUS PRENDAS FAVORITAS"
-    discount="50%"
+    titlePromotional="!DESCUENTO EXCLUSIVO¡"
+    subtitleMessage="COMPRA AHORA Y AHORRA EN TUS PRENDAS FAVORITAS"
+    discountPercentage="50%"
   />
 </section>
 
 <!-- Seccion de servicios especiales -->
 <section
-  class="container mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 border-t pt-8"
+  class="mx-auto px-6 py-16 mb-5 w-full text-white bg-gradient-to-r from-mallow-melon to-cascara"
 >
-  <service-features
-    title="ENVÍO A TODO HUEJUTLA"
-    description="Contamos con envíos garantizados a todo el estado de Huejutla"
-    icon="icon-[hugeicons--package]"
-  />
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-3xl font-bold font-karla text-center mb-12">
+      Nuestros Servicios
+    </h2>
 
-  <service-features
-    title="ATENCIÓN AL CLIENTE"
-    description="Te entendemos con gusto y resolvemos todas tus dudas"
-    icon="icon-[hugeicons--customer-support]"
-  />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <service-features
+        titleMessage="ENVÍO A TODO HUEJUTLA"
+        description="Contamos con envíos garantizados a todo el estado de Huejutla"
+        iconClass="icon-[mdi--package]"
+      ></service-features>
 
-  <service-features
-    title="PAGOS SEGUROS"
-    description="HOLAA Trendy ofrece pagos seguros, rápidos y fáciles."
-    icon="icon-[hugeicons--shopping-basket-secure-01]"
-  />
+      <service-features
+        titleMessage="ATENCIÓN AL CLIENTE"
+        description="Te entendemos con gusto y resolvemos todas tus dudas"
+        iconClass="icon-[mdi--support]"
+      ></service-features>
+
+      <service-features
+        titleMessage="PAGOS SEGUROS"
+        description="HOLAA Trendy ofrece pagos seguros, rápidos y fáciles"
+        iconClass="icon-[mdi--shield]"
+      ></service-features>
+    </div>
+  </div>
 </section>
 
 <!-- Slider de categorias -->
@@ -40,21 +47,21 @@
 <!-- Seccion de productos especiales -->
 <featured-products
   id="bestSellers"
-  titleP="Top 10 de la semana"
+  titleFeatured="Top 10 de la semana"
   description="Descubre nuestros productos más populares"
   [products]="bestSellers"
 />
 
 <featured-products
   id="bestOffers"
-  titleP="Ofertas"
+  titleFeatured="Ofertas"
   description="Descubre nuestros productos en oferta"
   [products]="bestOffers"
 />
 
 <featured-products
   id="newArrivals"
-  titleP="Recien Llegados"
+  titleFeatured="Recien Llegados"
   description="Descubre nuestros productos más recientes"
   [products]="newArrivals"
 />

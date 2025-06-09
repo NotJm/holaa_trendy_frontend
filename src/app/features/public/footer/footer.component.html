@@ -1,6 +1,6 @@
 <footer *ngIf="isVisible()" class="bg-white border-t border-gray-100">
   <!-- Newsletter Section -->
-  <div class="bg-linear-to-r from-[#d81558] to-[#c1134f] text-white">
+  <div class="text-white bg-gradient-to-r from-mallow-melon to-cascara">
     <div class="container mx-auto px-4 py-12">
       <div class="max-w-4xl mx-auto text-center">
         <h3 class="text-2xl md:text-3xl font-bold mb-4">
@@ -47,21 +47,21 @@
           <button-control
             buttonClass="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-[#E91E63] hover:text-white transition-colors duration-300"
             text=""
-            [hasIconClass]="true"
+            [hasIcon]="true"
             iconClass="icon-[ic--baseline-facebook] w-6 h-6"
           />
-          
+
           <button-control
             buttonClass="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-[#E91E63] hover:text-white transition-colors duration-300"
             text=""
-            [hasIconClass]="true"
+            [hasIcon]="true"
             iconClass="icon-[hugeicons--instagram] w-6 h-6"
           />
 
           <button-control
             buttonClass="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-[#E91E63] hover:text-white transition-colors duration-300"
             text=""
-            [hasIconClass]="true"
+            [hasIcon]="true"
             iconClass="icon-[ic--baseline-whatsapp] w-6 h-6"
           />
         </div>
@@ -73,29 +73,32 @@
         <ul class="space-y-4">
           <li>
             <navigation-link
-              text="Mas vendidos"
-              [hasIconClass]="true"
-              iconClass="icon-[noto--fire]"
+              link="/"
+              linkText="Mas vendidos"
+              linkClass="flex items-center gap-2 text-lg text-[#000000] hover:text-[#E91E63] transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+              [hasIcon]="true"
+              iconClass="icon-[mdi--fire] w-7 h-7 flex items-center"
               fragment="bestSellers"
-              link="/"
             />
           </li>
           <li>
             <navigation-link
-              text="Mega ofertas"
-              [hasIconClass]="true"
-              iconClass="icon-[streamline--discount-percent-badge-solid]"
+              link="/"
+              linkText="Mega ofertas"
+              linkClass="flex items-center gap-2 text-lg text-[#000000] hover:text-[#E91E63] transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+              [hasIcon]="true"
+              iconClass="icon-[mdi--local-offer] w-7 h-7 flex items-center"
               fragment="bestOffers"
-              link="/"
             />
           </li>
           <li>
             <navigation-link
-              text="Recien Llegados"
-              [hasIconClass]="true"
-              iconClass="icon-[twemoji--new-button]"
-              fragment="newArrivals"
               link="/"
+              linkText="Recien Llegados"
+              linkClass="flex items-center gap-2 text-lg text-[#000000] hover:text-[#E91E63] transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+              [hasIcon]="true"
+              iconClass="icon-[mdi--new-box] w-7 h-7 flex items-center"
+              fragment="newArrivals"
             />
           </li>
         </ul>
@@ -107,47 +110,57 @@
         <ul class="space-y-4">
           <li>
             <navigation-link
-              text="Sobre nosotros"
-              [hasIconClass]="true"
-              iconClass="icon-[hugeicons--user-group]"
               link="/about-us"
+              linkText="Sobre nosotros"
+              linkClass="flex items-center gap-2 text-lg text-[#000000] hover:text-[#E91E63] transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+              [hasIcon]="true"
+              iconClass="icon-[mdi--user-group] w-7 h-7 flex items-center"
             />
           </li>
           <li>
             <navigation-link
-              text="Politicas"
-              [hasIconClass]="true"
-              iconClass="icon-[hugeicons--policy]"
               link="/policies"
+              linkText="Politicas"
+              linkClass="flex items-center gap-2 text-lg text-[#000000] hover:text-[#E91E63] transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+              [hasIcon]="true"
+              iconClass="icon-[mdi--shield-check] w-7 h-7 flex items-center"
             />
           </li>
           <li>
             <navigation-link
-              text="Seguimiento de pedidos"
-              [hasIconClass]="true"
-              iconClass="icon-[hugeicons--package]"
+              link=""
+              linkText="Seguimiento de pedidos"
+              linkClass="flex items-center gap-2 text-lg text-[#000000] hover:text-[#E91E63] transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+              [hasIcon]="true"
+              iconClass="icon-[mdi--package-variant] w-7 h-7 flex items-center"
+              iconStyles="w-5 h-5"
             />
           </li>
           <li>
             <navigation-link
-              text="Devoluciones"
-              [hasIconClass]="true"
-              iconClass="icon-[hugeicons--delivery-return-01]"
+              link=""
+              linkText="Devoluciones"
+              linkClass="flex items-center gap-2 text-lg text-[#000000] hover:text-[#E91E63] transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+              [hasIcon]="true"
+              iconClass="icon-[mdi--backburger] w-7 h-7 flex items-center"
             />
           </li>
           <li>
             <navigation-link
-              text="Preguntas Frecuentes"
-              [hasIconClass]="true"
-              iconClass="icon-[hugeicons--bubble-chat-question]"
+              link="/faq"
+              linkText="Preguntas Frecuentes"
+              linkClass="flex items-center gap-2 text-lg text-[#000000] hover:text-[#E91E63] transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+              [hasIcon]="true"
+              iconClass="icon-[mdi--faq] w-7 h-7 flex items-center"
             />
           </li>
           <li>
             <navigation-link
-              text="Contactanos"
-              [hasIconClass]="true"
-              iconClass="icon-[hugeicons--call-02]"
               link="/contacts"
+              linkText="Contactanos"
+              linkClass="flex items-center gap-2 text-lg text-[#000000] hover:text-[#E91E63] transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+              [hasIcon]="true"
+              iconClass="icon-[mdi--phone] w-7 h-7 flex items-center"
             />
           </li>
         </ul>

@@ -7,18 +7,18 @@ import { Color } from '../../../core/interfaces/color.interface';
 import { Product } from '../../../core/interfaces/products.interface';
 import { Size } from '../../../core/interfaces/size.interface';
 import { SubCategory } from '../../../core/interfaces/sub-category.interface';
-import { AuthService } from '../../../core/providers/auth.service';
-import { CartService } from '../../../core/providers/cart.service';
-import { ColorService } from '../../../core/providers/color.service';
-import { ProductsService } from '../../../core/providers/products.service';
-import { SizeService } from '../../../core/providers/size.service';
-import { SubCategoryService } from '../../../core/providers/sub-category.service';
+import { AuthService } from '../../../core/providers/api/auth.service';
+import { CartService } from '../../../core/providers/api/cart.service';
+import { ColorService } from '../../../core/providers/api/color.service';
+import { ProductsService } from '../../../core/providers/api/products.service';
+import { SizeService } from '../../../core/providers/api/size.service';
+import { SubCategoryService } from '../../../core/providers/api/sub-category.service';
+import { WishlistService } from '../../../core/providers/api/wishlist.service';
 import { FilterColorsComponent } from '../ui/filters/filter-colors.component';
 import { FilterPriceComponent } from '../ui/filters/filter-price.component';
 import { FilterSizesComponent } from '../ui/filters/filter-sizes.component';
 import { FilterSubCategoryComponent } from '../ui/filters/filter-subcategory.component';
 import { ProductCardComponent } from '../ui/product-card/product-card.component';
-import { WishlistService } from '../../../core/providers/wishlist.service';
 
 @Component({
   standalone: true,
@@ -156,30 +156,29 @@ export class ProductListComponent implements OnInit {
   }
 
   onAddWishlist(productCode: string): void {
-    debugger;
-    this.authService.checkSession().subscribe((response) => {
-      if (response.data.authenticate) {
-        return this.wishlistService
-          .addProduct(productCode)
-          .subscribe((response) => {
-            this.toast.success(response.message);
-          });
-      }
-      return this.redirectToLogin();
-    });
+    // this.authService.checkSession().subscribe((response) => {
+    //   if (response.data.authenticate) {
+    //     return this.wishlistService
+    //       .addProduct(productCode)
+    //       .subscribe((response) => {
+    //         this.toast.success(response.message);
+    //       });
+    //   }
+    //   return this.redirectToLogin();
+    // });
   }
 
   onAdd(productCode: string) {
-    this.authService.checkSession().subscribe((response) => {
-      if (response.data.authenticate) {
-        return this.cartService
-          .addProductToCart({ productCode: productCode, quantity: 1 })
-          .subscribe((response) => {
-            this.toast.success(response.message);
-          });
-      }
-      return this.redirectToLogin();
-    });
+    // this.authService.checkSession().subscribe((response) => {
+    //   if (response.data.authenticate) {
+    //     return this.cartService
+    //       .addProductToCart({ productCode: productCode, quantity: 1 })
+    //       .subscribe((response) => {
+    //         this.toast.success(response.message);
+    //       });
+    //   }
+    //   return this.redirectToLogin();
+    // });
   }
 
   redirectToProductDetail(productCode: string) {

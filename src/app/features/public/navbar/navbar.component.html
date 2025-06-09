@@ -6,66 +6,180 @@
   #navbar
   class="bg-white border-b border-[#E0E0E0] sticky top-0 z-50"
 >
+  <!-- Contenedor principal -->
   <div class="container mx-auto px-4">
-    <div class="flex items-center justify-between h-24">
-      <!-- Logo -->
-      <image-control
-        src="https://res.cloudinary.com/djy0fxyoq/image/upload/v1741215143/logo_ix9ohv.webp"
-        alt="HOLAA Trendy"
-        imageClass="h-16 md:h-18 me-5"
-        [isImageLink]="true"
-        imageLinkClass="shrink-0 transform hover:scale-105 transition-transform duration-200"
-        imageLink="/"
-      />
+    <!-- Contenedor para centrar los elementos -->
+    <div class="flex items-center h-24">
+      <!-- Logo de la empresa -->
+      <div class="flex justify-start me-2">
+        <image-control
+          src="https://res.cloudinary.com/djy0fxyoq/image/upload/v1741215143/logo_ix9ohv.webp"
+          alt="HOLAA Trendy"
+          imageClass="h-auto w-auto max-h-20"
+          imageLinkClass="shrink-0 transform hover:scale-105 transition-transform duration-200 flex items-center"
+          [isImageLink]="true"
+          imageLink="/"
+        />
+      </div>
 
-      <!-- Links de navegacion -->
-      <div class="hidden lg:flex items-center space-x-10">
+      <!-- Links de navegacion (30% del espacio) -->
+      <div class="w-3/10 hidden lg:flex items-center justify-center space-x-6">
         <navigation-link
-          text="Mas vendidos"
-          [hasIconClass]="true"
-          iconClass="icon-[noto--fire]"
+          link="/"
+          linkText="Mas vendidos"
+          linkClass="flex items-center gap-1 font-karla text-base text-black hover:text-mallow-melon transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--fire] w-6 h-6 flex items-center"
           fragment="bestSellers"
-          link="/"
         />
 
         <navigation-link
-          text="Mega ofertas"
-          [hasIconClass]="true"
-          iconClass="icon-[streamline--discount-percent-badge-solid]"
+          link="/"
+          linkText="Mega ofertas"
+          linkClass="flex items-center gap-1 font-karla text-base text-black hover:text-mallow-melon transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--local-offer] w-6 h-6 flex items-center"
           fragment="bestOffers"
-          link="/"
         />
 
         <navigation-link
-          text="Recien Llegados"
-          [hasIconClass]="true"
-          iconClass="icon-[twemoji--new-button]"
-          fragment="newArrivals"
           link="/"
+          linkText="Recien Llegados"
+          linkClass="flex items-center gap-1 font-karla text-base text-black hover:text-mallow-melon transition-colors cursor-pointer relative after:absolute after:bottom-[-4px] after:left-1/2 after:h-[2px] after:w-0 after:bg-[#E91E63] after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--new-box] w-6 h-6 flex items-center"
+          fragment="newArrivals"
         />
       </div>
 
-      <div class="flex-1 max-w-2xl mx-10 relative">
-        <control-search-products
-          (onSearchForm)="onSearch($event)"
-          [showResults]="showResults"
-          [products]="products"
-        />
-      </div>
+      <!-- Search Control -->
+      <!-- <div class="px-2 flex-1">
+        <search-control />
+      </div> -->
 
-      <!-- Iconos de la derecha -->
-      <div class="flex items-center space-x-8">
-        <icon-link-control
-          iconFilled="icon-[mdi--heart]"
-          icon="icon-[mdi--heart-outline]"
+      <!-- Icons Right  -->
+      <div class="flex px-2 items-center justify-end space-x-6">
+        <icon-control
+          *ngIf="!isAdmin()"
+          iconClass="icon-[mdi--cards-heart-outline] text-[#000] w-9 h-9 hover:icon-[mdi--cards-heart] hover:w-9 hover:h-9 hover:text-[#E91E63] transition-colors duration-600"
+          [hasLink]="true"
           link="/wishlist"
+          linkClass="cursor-pointer"
         />
 
-        <icon-link-control
-          icon="icon-[hugeicons--shopping-bag-02]"
+        <icon-control
+          *ngIf="!isAdmin()"
+          iconClass="icon-[mdi--shopping-outline] w-9 h-9 text-black hover:icon-[mdi--shopping] hover:w-9 hover:h-9 hover:text-mallow-melon transition-colors duration-600"
+          [hasLink]="true"
           link="/cart"
+          linkClass="cursor-pointer"
+        />
+
+          <icon-control
+          *ngIf="!isAuthenticated(); else userAuthMenuTemplate"
+          iconClass="icon-[mdi--account-outline] w-9 h-9 text-black hover:icon-[mdi--account] hover:w-9 hover:h-9 hover:text-mallow-melon transition-colors duration-600"
+          [hasLink]="true"
+          link="/auth/login"
+          linkClass="cursor-pointer"
+        />
+
+
+        <icon-control
+          iconClass="icon-[mdi--hamburger-menu] w-9 h-9 text-black hover:text-mallow-melon hover:w-9 hover:h-9 transition-colors duration-600"
         />
       </div>
     </div>
   </div>
 </nav>
+
+<!-- Authentication User Template -->
+<ng-template #userAuthMenuTemplate>
+  <div class="relative group">
+    <!-- Avatar -->
+    <div
+      class="flex items-center cursor-pointer bg-gray-50 hover:bg-gray-100 rounded-full p-1 transition-all duration-200"
+      aria-label="Perfil de usuario - Haz clic o pasa el cursor para ver opciones"
+      role="button"
+      tabindex="0"
+    >
+      <!-- Avatar del usuario -->
+      <image-control
+        src="{{ userAvatar }}"
+        alt="Avatar"
+        imageClass="h-7 w-7 rounded-full"
+      />
+      <!-- Tooltip indicator -->
+      <span
+        class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 whitespace-nowrap bg-white px-2 py-1 rounded shadow-sm font-karla opacity-100"
+      >
+        Ver opciones
+      </span>
+    </div>
+
+    <!-- Dropdown de Opciones -->
+    <div
+      class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-56 bg-white rounded-lg shadow-xl py-2 z-10 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 border border-gray-100"
+    >
+      <!-- Flecha superior para indicar origen -->
+      <div
+        class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 rotate-45 bg-white border-t border-l border-gray-100"
+      ></div>
+
+      <!-- Encabezado del dropdown con nombre de usuario -->
+      <div class="px-4 py-2 border-b border-gray-100">
+        <p class="text-base font-medium text-gray-900 font-karla">
+          Hola 👋, {{ userName | titlecase }}
+        </p>
+        <p class="text-xs text-gray-500 truncate font-karla">{{ userEmail }}</p>
+      </div>
+
+      <!-- Opciones del menú -->
+      <div class="py-1">
+        <navigation-link
+          link="auth/profile"
+          linkText="Ver Perfil"
+          linkClass="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-mallow-melon transition-colors group/item cursor-pointer font-karla"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--user] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
+        />
+
+        <navigation-link
+          link="/orders"
+          linkText="Mis Pedidos"
+          linkClass="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-mallow-melon transition-colors group/item cursor-pointer font-karla"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--shopping] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
+        />
+
+        <navigation-link
+          link="/wishlist"
+          linkText="Lista de deseos"
+          linkClass="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-mallow-melon transition-colors group/item cursor-pointer font-karla"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--cards-heart] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
+        />
+
+        <navigation-link
+          *ngIf="isAdmin()"
+          link="/admin"
+          linkText="Panel de Administracion"
+          linkClass="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-mallow-melon transition-colors group/item cursor-pointer font-karla"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--user-box] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
+        />
+      </div>
+
+      <!-- Separador -->
+      <div class="border-t border-gray-100 my-1"></div>
+
+      <!-- Botón de cerrar sesión -->
+      <button-control
+        textButton="Cerrar Sesion"
+        buttonClass="w-full text-left flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#E91E63] transition-colors group/item font-karla"
+        [hasIcon]="true"
+        iconClass="icon-[mdi--logout] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
+        (onClick)="logout()"
+      />
+    </div>
+  </div>
+</ng-template>

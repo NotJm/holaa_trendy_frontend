@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,12 +8,12 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { finalize, Subject, takeUntil, tap } from 'rxjs';
+import { finalize, Subject, tap } from 'rxjs';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
-import { AuthService } from '../../../core/providers/auth.service';
+import { AuthService } from '../../../core/providers/api/auth.service';
+import { UserService } from '../../../core/providers/api/user.service';
 import { FooterService } from '../../../core/providers/footer.service';
 import { NavbarService } from '../../../core/providers/navbar.service';
-import { UserService } from '../../../core/providers/user.service';
 import { AnimatedBackgroundComponent } from '../../../shared/animated-background/animated-background.component';
 import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 import { InputControlComponent } from '../../../shared/ui/controls/input-control/input-control.component';
@@ -62,13 +62,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profileForm: FormGroup;
 
   /** A signal for handling the user's avatar */
-  avatar = computed(() => this.userService.avatar());
+  // avatar = computed(() => this.userService.avatar());
 
   /** A signal for handling the user's username */
-  username = computed(() => this.userService.username());
+  // username = computed(() => this.userService.username());
 
   /** A signal for handling the user's email */
-  email = computed(() => this.userService.email());
+  // email = computed(() => this.userService.email());
 
   constructor(
     private readonly fb: FormBuilder,
@@ -120,16 +120,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private initializeAuthState(): void {
-    this.authService
-      .checkSession()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response: IApiResponse) => {
-          if (response.data.authenticate) {
-            this.userService.getAvatar().subscribe();
-          }
-        },
-      });
+    // this.authService
+    //   .checkSession()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe({
+    //     next: (response: IApiResponse) => {
+    //       if (response.data.authenticate) {
+    //         this.userService.getAvatar().subscribe();
+    //       }
+    //     },
+    //   });
     // this.userService.getAddress().subscribe({
     //   next: (response: IApiResponse) => {
 

@@ -33,5 +33,6 @@ export const PUBLIC_ROUTES: Routes = [
     path: 'wishlist',
     loadComponent: () =>
       import('./wishlist/wishlist.component').then(m => m.WishlistComponent),
+    canActivate: [authGuard]
   }
 ];

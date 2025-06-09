@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +8,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { CreateDocument, Document, UpdateDocument } from "../../../core/interfaces/document";
-import { AdminService } from "../../../core/providers/admin.service";
+import { AdminService } from "../../../core/providers/api/admin.service";
 
 @Component({
     selector: "app-document",

@@ -16,7 +16,7 @@
             class="relative h-20 w-20 border-2 border-[#E91E63] shadow-md rounded-full overflow-hidden flex items-center justify-center bg-white text-[#E91E63] text-xl"
           >
             <image-control
-              src="{{ avatar() }}"
+              src=""
               alt="Avatar"
               imageClass="h-full w-full rounded-full"
             />
@@ -24,10 +24,10 @@
         </div>
         <div class="ml-6">
           <p class="text-lg font-bold text-[#000000]">
-            {{ username() | titlecase }}
+            <!-- {{ username() | titlecase }} -->
           </p>
           <p class="text-sm text-[#E91E63]">
-            {{ email() }}
+            <!-- {{ email() }} -->
           </p>
           <div class="mt-2 flex space-x-2">
             <span
@@ -52,67 +52,73 @@
           <div *ngIf="activeTab() === 'address'" class="space-y-5">
             <div>
               <input-control
-                [form]="profileForm"
+                [useFormControl]="true"
+                [formGroup]="profileForm"
                 controlName="address"
                 label="Dirección"
                 iconClass="icon-[hugeicons--map-pinpoint-01]"
                 errorMessage="Dirección es requerida"
                 placeholder="Dirección"
-                [autocomplete]="'off'"
+                enableAutocomplete="off"
               />
             </div>
 
             <div class="grid grid-cols-2 gap-4">
               <input-control
-                [form]="profileForm"
+                [useFormControl]="true"
+                [formGroup]="profileForm"
                 controlName="postCode"
                 label="Código Postal"
                 iconClass="icon-[hugeicons--map-pinpoint-01]"
                 errorMessage="Código Postal es requerido"
                 placeholder="Código Postal"
-                [autocomplete]="'off'"
+                enableAutocomplete="off"
               />
 
               <input-control
-                [form]="profileForm"
+                [useFormControl]="true"
+                [formGroup]="profileForm"
                 controlName="colony"
                 label="Colonia"
                 iconClass="icon-[hugeicons--map-pinpoint-01]"
                 errorMessage="Colonia es requerida"
                 placeholder="Colonia"
-                [autocomplete]="'off'"
+                enableAutocomplete="off"
               />
             </div>
 
             <div class="grid grid-cols-3 gap-4">
               <input-control
-                [form]="profileForm"
+                [useFormControl]="true"
+                [formGroup]="profileForm"
                 controlName="town"
                 label="Ciudad"
                 iconClass="icon-[hugeicons--map-pinpoint-01]"
                 errorMessage="Ciudad es requerida"
                 placeholder="Ciudad"
-                [autocomplete]="'off'"
+                enableAutocomplete="off"
               />
 
               <input-control
-                [form]="profileForm"
+                [useFormControl]="true"
+                [formGroup]="profileForm"
                 controlName="municipality"
                 label="Municipio"
                 iconClass="icon-[hugeicons--map-pinpoint-01]"
                 errorMessage="Municipio es requerido"
                 placeholder="Municipio"
-                [autocomplete]="'off'"
+                enableAutocomplete="off"
               />
 
               <input-control
-                [form]="profileForm"
+                [useFormControl]="true"
+                [formGroup]="profileForm"
                 controlName="state"
                 label="Estado"
                 iconClass="icon-[hugeicons--map-pinpoint-01]"
                 errorMessage="Estado es requerido"
                 placeholder="Estado"
-                [autocomplete]="'off'"
+                enableAutocomplete="off"
               />
             </div>
 
@@ -143,8 +149,8 @@
             </a>
 
             <button-control
-              [text]="isLoading() ? 'Guardando...' : 'Guardar cambios'"
-              [hasIconClass]="isLoading()"
+              [textButton]="isLoading() ? 'Guardando...' : 'Guardar cambios'"
+              [hasIcon]="isLoading()"
               iconClass="-ml-1 mr-3 h-5 w-5 icon-[line-md--loading-loop]"
               [hasDisabledCondition]="true"
               [disabledCondition]="profileForm.invalid || isLoading()"
