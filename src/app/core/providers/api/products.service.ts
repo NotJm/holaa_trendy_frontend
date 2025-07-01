@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { IApiResponse } from '../../interfaces/api.response.interface';
-import { Product, ProductsWithoutCode } from '../../interfaces/products.interface';
+import { IProduct, ProductsWithoutCode } from '../../interfaces/products.interface';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -22,8 +22,8 @@ export class ProductsService extends BaseService {
    * Get all product provide of the API
    * @returns An observable that resolves when the products is successfully retrieved
    */
-  getProducts(): Observable<Product[]> {
-    return this.get<Product[]>();
+  getProducts(): Observable<IApiResponse> {
+    return this.get<IApiResponse>();
   }
 
   /**
@@ -33,8 +33,8 @@ export class ProductsService extends BaseService {
    */
   getProductsByView(
     view: 'new-arrivals' | 'best-offers' | 'best-sellers',
-  ): Observable<Product[]> {
-    return this.get<Product[]>(`view/${view}`).pipe();
+  ): Observable<IProduct[]> {
+    return this.get<IProduct[]>(`view/${view}`).pipe();
   }
 
   /**
@@ -42,9 +42,9 @@ export class ProductsService extends BaseService {
    * @param keyword keyword for search product
    * @returns
    */
-  searchProducts(keyword: string): Observable<Product[]> {
+  searchProducts(keyword: string): Observable<IProduct[]> {
     const encodedKeyword = encodeURIComponent(keyword);
-    return this.get<Product[]>(
+    return this.get<IProduct[]>(
       `search?keyword=${encodedKeyword}`,
     ).pipe(
       catchError((error) => {
@@ -69,7 +69,7 @@ export class ProductsService extends BaseService {
     minPrice: number,
     maxPrice: number,
     color: string,
-  ): Observable<Product[]> {
+  ): Observable<IProduct[]> {
     let params: any = {};
 
     params.category = category;
@@ -93,7 +93,7 @@ export class ProductsService extends BaseService {
       params.maxPrice = maxPrice;
     }
 
-    return this.get<Product[]>('filter', { params });
+    return this.get<IProduct[]>('filter', { params });
   }
 
   /**
@@ -101,8 +101,8 @@ export class ProductsService extends BaseService {
    * @param data estructura para crear un producto
    * @returns respuesta del servidor
    */
-  createProduct(data: Product): Observable<any> {
-    return this.post('/products/create', data, this.options)
+  createProduct(data: IProduct): Observable<any> {
+    return this.post('create', data, this.options)
       .pipe(
         catchError((error) => {
           return throwError(() => new Error(error.error.message));
@@ -111,14 +111,8 @@ export class ProductsService extends BaseService {
   }
 
   updateProduct(
-    id: string | undefined,
-    data: Partial<ProductsWithoutCode>,
-  ): Observable<Product> {
-    return this.put<Product>(`/products/update/${id}`, data, this.options)
-      .pipe(
-        catchError((error) => {
-          return throwError(() => new Error(error.error.message));
-        }),
-      );
+    data: Partial<IProduct>,
+  ): Observable<IApiResponse> {
+    return this.put<IApiResponse>(`update`, data, this.options)
   }
 }

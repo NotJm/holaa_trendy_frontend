@@ -1,5 +1,5 @@
-export interface Product {
-  code: string  ;
+export interface IProduct {
+  code: string;
   name: string;
   imgUri: string;
   images: string[];
@@ -16,4 +16,4 @@ export interface Product {
 
 
 
-export type ProductsWithoutCode = Omit<Product, 'code'>;
+export type ProductsWithoutCode = Omit<IProduct, 'code'>;

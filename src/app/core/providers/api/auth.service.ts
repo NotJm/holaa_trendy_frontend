@@ -10,15 +10,20 @@ import { BaseService } from './base.service';
   providedIn: 'root',
 })
 export class AuthService extends BaseService {
+  /** Endpoint for connecting to the api server */
   protected override endpoint: string = 'auth';
   /** Handles the logic for user's authentication */
   #authSubject$ = new BehaviorSubject<boolean>(false);
   /** Handles the logic for user's role like admin */
   #adminSubject$ = new BehaviorSubject<boolean>(false);
+  /** Handles the logic for user's role like employee */
+  #employeeSubject$ = new BehaviorSubject<boolean>(false);
   /** Handles logic for user's state authentication */
   authState = this.#authSubject$.asObservable();
   /** Handles logic for admin's state authentication */
   adminState = this.#adminSubject$.asObservable();
+  /** Handles the logic for employee's state Authentication */
+  employeeState = this.#employeeSubject$.asObservable();
 
   private readonly ROLE = {
     ADMIN: 'admin',

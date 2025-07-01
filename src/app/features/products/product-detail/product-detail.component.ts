@@ -5,7 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { finalize } from 'rxjs';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
-import { Product } from '../../../core/interfaces/products.interface';
+import { IProduct } from '../../../core/interfaces/products.interface';
 import { ProductsService } from '../../../core/providers/api/products.service';
 import { ImageControlComponent } from '../../../shared/ui/image-control/image-control.component';
 import { FeaturedProductsComponent } from "../../public/featured-products/featured-products.component";
@@ -24,12 +24,12 @@ import { FeaturedProductsComponent } from "../../public/featured-products/featur
   styleUrl: './product-detail.component.css',
 })
 export class ProductDetailComponent implements OnInit {
-  sameProducts: Product[] = [];
-  bestSellers: Product[] = [];
-  bestOffers: Product[] = [];
-  newArrivals: Product[] = [];
+  sameProducts: IProduct[] = [];
+  bestSellers: IProduct[] = [];
+  bestOffers: IProduct[] = [];
+  newArrivals: IProduct[] = [];
 
-  product: Product | null = null;
+  product: IProduct | null = null;
   loading = signal<boolean>(false);
   error = signal<boolean>(false);
 

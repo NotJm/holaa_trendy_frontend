@@ -1,65 +1,163 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Audit } from '../../../core/interfaces/audit.interface';
-import { AdminService } from '../../../core/providers/api/admin.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+interface AuditoriaItem {
+  id: number;
+  nombreUsuario: string;
+  accion: 'Login' | 'Update' | 'Delete' | 'Create' | 'Logout';
+  fecha: string;
+  detalle: string;
+  hora: string;
+}
+
 @Component({
-    selector: 'app-audit',
-    imports: [CommonModule],
-    templateUrl: './audit.component.html',
-    styleUrls: ['./audit.component.css']
+  selector: 'app-auditoria',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './audit.component.html',
+  styleUrls: ['./audit.component.css']
 })
 export class AuditComponent implements OnInit {
 
-  auditInformation: Audit[] = [];
-  displayedAuditInformation: Audit[] = []; 
+  Math = Math;
+
+  auditoriaItems: AuditoriaItem[] = [
+    {
+      id: 1,
+      nombreUsuario: 'admin',
+      accion: 'Login',
+      fecha: '3/4/24',
+      hora: '12:00 AM',
+      detalle: 'Usuario admin inició sesión'
+    },
+    {
+      id: 2,
+      nombreUsuario: 'user1',
+      accion: 'Update',
+      fecha: '3/3/24',
+      hora: '12:00 AM',
+      detalle: 'Usuario user1 actualizó un registro'
+    },
+    {
+      id: 3,
+      nombreUsuario: 'admin',
+      accion: 'Delete',
+      fecha: '3/2/24',
+      hora: '12:00 AM',
+      detalle: 'Usuario admin eliminó un registro'
+    },
+    {
+      id: 4,
+      nombreUsuario: 'user2',
+      accion: 'Create',
+      fecha: '3/1/24',
+      hora: '12:00 AM',
+      detalle: 'Usuario user2 creó un nuevo registro'
+    },
+    {
+      id: 5,
+      nombreUsuario: 'user3',
+      accion: 'Logout',
+      fecha: '2/28/24',
+      hora: '12:00 AM',
+      detalle: 'Usuario user3 cerró sesión'
+    },
+    {
+      id: 6,
+      nombreUsuario: 'user1',
+      accion: 'Update',
+      fecha: '2/27/24',
+      hora: '12:00 AM',
+      detalle: 'Usuario user1 actualizó su perfil'
+    }
+  ];
+
+  filteredItems: AuditoriaItem[] = [];
+  searchTerm: string = '';
+  selectedAction: string = '';
   currentPage: number = 1;
-  auditsPerPage: number = 6; 
-  totalAudits: number = 0;
-  
+  itemsPerPage: number = 5;
+  totalPages: number = 1;
 
-  constructor(private readonly adminService: AdminService,
-  ) {
-
+  ngOnInit() {
+    this.filteredItems = [...this.auditoriaItems];
+    this.calculateTotalPages();
   }
 
- /*  ngOnInit(): void {
-    this.loadAuditInformation();
-  } */
-
-    ngOnInit(): void {
-      this.auditInformation = [
-        { id: 1, action: 'Login', user: 'admin', date: '2024-03-04', details: 'Usuario admin inició sesión' },
-        { id: 2, action: 'Update', user: 'user1', date: '2024-03-03', details: 'Usuario user1 actualizó un registro' },
-        { id: 3, action: 'Delete', user: 'admin', date: '2024-03-02', details: 'Usuario admin eliminó un registro' },
-        { id: 4, action: 'Create', user: 'user2', date: '2024-03-01', details: 'Usuario user2 creó un nuevo registro' },
-        { id: 5, action: 'Logout', user: 'user3', date: '2024-02-28', details: 'Usuario user3 cerró sesión' },
-        { id: 6, action: 'Update', user: 'user1', date: '2024-02-27', details: 'Usuario user1 actualizó su perfil' },
-        { id: 7, action: 'Delete', user: 'admin', date: '2024-02-26', details: 'Usuario admin eliminó un usuario' },
-        { id: 8, action: 'Login', user: 'user4', date: '2024-02-25', details: 'Usuario user4 inició sesión' }
-      ];
-      this.totalAudits = this.auditInformation.length;
-      this.setPage(1);
+  onSearch() {
+    this.filteredItems = this.auditoriaItems.filter(item => 
+      item.nombreUsuario.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      item.detalle.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    
+    if (this.selectedAction) {
+      this.filteredItems = this.filteredItems.filter(item => 
+        item.accion === this.selectedAction
+      );
     }
     
-
-  loadAuditInformation(): void {
-   
+    this.currentPage = 1;
+    this.calculateTotalPages();
   }
 
-   // Establece los datos a mostrar para la página actual
-   setPage(page: number): void {
-    this.currentPage = page;
-    const startIndex = (page - 1) * this.auditsPerPage;
-    const endIndex = startIndex + this.auditsPerPage;
-    this.displayedAuditInformation = this.auditInformation.slice(startIndex, endIndex);
+  onFilterByAction() {
+    this.onSearch();
   }
 
-  // Calcula el número total de páginas
-  getTotalPages(): number[] {
-    return Array(Math.ceil(this.totalAudits / this.auditsPerPage))
-      .fill(0)
-      .map((_, i) => i + 1);
+  clearFilters() {
+    this.searchTerm = '';
+    this.selectedAction = '';
+    this.filteredItems = [...this.auditoriaItems];
+    this.currentPage = 1;
+    this.calculateTotalPages();
   }
 
+  calculateTotalPages() {
+    this.totalPages = Math.ceil(this.filteredItems.length / this.itemsPerPage);
+  }
 
+  get paginatedItems(): AuditoriaItem[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredItems.slice(startIndex, endIndex);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  getActionBadgeClass(accion: string): string {
+    const classes = {
+      'Login': 'bg-green-100 text-green-800 border-green-200',
+      'Logout': 'bg-red-100 text-red-800 border-red-200',
+      'Create': 'bg-blue-100 text-blue-800 border-blue-200',
+      'Update': 'bg-yellow-100 text-yellow-800 border-yellow-200',
+      'Delete': 'bg-red-100 text-red-800 border-red-200'
+    };
+    return classes[accion as keyof typeof classes] || 'bg-gray-100 text-gray-800 border-gray-200';
+  }
+
+  exportToCSV() {
+    const csvContent = [
+      ['Nombre de Usuario', 'Acción', 'Fecha', 'Hora', 'Detalle'],
+      ...this.filteredItems.map(item => [
+        item.nombreUsuario,
+        item.accion,
+        item.fecha,
+        item.hora,
+        item.detalle
+      ])
+    ].map(row => row.join(',')).join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'auditoria-usuarios.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
 }

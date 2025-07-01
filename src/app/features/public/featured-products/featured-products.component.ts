@@ -3,7 +3,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { Product } from '../../../core/interfaces/products.interface';
+import { IProduct } from '../../../core/interfaces/products.interface';
 import { AuthService } from '../../../core/providers/api/auth.service';
 import { CartService } from '../../../core/providers/api/cart.service';
 import { WishlistService } from '../../../core/providers/api/wishlist.service';
@@ -29,7 +29,7 @@ import { ProductCardComponent } from '../../products/ui/product-card/product-car
 export class FeaturedProductsComponent {
   @Input({ required: true }) titleFeatured!: string;
   @Input({ required: true }) description!: string;
-  @Input({ required: true }) products!: Product[];
+  @Input({ required: true }) products!: IProduct[];
   @Input() invert?: boolean = false;
 
   @ViewChild('owlCarousel', { static: false }) owlCarousel: any;
@@ -103,7 +103,8 @@ export class FeaturedProductsComponent {
 
   onAddToCartEvent(productCode: string) {
     this.authService.checkSession().subscribe((response) => {
-      if (response.data.authenticate) {
+      console.log(response);
+      if (response.data.authenticated) {
         return this.cartService
           .addProductToCart({ productCode: productCode, quantity: 1 })
           .subscribe((response) => {

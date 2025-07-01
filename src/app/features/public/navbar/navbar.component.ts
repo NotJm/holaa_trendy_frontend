@@ -54,6 +54,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   isAuthenticated = signal<boolean>(false);
   isAdmin = signal<boolean>(false);
+  isEmployee = signal<boolean>(false);
+
   userAvatar: string = '';
   userName: string = '';
   userEmail: string = '';
@@ -87,6 +89,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .subscribe((isAdmin) => this.isAdmin.set(isAdmin));
   }
 
+  private checkIsEmployee(): void {
+    this.authService.employeeState
+      .pipe(takeUntil(this.#destroy$))
+      .subscribe((isEmployee) => this.isEmployee.set(isEmployee));
+  }
+
   private checkAuthentication(): void {
     this.authService.authState
       .pipe(
@@ -114,6 +122,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.isAuthenticated.set(response.data.authenticated);
 
         this.isAdmin.set(response.data.role === 'admin');
+
+        this.isEmployee.set(response.data.role === 'employee');
       }),
       switchMap(() => this.loadUserData())
     );

@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common"
 import { Component, Input, type OnInit, signal } from "@angular/core"
 import { RouterLink } from "@angular/router"
-import { Product } from "../../../core/interfaces/products.interface"
+import { IProduct } from "../../../core/interfaces/products.interface"
 import { WishList, WishListItem } from "../../../core/interfaces/wishlist.interface"
 import { WishlistService } from '../../../core/providers/api/wishlist.service'
 import { WishlistItemComponent } from "../wishlist-item/wishlist-item.component"
@@ -40,7 +40,7 @@ export class WishlistComponent implements OnInit {
     // })
   }
 
-  addToCart(product: Product): void {
+  addToCart(product: IProduct): void {
     // Implementación de añadir al carrito
     console.log("Añadido al carrito:", product)
   }

@@ -53,15 +53,15 @@
       </div>
 
       <!-- Search Control -->
-      <!-- <div class="px-2 flex-1">
+      <div class="px-2 flex-1">
         <search-control />
-      </div> -->
+      </div>
 
       <!-- Icons Right  -->
       <div class="flex px-2 items-center justify-end space-x-6">
         <icon-control
           *ngIf="!isAdmin()"
-          iconClass="icon-[mdi--cards-heart-outline] text-[#000] w-9 h-9 hover:icon-[mdi--cards-heart] hover:w-9 hover:h-9 hover:text-[#E91E63] transition-colors duration-600"
+          iconClass="icon-[mdi--cards-heart-outline] text-[#000] w-7 h-7 hover:icon-[mdi--cards-heart] hover:w-7 hover:h-7 hover:text-[#E91E63] transition-colors duration-600"
           [hasLink]="true"
           link="/wishlist"
           linkClass="cursor-pointer"
@@ -69,23 +69,18 @@
 
         <icon-control
           *ngIf="!isAdmin()"
-          iconClass="icon-[mdi--shopping-outline] w-9 h-9 text-black hover:icon-[mdi--shopping] hover:w-9 hover:h-9 hover:text-mallow-melon transition-colors duration-600"
+          iconClass="icon-[mdi--shopping-outline] w-7 h-7 text-black hover:icon-[mdi--shopping] hover:w-7 hover:h-7 hover:text-mallow-melon transition-colors duration-600"
           [hasLink]="true"
           link="/cart"
           linkClass="cursor-pointer"
         />
 
-          <icon-control
+        <icon-control
           *ngIf="!isAuthenticated(); else userAuthMenuTemplate"
-          iconClass="icon-[mdi--account-outline] w-9 h-9 text-black hover:icon-[mdi--account] hover:w-9 hover:h-9 hover:text-mallow-melon transition-colors duration-600"
+          iconClass="icon-[mdi--account-outline] w-7 h-7 text-black hover:icon-[mdi--account] hover:w-7 hover:h-7 hover:text-mallow-melon transition-colors duration-600"
           [hasLink]="true"
           link="/auth/login"
           linkClass="cursor-pointer"
-        />
-
-
-        <icon-control
-          iconClass="icon-[mdi--hamburger-menu] w-9 h-9 text-black hover:text-mallow-melon hover:w-9 hover:h-9 transition-colors duration-600"
         />
       </div>
     </div>
@@ -167,6 +162,14 @@
           [hasIcon]="true"
           iconClass="icon-[mdi--user-box] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
         />
+
+        <!-- <navigation-link
+          link="/employee"
+          linkText="Panel de Empleados"
+          linkClass="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-mallow-melon transition-colors group/item cursor-pointer font-karla"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--user-box] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
+        /> -->
       </div>
 
       <!-- Separador -->

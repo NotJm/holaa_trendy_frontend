@@ -17,6 +17,11 @@ export const routes: Routes = [
       import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
   },
   {
+    path: 'employee',
+    loadChildren: () =>
+      import('./features/employee/employee.routes').then((m) => m.EMPLOYEE_ROUTES)
+  },
+  {
     path: 'products',
     loadChildren: () =>
       import('./features/products/product.routes').then(

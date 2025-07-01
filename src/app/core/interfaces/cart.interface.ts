@@ -1,4 +1,4 @@
-import { Product } from "./products.interface";
+import { IProduct } from "./products.interface";
 
 export interface Cart {
   id: string;
@@ -8,7 +8,7 @@ export interface Cart {
 
 export interface CartItem {
   id: string;
-  product: Product;
+  product: IProduct;
   quantity: number;
 }
 

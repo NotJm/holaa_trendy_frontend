@@ -1,4 +1,4 @@
-import { Product } from "./products.interface";
+import { IProduct } from "./products.interface";
 
 export interface WishList {
   id: string;
@@ -6,5 +6,5 @@ export interface WishList {
 }
 
 export interface WishListItem {
-  product: Product
+  product: IProduct
 }

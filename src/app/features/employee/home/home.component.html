@@ -1,0 +1,302 @@
+<div class="min-h-screen bg-gray-50">
+  <!-- Header Section -->
+  <div class="bg-white shadow-sm border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="py-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900">
+              Bienvenido, {{ userName }}
+            </h1>
+            <p class="text-sm text-gray-600 mt-1">
+              {{ getCurrentDate() }} • Panel de Empleado
+            </p>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+              Activo
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Quick Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Horas Trabajadas -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-600">Horas del Mes</p>
+            <p class="text-2xl font-semibold text-gray-900">168h</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tareas Pendientes -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-600">Tareas Pendientes</p>
+            <p class="text-2xl font-semibold text-gray-900">12</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyectos Activos -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-600">Proyectos Activos</p>
+            <p class="text-2xl font-semibold text-gray-900">3</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Días de Vacaciones -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-600">Días Disponibles</p>
+            <p class="text-2xl font-semibold text-gray-900">15</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Left Column - Quick Actions & Tasks -->
+      <div class="lg:col-span-2 space-y-6">
+        
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">Acciones Rápidas</h3>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <button class="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mb-2">
+                  <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-900">Marcar Entrada</span>
+              </button>
+              
+              <button class="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mb-2">
+                  <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-900">Nueva Tarea</span>
+              </button>
+              
+              <button class="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center mb-2">
+                  <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-900">Solicitar Permiso</span>
+              </button>
+              
+              <button class="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mb-2">
+                  <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                  </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-900">Mensajes</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Tasks -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-medium text-gray-900">Tareas Recientes</h3>
+              <button class="text-sm text-blue-600 hover:text-blue-800">Ver todas</button>
+            </div>
+          </div>
+          <div class="divide-y divide-gray-200">
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-900">Revisar propuesta de cliente</p>
+                    <p class="text-sm text-gray-500">Proyecto Alpha • Vence hoy</p>
+                  </div>
+                </div>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                  Pendiente
+                </span>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-900">Actualizar documentación</p>
+                    <p class="text-sm text-gray-500">Proyecto Beta • Vence mañana</p>
+                  </div>
+                </div>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  En progreso
+                </span>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-900">Reunión de equipo</p>
+                    <p class="text-sm text-gray-500">Completada ayer</p>
+                  </div>
+                </div>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  Completada
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Notifications & Calendar -->
+      <div class="space-y-6">
+        
+        <!-- Notifications -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">Notificaciones</h3>
+          </div>
+          <div class="divide-y divide-gray-200">
+            <div class="p-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div class="w-2 h-2 bg-blue-400 rounded-full mt-2"></div>
+                </div>
+                <div class="ml-3">
+                  <p class="text-sm text-gray-900">Nueva tarea asignada</p>
+                  <p class="text-xs text-gray-500">Hace 2 horas</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div class="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
+                </div>
+                <div class="ml-3">
+                  <p class="text-sm text-gray-900">Solicitud de vacaciones aprobada</p>
+                  <p class="text-xs text-gray-500">Ayer</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div class="w-2 h-2 bg-yellow-400 rounded-full mt-2"></div>
+                </div>
+                <div class="ml-3">
+                  <p class="text-sm text-gray-900">Recordatorio: Reunión a las 3 PM</p>
+                  <p class="text-xs text-gray-500">Hace 3 horas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Info -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">Información Rápida</h3>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Horario de trabajo</span>
+              <span class="text-sm font-medium text-gray-900">9:00 AM - 6:00 PM</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Departamento</span>
+              <span class="text-sm font-medium text-gray-900">Desarrollo</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Supervisor</span>
+              <span class="text-sm font-medium text-gray-900">Ana García</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Ubicación</span>
+              <span class="text-sm font-medium text-gray-900">Oficina Central</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Performance Chart Placeholder -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">Rendimiento del Mes</h3>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-center h-32 bg-gray-50 rounded-lg">
+              <div class="text-center">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                </div>
+                <p class="text-sm text-gray-600">Excelente rendimiento</p>
+                <p class="text-lg font-semibold text-gray-900">95%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

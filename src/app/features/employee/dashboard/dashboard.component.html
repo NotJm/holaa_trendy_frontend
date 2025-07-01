@@ -1,2 +1,10 @@
-<app-header></app-header>
-<app-side-bar></app-side-bar>
+<!-- Contenedor principal -->
+<div class="flex min-h-screen bg-gray-50">
+  <!-- Sidebar a la izquierda -->
+  <app-sidebar class="w-64 flex-shrink-0"></app-sidebar>
+
+  <!-- Contenido principal -->
+  <main class="flex-1 p-6 overflow-y-auto">
+    <router-outlet></router-outlet>
+  </main>
+</div>

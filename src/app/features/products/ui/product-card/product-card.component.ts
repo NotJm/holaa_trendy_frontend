@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product } from '../../../../core/interfaces/products.interface';
+import { IProduct } from '../../../../core/interfaces/products.interface';
 import { ButtonControlComponent } from '../../../../shared/ui/button/button-control.component';
 import { ImageControlComponent } from '../../../../shared/ui/image-control/image-control.component';
 
@@ -12,7 +12,7 @@ import { ImageControlComponent } from '../../../../shared/ui/image-control/image
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
-  @Input() product!: Product;
+  @Input() product!: IProduct;
   @Input() isInWishlist: boolean = false;
   @Output() addToCartEvent = new EventEmitter<string>();
   @Output() onClickProduct = new EventEmitter<string>();

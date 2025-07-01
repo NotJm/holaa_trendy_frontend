@@ -64,12 +64,12 @@
 
       <!-- Categorías -->
       <div class="text-xs text-gray-500 mb-2 font-karla">
-        {{ product.categoryName | titlecase }} •
-        {{ product.subCategoryName | titlecase }}
+        {{ product.categoryName }} •
+        {{ product.subCategoryName }}
       </div>
 
       <!-- Colores y Tallas -->
-      <div class="flex items-center gap-4 mb-4">
+      <!-- <div class="flex items-center gap-4 mb-4">
         @if (product.colorsNames.length > 0) {
         <div class="flex items-center gap-1">
           @for (color of product.colorsNames.slice(0, 3); track color) {
@@ -97,7 +97,7 @@
           }
         </div>
         }
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

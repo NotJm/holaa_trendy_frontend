@@ -10,12 +10,14 @@
     <icon-control *ngIf="hasIcon" [iconClass]="iconClass" />
 
     <input
-      formControlName="{{ controlName }}"
       [type]="inputType"
+      [value]="inputValue"
+      formControlName="{{ controlName }}"
       [autocomplete]="enableAutocomplete"
       [class]="inputClass"
       [class.border-red-300]="isInvalid"
       [placeholder]="placeholder"
+      [readOnly]="isReadOnly"
     />
   </div>
   <div *ngIf="isInvalid" [class]="errorClass">

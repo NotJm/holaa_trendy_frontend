@@ -1,24 +1,24 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-  Component,
-  OnDestroy,
-  OnInit,
-  signal
+    Component,
+    OnDestroy,
+    OnInit,
+    signal
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
-  catchError,
-  delay,
-  Observable,
-  of,
-  Subject,
-  switchMap,
-  takeUntil,
-  tap,
+    catchError,
+    delay,
+    Observable,
+    of,
+    Subject,
+    switchMap,
+    takeUntil,
+    tap,
 } from 'rxjs';
-import { Product } from '../../../../core/interfaces/products.interface';
+import { IProduct } from '../../../../core/interfaces/products.interface';
 import { ProductsService } from '../../../../core/providers/api/products.service';
 import { ButtonControlComponent } from '../../../../shared/ui/button/button-control.component';
 import { IconControlComponent } from '../../../../shared/ui/controls/icon-control/icon-control.component';
@@ -59,7 +59,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   #searchSubject = new Subject<string>();
   #destroy$ = new Subject<void>();
 
-  products: Product[] = [];
+  products: IProduct[] = [];
 
   showResults = signal<boolean>(false);
   isFocused = signal<boolean>(false);
@@ -92,7 +92,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .subscribe((products) => this.handleResults(products));
   }
 
-  private handleSearch(value: string): Observable<Product[]> {
+  private handleSearch(value: string): Observable<IProduct[]> {
     if (!value) {
       this.products = [];
       return of([]);
@@ -103,7 +103,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .pipe(catchError(() => of([])));
   }
 
-  private handleResults(products: Product[]): void {
+  private handleResults(products: IProduct[]): void {
     this.products = products;
     this.isLoading.set(false);
     this.showResults.set(true);
@@ -140,7 +140,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     productElement.classList.remove('pulse');
   }
 
-  onProductClick(product: Product) {
+  onProductClick(product: IProduct) {
     this.keyword = '';
     this.router.navigate(['products/detail', product.code]);
   }

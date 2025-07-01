@@ -8,10 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { CookieService } from 'ngx-cookie-service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { finalize } from 'rxjs/operators';
-import { IApiResponse } from '../../../../core/interfaces/api.response.interface';
 import { AuthService } from '../../../../core/providers/api/auth.service';
 import { ButtonControlComponent } from '../../../../shared/ui/button/button-control.component';
 import { InputControlComponent } from '../../../../shared/ui/controls/input-control/input-control.component';
@@ -19,7 +17,7 @@ import { FormPasswordControlComponent } from '../../../../shared/ui/form-passwor
 import { ImageControlComponent } from '../../../../shared/ui/image-control/image-control.component';
 import { NavigationLinkComponent } from '../../../../shared/ui/navigation-link/navigation-link.component';
 
-interface CarouselSlide {
+interface ICarouselSlide {
   imageSrc: string;
   alt: string;
   title: string;
@@ -68,7 +66,7 @@ export class FormLoginComponent {
     nav: false,
   };
 
-  carouselSlides: CarouselSlide[] = [
+  carouselSlides: ICarouselSlide[] = [
     {
       imageSrc:
         'https://image.hm.com/content/dam/global_campaigns/season_01/women/startpage-assets/wk10/Tops-CE-wk10-2x3.jpg?imwidth=1536',
@@ -98,7 +96,6 @@ export class FormLoginComponent {
     private readonly location: Location,
     private readonly toast: HotToastService,
     private readonly authService: AuthService,
-    private readonly cookieService: CookieService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],

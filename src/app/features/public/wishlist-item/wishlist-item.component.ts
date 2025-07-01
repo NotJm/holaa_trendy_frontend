@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core"
 import { CommonModule } from "@angular/common"
+import { Component, EventEmitter, Input, Output } from "@angular/core"
 import { RouterLink } from "@angular/router"
+import { IProduct } from "../../../core/interfaces/products.interface"
 import { WishListItem } from "../../../core/interfaces/wishlist.interface"
-import { Product } from "../../../core/interfaces/products.interface"
 
 @Component({
   selector: "app-wishlist-item",
@@ -13,7 +13,7 @@ import { Product } from "../../../core/interfaces/products.interface"
 export class WishlistItemComponent {
   @Input() item!: WishListItem
   @Output() removeItem = new EventEmitter<string>()
-  @Output() addToCart = new EventEmitter<Product>()
+  @Output() addToCart = new EventEmitter<IProduct>()
 
   showOverlay = false
 

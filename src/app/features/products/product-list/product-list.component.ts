@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { Color } from '../../../core/interfaces/color.interface';
-import { Product } from '../../../core/interfaces/products.interface';
+import { IProduct } from '../../../core/interfaces/products.interface';
 import { Size } from '../../../core/interfaces/size.interface';
 import { SubCategory } from '../../../core/interfaces/sub-category.interface';
 import { AuthService } from '../../../core/providers/api/auth.service';
@@ -37,7 +37,7 @@ import { ProductCardComponent } from '../ui/product-card/product-card.component'
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  products: Product[] = [];
+  products: IProduct[] = [];
   subCategories: SubCategory[] = [];
   sizes: Size[] = [];
   colors: Color[] = [];

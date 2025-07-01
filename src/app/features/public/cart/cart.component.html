@@ -63,7 +63,9 @@
 
             <div class="flex justify-between text-sm font-popins">
               <span class="text-gray-600">Costo de envío</span>
-              <span class="font-medium text-[#000000]">$ {{ shippingCost }} MXN</span>
+              <span class="font-medium text-[#000000]"
+                >$ {{ shippingCost }} MXN</span
+              >
             </div>
 
             <div class="border-t border-[#E0E0E0] pt-4">
@@ -79,15 +81,20 @@
           </div>
 
           <!-- Continue Button -->
-          <button-control
+          <!-- <button-control
             [textButton]="isLoading() ? 'Comprando...' : 'Comprar'"
             [hasIcon]="isLoading()"
             iconClass="-ml-1 mr-2 h-4 w-4 icon-[line-md--loading-loop] animate-spin"
             [hasDisabledCondition]="true"
-            (onClick)="onBuyProducts()"
+            (onClick)="onBuy()"
             [disabledCondition]="isLoading()"
-          />
-       
+          /> -->
+
+          <!-- PayPal Button -->
+          <div class="mt-4">
+            <div id="paypal-button-container"></div>
+          </div>
+
           <!-- Security Badge -->
           <div class="mt-6 space-y-4">
             <div

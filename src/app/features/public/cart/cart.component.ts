@@ -8,13 +8,19 @@ import { IApiResponse } from '../../../core/interfaces/api.response.interface';
 import { Cart } from '../../../core/interfaces/cart.interface';
 import { CartService } from '../../../core/providers/api/cart.service';
 import { SaleService } from '../../../core/providers/api/sale.service';
-import { ButtonControlComponent } from "../../../shared/ui/button/button-control.component";
+import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 import { CartItemComponent } from '../ui/cart-item/cart-item.component';
+
+declare var paypal: any;
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule, CartItemComponent, ButtonControlComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CartItemComponent,
+  ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
@@ -22,7 +28,7 @@ export class CartComponent implements OnInit, OnDestroy {
   cart = signal<Cart | null>(null);
   isLoading = signal<boolean>(false);
   subTotal: number = 0.0;
-  shippingCost: number = 40.0;
+  shippingCost: number = 0.0;
 
   private cartSubscription: Subscription = Subscription.EMPTY;
 
@@ -30,18 +36,23 @@ export class CartComponent implements OnInit, OnDestroy {
     private readonly platform: Platform,
     private readonly toast: HotToastService,
     private readonly cartService: CartService,
-    private readonly saleService: SaleService,
+    private readonly saleService: SaleService
   ) {}
+
+  // HOOKS //
 
   ngOnInit(): void {
     if (!this.platform.isBrowser) return;
 
     this.fetchUserCart();
+    this.fetchPaypalScript().then(() => this.initPayPalButton());
   }
 
   ngOnDestroy(): void {
     this.cartSubscription.unsubscribe();
   }
+
+  // FETCH DATA OR SCRIPTS
 
   fetchUserCart() {
     if (this.cartSubscription) {
@@ -54,14 +65,74 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
+  fetchPaypalScript(): Promise<void> {
+    return new Promise((resolve) => {
+      if (document.getElementById('paypal-sdk')) {
+        return resolve();
+      }
+
+      const script = document.createElement('script');
+      script.id = 'paypal-sdk';
+      script.src =
+        'https://www.paypal.com/sdk/js?client-id=AVMJhMs9w-d_a_nemkhCko1HiG51rEFfveqj2uFGArMtPDH1kezxKzgU_5-JWLUN81PJXph6Ngu7m5Jw&currency=MXN&components=buttons,hosted-fields&enable-funding=card';
+      script.onload = () => resolve();
+      document.body.appendChild(script);
+    });
+  }
+
+  // INITIALIZED //
+
+  initPayPalButton(): void {
+    const amount = this.subTotal.toFixed(2);
+
+    if (paypal) {
+      paypal
+        .Buttons({
+          style: {
+            layout: 'vertical',
+            color: 'gold',
+            shape: 'pill',
+            label: 'paypal',
+          },
+          createOrder: (data: any, actions: any) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    currency_code: 'MXN',
+                    value: amount,
+                  },
+                },
+              ],
+            });
+          },
+          onApprove: (data: any, actions: any) => {
+            return actions.order.capture().then((details: any) => {
+              this.toast.success(
+                'Pago completado por: ' + details.payer.name.given_name
+              );
+              this.onBuy();
+            });
+          },
+          onError: (err: any) => {
+            console.error('Error en el pago:', err);
+            this.toast.error('Hubo un problema al procesar el pago.');
+          },
+        })
+        .render('#paypal-button-container');
+    }
+  }
+
+  // EVENTS //
+
   onSuccess(response: IApiResponse): void {
-    this.cart.set(response.data);
+    this.cart.set(response.data); 
     this.calculateSubTotal();
   }
 
   onError(error: any): void {}
 
-  calculateSubTotal() {
+  calculateSubTotal(): void {
     if (
       !this.cart() ||
       !this.cart()?.cartItems ||
@@ -75,7 +146,7 @@ export class CartComponent implements OnInit, OnDestroy {
       this.cart()?.cartItems.reduce((acc, cartItem) => {
         const priceString = String(cartItem.product.price).replace(
           /[^0-9.]/g,
-          '',
+          ''
         );
         const price = Number(priceString);
 
@@ -128,14 +199,17 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  onBuyProducts(): void {
-    this.isLoading.set(true)
-    this.saleService.add()
-    .pipe(
-      finalize(() => this.isLoading.set(false)))
-    .subscribe({
-      next: (response: IApiResponse) => this.onSuccess(response),
-      error: (error: any) => this.onError(error),
-    });
+  onBuy(): void {
+    this.isLoading.set(true);
+    this.saleService
+      .add()
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe({
+        next: (response: IApiResponse) => {
+          this.onSuccess(response)  
+          this.toast.success('Compra registrada correctamente.');
+        },
+        error: (error: any) => this.onError(error),
+      });
   }
 }
