@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UnpicImageDirective } from '@unpic/angular';
-import { CartItem } from '../../../../core/interfaces/cart.interface';
+import { ICartItem } from '../../../../core/interfaces/cart.interface';
 
 @Component({
   selector: 'cart-item',
@@ -15,7 +15,6 @@ import { CartItem } from '../../../../core/interfaces/cart.interface';
       <div class="flex items-start pt-2">
         <input
           type="checkbox"
-          (change)="onToggle()"
           class="form-checkbox h-5 w-5 text-[#E91E63] rounded-full border-2 border-[#E0E0E0] focus:ring-[#E91E63] transition-all duration-200"
         />
       </div>
@@ -24,8 +23,8 @@ import { CartItem } from '../../../../core/interfaces/cart.interface';
       <div class="relative w-32 h-40 group overflow-hidden rounded-lg">
         <img
           unpic
-          [src]="cartItem.product.imgUri"
-          [alt]="cartItem.product.name"
+          [src]="item.product.imgUri"
+          [alt]="item.product.name"
           class="w-full h-full object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-500 ease-in-out"
         />
         <div
@@ -40,10 +39,10 @@ import { CartItem } from '../../../../core/interfaces/cart.interface';
             <h3
               class="font-cinzel font-semibold text-lg text-[#000000] mb-1 tracking-wide"
             >
-              {{ cartItem.product.name }}
+              {{ item.product.name }}
             </h3>
             <p class="text-sm text-gray-500 font-medium">
-              Stock: {{ cartItem.product.stock }}
+              Stock: {{ item.stock }}
             </p>
           </div>
           <button
@@ -63,20 +62,24 @@ import { CartItem } from '../../../../core/interfaces/cart.interface';
             >
               <button
                 (click)="onDecrease()"
-                [disabled]="cartItem.quantity <= 1"
-                [class.opacity-50]="cartItem.quantity <= 1"
+                [disabled]="item.quantity <= 1"
+                [class.opacity-50]="item.quantity <= 1"
                 class="w-8 h-8 rounded-full bg-white shadow-xs flex items-center justify-center text-[#E91E63] hover:bg-[#E91E63] hover:text-white transition-all duration-200"
                 aria-label="Disminuir cantidad"
               >
                 <span class="icon-[mdi--minus] w-4 h-4"></span>
               </button>
               <span class="w-10 text-center font-medium text-[#000000]">{{
-                cartItem.quantity
+                item.quantity
               }}</span>
               <button
                 (click)="onIncrease()"
-                [disabled]="cartItem.quantity >= cartItem.product.stock"
-                [class.opacity-50]="cartItem.quantity >= cartItem.product.stock"
+                [disabled]="
+                  item.quantity >= item.stock
+                "
+                [class.opacity-50]="
+                  item.quantity >= item.stock
+                "
                 class="w-8 h-8 rounded-full bg-white shadow-xs flex items-center justify-center text-[#E91E63] hover:bg-[#E91E63] hover:text-white transition-all duration-200"
                 aria-label="Aumentar cantidad"
               >
@@ -94,7 +97,7 @@ import { CartItem } from '../../../../core/interfaces/cart.interface';
           </div>
 
           <span class="font-cinzel font-bold text-xl text-[#E91E63]">
-            {{ cartItem.product.price }}
+            {{ item.product.price }}
           </span>
         </div>
       </div>
@@ -102,29 +105,25 @@ import { CartItem } from '../../../../core/interfaces/cart.interface';
   </div> `,
 })
 export class CartItemComponent {
-  @Input({ required: true }) cartItem!: CartItem;
+  @Input({ required: true }) item!: ICartItem;
   @Output() onIncreaseQuantity = new EventEmitter<string>();
   @Output() onDecreaseQuantity = new EventEmitter<string>();
   @Output() onDeleteProduct = new EventEmitter<string>();
   @Output() onToggleCartItem = new EventEmitter<string>();
 
   onDelete() {
-    this.onDeleteProduct.emit(this.cartItem.product.code);
+    this.onDeleteProduct.emit(this.item.product.code);
   }
 
   onIncrease() {
-    if (this.cartItem.quantity < this.cartItem.product.stock) {
-      this.onIncreaseQuantity.emit(this.cartItem.product.code);
+    if (this.item.quantity < this.item.stock) {
+      this.onIncreaseQuantity.emit(this.item.product.code);
     }
   }
 
   onDecrease() {
-    if (this.cartItem.quantity > 1) {
-      this.onDecreaseQuantity.emit(this.cartItem.product.code);
+    if (this.item.quantity > 1) {
+      this.onDecreaseQuantity.emit(this.item.product.code);
     }
-  }
-
-  onToggle() {
-    this.onToggleCartItem.emit(this.cartItem.id);
   }
 }

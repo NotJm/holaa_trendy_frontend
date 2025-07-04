@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common"
 import { Component, EventEmitter, Input, Output } from "@angular/core"
 import { RouterLink } from "@angular/router"
-import { IProduct } from "../../../core/interfaces/products.interface"
+import { IProduct } from "../../../core/interfaces/product.interface"
 import { WishListItem } from "../../../core/interfaces/wishlist.interface"
 
 @Component({

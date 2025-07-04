@@ -1,25 +1,25 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    Component,
-    OnDestroy,
-    OnInit,
-    signal
+  Component,
+  OnDestroy,
+  OnInit,
+  signal
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
-    catchError,
-    delay,
-    Observable,
-    of,
-    Subject,
-    switchMap,
-    takeUntil,
-    tap,
+  catchError,
+  delay,
+  Observable,
+  of,
+  Subject,
+  switchMap,
+  takeUntil,
+  tap,
 } from 'rxjs';
-import { IProduct } from '../../../../core/interfaces/products.interface';
-import { ProductsService } from '../../../../core/providers/api/products.service';
+import { IProduct } from '../../../../core/interfaces/product.interface';
+import { ProductService } from '../../../../core/providers/api/products.service';
 import { ButtonControlComponent } from '../../../../shared/ui/button/button-control.component';
 import { IconControlComponent } from '../../../../shared/ui/controls/icon-control/icon-control.component';
 import { InputControlComponent } from '../../../../shared/ui/controls/input-control/input-control.component';
@@ -69,7 +69,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly router: Router,
-    private readonly productsService: ProductsService
+    private readonly productsService: ProductService
   ) {}
 
   ngOnInit(): void {

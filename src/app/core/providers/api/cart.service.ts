@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, shareReplay } from 'rxjs';
 import { IApiResponse } from '../../interfaces/api.response.interface';
-import { AddProduct, UpdateQuantity } from '../../interfaces/cart.interface';
+import {
+  IAddProductToCart,
+  IUpdateProductToCart,
+} from '../../interfaces/cart.interface';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -20,14 +23,14 @@ export class CartService extends BaseService {
     }).pipe(shareReplay(1));
   }
 
-  addProductToCart(addProduct: AddProduct): Observable<IApiResponse> {
+  addProductToCart(addProduct: IAddProductToCart): Observable<IApiResponse> {
     return this.post<IApiResponse>('add', addProduct, {
       withCredentials: true,
     });
   }
 
   updateQuantityProductToCart(
-    updateQuantity: UpdateQuantity,
+    updateQuantity: IUpdateProductToCart
   ): Observable<IApiResponse> {
     return this.put<IApiResponse>('update/quantity', updateQuantity, {
       withCredentials: true,
@@ -38,7 +41,7 @@ export class CartService extends BaseService {
     return this.delete<IApiResponse>(
       `remove/${productCode}`,
       {},
-      { withCredentials: true },
+      { withCredentials: true }
     );
   }
 }

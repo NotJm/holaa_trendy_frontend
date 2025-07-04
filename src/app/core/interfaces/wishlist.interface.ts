@@ -1,4 +1,4 @@
-import { IProduct } from "./products.interface";
+import { IProduct } from "./product.interface";
 
 export interface WishList {
   id: string;

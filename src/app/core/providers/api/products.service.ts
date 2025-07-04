@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { IApiResponse } from '../../interfaces/api.response.interface';
-import { IProduct, ProductsWithoutCode } from '../../interfaces/products.interface';
+import { IFeaturedProduct, IProduct } from '../../interfaces/product.interface';
 import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsService extends BaseService {
+export class ProductService extends BaseService {
   private options = {
     withCredentials: true,
   };
@@ -31,10 +31,10 @@ export class ProductsService extends BaseService {
    * @param view view's name provide to the data base
    * @returns An observable than resolves when the products is successfully retrieved
    */
-  getProductsByView(
+  getProductsByFeatured(
     view: 'new-arrivals' | 'best-offers' | 'best-sellers',
-  ): Observable<IProduct[]> {
-    return this.get<IProduct[]>(`view/${view}`).pipe();
+  ): Observable<IFeaturedProduct[]> {
+    return this.get<IFeaturedProduct[]>(`view/${view}`);
   }
 
   /**

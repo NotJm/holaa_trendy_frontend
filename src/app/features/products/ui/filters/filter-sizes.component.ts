@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
     >
       <option value="">Todas</option>
       @for(size of sizes; track size.id) {
-        <option [value]="size.size">{{ size.size }}</option>
+        <option [value]="size.name">{{ size.name }}</option>
       }
     </select>
   </div>`,

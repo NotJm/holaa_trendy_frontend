@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 interface AuditoriaItem {
@@ -25,51 +25,35 @@ export class AuditComponent implements OnInit {
   auditoriaItems: AuditoriaItem[] = [
     {
       id: 1,
-      nombreUsuario: 'admin',
+      nombreUsuario: 'Mendoza',
       accion: 'Login',
       fecha: '3/4/24',
       hora: '12:00 AM',
-      detalle: 'Usuario admin inició sesión'
+      detalle: 'Usuario Mendoza inició sesión'
     },
     {
       id: 2,
-      nombreUsuario: 'user1',
+      nombreUsuario: 'Karim',
       accion: 'Update',
       fecha: '3/3/24',
       hora: '12:00 AM',
-      detalle: 'Usuario user1 actualizó un registro'
+      detalle: 'Usuario Karim actualizó un registro'
     },
     {
       id: 3,
-      nombreUsuario: 'admin',
+      nombreUsuario: 'Yaffar',
       accion: 'Delete',
       fecha: '3/2/24',
       hora: '12:00 AM',
-      detalle: 'Usuario admin eliminó un registro'
+      detalle: 'Usuario Yaffar eliminó un registro'
     },
     {
       id: 4,
-      nombreUsuario: 'user2',
+      nombreUsuario: 'Jose',
       accion: 'Create',
       fecha: '3/1/24',
       hora: '12:00 AM',
-      detalle: 'Usuario user2 creó un nuevo registro'
-    },
-    {
-      id: 5,
-      nombreUsuario: 'user3',
-      accion: 'Logout',
-      fecha: '2/28/24',
-      hora: '12:00 AM',
-      detalle: 'Usuario user3 cerró sesión'
-    },
-    {
-      id: 6,
-      nombreUsuario: 'user1',
-      accion: 'Update',
-      fecha: '2/27/24',
-      hora: '12:00 AM',
-      detalle: 'Usuario user1 actualizó su perfil'
+      detalle: 'Usuario Jose creó un nuevo registro'
     }
   ];
 

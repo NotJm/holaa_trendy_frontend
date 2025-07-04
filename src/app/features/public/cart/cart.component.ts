@@ -5,10 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { finalize, Subscription } from 'rxjs';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
-import { Cart } from '../../../core/interfaces/cart.interface';
+import { ICart } from '../../../core/interfaces/cart.interface';
 import { CartService } from '../../../core/providers/api/cart.service';
 import { SaleService } from '../../../core/providers/api/sale.service';
-import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 import { CartItemComponent } from '../ui/cart-item/cart-item.component';
 
 declare var paypal: any;
@@ -25,7 +24,7 @@ declare var paypal: any;
   styleUrl: './cart.component.css',
 })
 export class CartComponent implements OnInit, OnDestroy {
-  cart = signal<Cart | null>(null);
+  cart = signal<ICart | null>(null);
   isLoading = signal<boolean>(false);
   subTotal: number = 0.0;
   shippingCost: number = 0.0;
@@ -127,6 +126,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   onSuccess(response: IApiResponse): void {
     this.cart.set(response.data); 
+    console.log(this.cart());
     this.calculateSubTotal();
   }
 
@@ -135,15 +135,15 @@ export class CartComponent implements OnInit, OnDestroy {
   calculateSubTotal(): void {
     if (
       !this.cart() ||
-      !this.cart()?.cartItems ||
-      this.cart()?.cartItems.length === 0
+      !this.cart()?.items ||
+      this.cart()?.items.length === 0
     ) {
       this.subTotal = 0.0;
       return;
     }
 
     this.subTotal =
-      this.cart()?.cartItems.reduce((acc, cartItem) => {
+      this.cart()?.items.reduce((acc, cartItem) => {
         const priceString = String(cartItem.product.price).replace(
           /[^0-9.]/g,
           ''
@@ -168,11 +168,12 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  onIncreaseQuantity(productCode: string, quantity: number) {
+  onIncreaseQuantity(productCode: string, quantity: number, sizeName: string) {
     this.cartService
       .updateQuantityProductToCart({
         productCode: productCode,
         quantity: quantity + 1,
+        sizeName: sizeName
       })
       .subscribe({
         next: (response: IApiResponse) => this.onSuccess(response),
@@ -180,11 +181,12 @@ export class CartComponent implements OnInit, OnDestroy {
       });
   }
 
-  onDecreaseQuantity(productCode: string, quantity: number) {
+  onDecreaseQuantity(productCode: string, quantity: number, sizeName: string) {
     this.cartService
       .updateQuantityProductToCart({
         productCode: productCode,
         quantity: quantity - 1,
+        sizeName: sizeName
       })
       .subscribe({
         next: (response: IApiResponse) => this.onSuccess(response),

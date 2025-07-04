@@ -5,7 +5,7 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-8">
       <h1 class="text-3xl font-cinzel font-bold text-[#000000]">
-        Mi Bolsa ({{ cart()?.cartItems?.length || 0 }})
+        Mi Bolsa ({{ cart()?.items?.length || 0 }})
       </h1>
       <div class="flex items-center space-x-4">
         <label class="flex items-center space-x-2 cursor-pointer group">
@@ -35,11 +35,11 @@
         <div
           class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
         >
-          @for(cartItem of cart()?.cartItems; track cartItem.id) {
+          @for(item of cart()?.items; track item.product.code) {
           <cart-item
-            [cartItem]="cartItem"
-            (onIncreaseQuantity)="onIncreaseQuantity($event, cartItem.quantity)"
-            (onDecreaseQuantity)="onDecreaseQuantity($event, cartItem.quantity)"
+            [item]="item"
+            (onIncreaseQuantity)="onIncreaseQuantity($event, item.quantity, item.sizeName)"
+            (onDecreaseQuantity)="onDecreaseQuantity($event, item.quantity, item.sizeName)"
             (onDeleteProduct)="onDeleteProduct($event)"
           />
           }

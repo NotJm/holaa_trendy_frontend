@@ -1,6 +1,6 @@
 <section
-  *ngIf="products.length > 0; else loadingTemplate"
   class="container mx-auto px-4 py-12"
+  *ngIf="featuredProducts.length > 0; else loadingTemplate"
 >
   <div
     class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4"
@@ -22,26 +22,30 @@
     />
   </div>
 
-  <!-- Carousel -->
+  <!-- Carousel de cartas de productos -->
   <div class="relative -mx-4 px-4">
-    <owl-carousel-o
-      #owlCarousel
-      [options]="carouselOptions"
-      [ngClass]="{ 'invert-carousel': invert }"
-    >
-      @for (product of products; track product.code) {
+    <owl-carousel-o #owlCarousel [options]="carouselOptions">
+      @for (featuredProduct of featuredProducts; track featuredProduct.code) {
       <ng-template carouselSlide>
         <div class="px-2">
-          <product-card
-            [product]="product"
+          <!-- Cartas de productos caracteristicos -->
+          <product-card-featured
+            [product]="featuredProduct"
             (onClickProduct)="redirectToProductDetail($event)"
             (addWishlistEvent)="onAddWishlist($event)"
-            (addToCartEvent)="onAddToCartEvent($event)"
+            (addToCartEvent)="onAddToCart($event)"
           />
         </div>
       </ng-template>
       }
     </owl-carousel-o>
+
+    <modal-product-variant
+      [isOpen]="stateModal()"
+      [product]="productSelected()"
+      (onCloseModal)="stateModal.set(false)"
+      (onAddToCart)="onAddToCartEvent($event)"
+    />
 
     <!-- Custom Navigation -->
     <div class="hidden md:block">

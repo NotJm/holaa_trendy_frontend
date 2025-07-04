@@ -5,10 +5,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { finalize } from 'rxjs';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
-import { IProduct } from '../../../core/interfaces/products.interface';
-import { ProductsService } from '../../../core/providers/api/products.service';
+import { IProduct } from '../../../core/interfaces/product.interface';
+import { ProductService } from '../../../core/providers/api/products.service';
 import { ImageControlComponent } from '../../../shared/ui/image-control/image-control.component';
-import { FeaturedProductsComponent } from "../../public/featured-products/featured-products.component";
 
 @Component({
   selector: 'app-product-detail',
@@ -18,7 +17,6 @@ import { FeaturedProductsComponent } from "../../public/featured-products/featur
     FormsModule,
     NgxImageZoomModule,
     ImageControlComponent,
-    FeaturedProductsComponent
 ],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
@@ -41,7 +39,7 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly productService: ProductsService,
+    private readonly productService: ProductService,
   ) {}
 
   ngOnInit(): void {
@@ -49,10 +47,6 @@ export class ProductDetailComponent implements OnInit {
       next: (params) => this.handleParamsSuccess(params),
       error: () => this.error.set(true),
     });
-
-    this.fetchBestSellers();
-    this.fetchBestOffers();
-    this.fetchNewArribals();
   }
 
   handleParamsSuccess(params: Params): void {
@@ -107,7 +101,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   increaseQuantity(): void {
-    if (this.product && this.quantity < this.product.stock) {
+    if (this.product && this.quantity < this.product.variants[0].stock) {
       this.quantity++;
     }
   }
@@ -139,30 +133,6 @@ export class ProductDetailComponent implements OnInit {
       .getProductsByCategory(this.product?.categoryName || '')
       .subscribe((response: IApiResponse) => {
         this.sameProducts = response.data;
-      });
-  }
-
-  fetchBestSellers() {
-    this.productService
-      .getProductsByView('best-sellers')
-      .subscribe((bestSellers) => {
-        this.bestSellers = bestSellers;
-      });
-  }
-
-  fetchBestOffers() {
-    this.productService
-      .getProductsByView('best-offers')
-      .subscribe((bestOffers) => {
-        this.bestOffers = bestOffers;
-      });
-  }
-
-  fetchNewArribals() {
-    this.productService
-      .getProductsByView('new-arrivals')
-      .subscribe((newArrivals) => {
-        this.newArrivals = newArrivals;
       });
   }
   

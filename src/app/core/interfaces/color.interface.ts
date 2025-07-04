@@ -1,7 +1,4 @@
-export interface Color {
-  id: string;
+export interface IColor {
   name: string;
   hexCode: string;
-  createdAt: Date;
-  updateAt: Date;
 }

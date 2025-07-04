@@ -1,20 +1,21 @@
-import { IProduct } from "./products.interface";
+import { IProduct } from "./product.interface";
 
-export interface Cart {
-  id: string;
-  cartItems: CartItem[];
-  isActive: boolean;
-};
+export interface ICart {
+  userName: string;
+  items: ICartItem[];
+}
 
-export interface CartItem {
-  id: string;
+export interface ICartItem {
   product: IProduct;
   quantity: number;
+  sizeName: string;
+  stock: number;
 }
 
-export interface AddProduct {
+export interface IAddProductToCart {
   productCode: string;
+  sizeName: string;
   quantity: number;
 }
 
-export type UpdateQuantity = AddProduct;
+export interface IUpdateProductToCart extends IAddProductToCart {}

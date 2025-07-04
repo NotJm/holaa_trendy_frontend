@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import {
-    Component,
-    OnInit
-} from '@angular/core';
-import { IProduct } from '../../../core/interfaces/products.interface';
-import { ProductsService } from '../../../core/providers/api/products.service';
+  IFeaturedProduct
+} from '../../../core/interfaces/product.interface';
+import { ProductService } from '../../../core/providers/api/products.service';
 import { SliderCategoriesComponent } from '../../../shared/ui/slider/slider-categories.component';
-import { FeaturedProductsComponent } from '../featured-products/featured-products.component';
+import { FeaturedProductsComponent } from '../../products/featured-products/featured-products.component';
 import { PromotionalBannerComponent } from '../ui/promotional-banner/promotional-banner.component';
 import { ServiceFeaturesComponent } from '../ui/service-features/service-features.component';
 @Component({
@@ -22,27 +21,25 @@ import { ServiceFeaturesComponent } from '../ui/service-features/service-feature
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  bestSellers: IProduct[] = [];
-  bestOffers: IProduct[] = [];
-  newArrivals: IProduct[] = [];
+  bestSellers: IFeaturedProduct[] = [];
+  bestOffers:  IFeaturedProduct[] = [];
+  newArrivals: IFeaturedProduct[] = [];
 
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductService) {}
 
   ngOnInit(): void {
-    this.displayFeaturedProducts();
+    this.fetchFeaturedProducts();
   }
 
   fetchBestSellers() {
     this.productsService
-      .getProductsByView('best-sellers')
-      .subscribe((bestSellers) => {
-        this.bestSellers = bestSellers;
-      });
+      .getProductsByFeatured('best-sellers')
+      .subscribe((bestSellers) => this.bestSellers = bestSellers);
   }
 
   fetchBestOffers() {
     this.productsService
-      .getProductsByView('best-offers')
+      .getProductsByFeatured('best-offers')
       .subscribe((bestOffers) => {
         this.bestOffers = bestOffers;
       });
@@ -50,13 +47,13 @@ export class HomeComponent implements OnInit {
 
   fetchNewArribals() {
     this.productsService
-      .getProductsByView('new-arrivals')
+      .getProductsByFeatured('new-arrivals')
       .subscribe((newArrivals) => {
         this.newArrivals = newArrivals;
       });
   }
 
-  displayFeaturedProducts() {
+  fetchFeaturedProducts() {
     this.fetchBestOffers();
     this.fetchBestSellers();
     this.fetchNewArribals();

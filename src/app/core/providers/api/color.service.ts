@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Color } from "../../interfaces/color.interface";
+import { IColor } from "../../interfaces/color.interface";
 import { BaseService } from "./base.service";
 
 @Injectable({
@@ -10,8 +10,8 @@ export class ColorService extends BaseService{
 
   protected override endpoint = 'colors';
 
-  getColors(): Observable<Color[]> {
-    return this.get<Color[]>();
+  getColors(): Observable<IColor[]> {
+    return this.get<IColor[]>();
   } 
 
 }

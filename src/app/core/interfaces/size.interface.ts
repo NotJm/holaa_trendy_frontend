@@ -1,6 +1,6 @@
 export interface Size {
   id: string;
-  size: string;
+  name: string;
   createdAt: Date;
   updateAt: Date;
 }

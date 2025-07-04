@@ -1,46 +1,48 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, signal, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { IProduct } from '../../../core/interfaces/products.interface';
+import { IApiResponse } from '../../../core/interfaces/api.response.interface';
+import {
+  getDefaultIProduct,
+  IFeaturedProduct,
+  IProduct,
+  IVariant,
+} from '../../../core/interfaces/product.interface';
 import { AuthService } from '../../../core/providers/api/auth.service';
 import { CartService } from '../../../core/providers/api/cart.service';
+import { ProductService } from '../../../core/providers/api/products.service';
 import { WishlistService } from '../../../core/providers/api/wishlist.service';
 import { LoadingComponent } from '../../../shared/loading-view/loading-view.component';
 import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 import { NavigationLinkComponent } from '../../../shared/ui/navigation-link/navigation-link.component';
-import { ProductCardComponent } from '../../products/ui/product-card/product-card.component';
+import { ModalProductVariant } from '../ui/modal-product-variant/modal-product-variant.component';
+import { ProductCardFeaturedComponent } from '../ui/product-card-featured/product-card-featured.component';
 
 @Component({
   selector: 'featured-products',
   standalone: true,
   imports: [
     CommonModule,
-    ProductCardComponent,
     CarouselModule,
     ButtonControlComponent,
     LoadingComponent,
     NavigationLinkComponent,
+    ProductCardFeaturedComponent,
+    ModalProductVariant,
   ],
   templateUrl: './featured-products.component.html',
-  styleUrls: ['./featured-products.component.css'],
 })
 export class FeaturedProductsComponent {
+  @Input({ required: true }) featuredProducts!: IFeaturedProduct[];
   @Input({ required: true }) titleFeatured!: string;
   @Input({ required: true }) description!: string;
-  @Input({ required: true }) products!: IProduct[];
-  @Input() invert?: boolean = false;
+
+  stateModal = signal<boolean>(false);
+  productSelected = signal<IProduct>(getDefaultIProduct());
 
   @ViewChild('owlCarousel', { static: false }) owlCarousel: any;
-
-  constructor(
-    private readonly router: Router,
-    private readonly toast: HotToastService,
-    private readonly authService: AuthService,
-    private readonly cartService: CartService,
-    private readonly wishlistService: WishlistService,
-  ) {}
 
   carouselOptions: OwlOptions = {
     loop: false,
@@ -49,7 +51,7 @@ export class FeaturedProductsComponent {
     pullDrag: false,
     dots: false,
     rewind: true,
-    
+
     navSpeed: 1000,
     smartSpeed: 1000,
     autoplay: false,
@@ -71,6 +73,21 @@ export class FeaturedProductsComponent {
     },
     nav: false,
   };
+
+  constructor(
+    private readonly router: Router,
+    private readonly toast: HotToastService,
+    private readonly authService: AuthService,
+    private readonly productService: ProductService,
+    private readonly cartService: CartService,
+    private readonly wishlistService: WishlistService
+  ) {}
+
+  fetchProductByCode(productCode: string): void {
+    this.productService.getProductByCode(productCode).subscribe({
+      next: (response: IApiResponse) => this.productSelected.set(response.data),
+    });
+  }
 
   next() {
     if (this.owlCarousel) {
@@ -101,17 +118,33 @@ export class FeaturedProductsComponent {
     });
   }
 
-  onAddToCartEvent(productCode: string) {
-    this.authService.checkSession().subscribe((response) => {
-      console.log(response);
-      if (response.data.authenticated) {
-        return this.cartService
-          .addProductToCart({ productCode: productCode, quantity: 1 })
-          .subscribe((response) => {
-            this.toast.success(response.message);
-          });
-      }
-      return this.redirectToLogin();
+  onAddToCart(productCode: string) {
+    this.stateModal.set(true);
+    this.fetchProductByCode(productCode);
+  }
+
+  public onAddToCartEvent(cart: {
+    product: IProduct;
+    variant: IVariant;
+  }): void {
+    console.log(cart);
+    this.authService.checkSession().subscribe({
+      next: (response: IApiResponse) => {
+        if (response.data.authenticated) {
+          return this.cartService
+            .addProductToCart({
+              productCode: cart.product.code,
+              quantity: 1,
+              sizeName: cart.variant.sizeName,
+            })
+            .subscribe({
+              next: (response: IApiResponse) => {
+                this.toast.success(response.message);
+              },
+            });
+        }
+        return this.redirectToLogin();
+      },
     });
   }
 

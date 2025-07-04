@@ -2,18 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, type OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HotToastService } from '@ngxpert/hot-toast';
-import { Color } from '../../../core/interfaces/color.interface';
-import { IProduct } from '../../../core/interfaces/products.interface';
-import { Size } from '../../../core/interfaces/size.interface';
+import { IColor } from '../../../core/interfaces/color.interface';
+import { IProduct } from '../../../core/interfaces/product.interface';
+import { Size as ISize } from '../../../core/interfaces/size.interface';
 import { SubCategory } from '../../../core/interfaces/sub-category.interface';
-import { AuthService } from '../../../core/providers/api/auth.service';
-import { CartService } from '../../../core/providers/api/cart.service';
 import { ColorService } from '../../../core/providers/api/color.service';
-import { ProductsService } from '../../../core/providers/api/products.service';
+import { ProductService } from '../../../core/providers/api/products.service';
 import { SizeService } from '../../../core/providers/api/size.service';
 import { SubCategoryService } from '../../../core/providers/api/sub-category.service';
-import { WishlistService } from '../../../core/providers/api/wishlist.service';
 import { FilterColorsComponent } from '../ui/filters/filter-colors.component';
 import { FilterPriceComponent } from '../ui/filters/filter-price.component';
 import { FilterSizesComponent } from '../ui/filters/filter-sizes.component';
@@ -39,8 +35,8 @@ import { ProductCardComponent } from '../ui/product-card/product-card.component'
 export class ProductListComponent implements OnInit {
   products: IProduct[] = [];
   subCategories: SubCategory[] = [];
-  sizes: Size[] = [];
-  colors: Color[] = [];
+  sizes: ISize[] = [];
+  colors: IColor[] = [];
 
   category = '';
 
@@ -62,24 +58,20 @@ export class ProductListComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly activateRoute: ActivatedRoute,
-    private readonly authService: AuthService,
-    private readonly toast: HotToastService,
-    private readonly productsService: ProductsService,
+    private readonly productsService: ProductService,
     private readonly subCategoryService: SubCategoryService,
-    private readonly cartService: CartService,
     private readonly sizeService: SizeService,
     private readonly colorService: ColorService,
-    private readonly wishlistService: WishlistService,
   ) {}
 
   ngOnInit(): void {
     this.activateRoute.params.subscribe((params) => {
       this.category = params['category'];
-      this.loadProductsByCategory(this.category);
-      this.loadSubCategoriesByCategory(this.category);
+      this.fetchProductsByCategory(this.category);
+      this.fetchSubCategoriesByCategory(this.category);
     });
-    this.loadSizes();
-    this.loadColors();
+    this.fetchSizes();
+    this.fetchColors();
   }
 
   onSelectedSubCategory(subCategory: string) {
@@ -107,7 +99,7 @@ export class ProductListComponent implements OnInit {
     this.filteredProduct();
   }
 
-  loadProductsByCategory(category: string) {
+  fetchProductsByCategory(category: string) {
     this.isLoading = true;
     this.productsService
       .getProductsByCategory(category)
@@ -117,7 +109,7 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  async loadSubCategoriesByCategory(category: string) {
+  async fetchSubCategoriesByCategory(category: string) {
     this.subCategoryService
       .getSubCategoriesByCategory(category)
       .subscribe((subCategories) => {
@@ -125,13 +117,13 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  async loadSizes() {
+  async fetchSizes() {
     this.sizeService.getSizes().subscribe((sizes) => {
       this.sizes = sizes;
     });
   }
 
-  async loadColors() {
+  async fetchColors() {
     this.colorService.getColors().subscribe((colors) => {
       this.colors = colors;
     });

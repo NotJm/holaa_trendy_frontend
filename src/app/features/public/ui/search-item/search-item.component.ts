@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { IProduct } from "../../../../core/interfaces/products.interface";
+import { IProduct } from "../../../../core/interfaces/product.interface";
 import { IconControlComponent } from "../../../../shared/ui/controls/icon-control/icon-control.component";
 
 @Component({
