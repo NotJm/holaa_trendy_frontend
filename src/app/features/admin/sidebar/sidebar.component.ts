@@ -4,11 +4,11 @@ import { Router, RouterModule } from '@angular/router';
 import { delay, Subject, takeUntil, tap } from 'rxjs';
 import { AuthService } from '../../../core/providers/api/auth.service';
 import { UserService } from '../../../core/providers/api/user.service';
-import { ImageControlComponent } from '../../../shared/ui/image-control/image-control.component';
 import { NavigationLinkComponent } from '../../../shared/ui/navigation-link/navigation-link.component';
 import { IUserWithAvatar } from '../../../core/interfaces/users.interface';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
 import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
+import { ImageControlComponent } from '../../../shared/ui/controls/image-control/image-control.component';
 
 @Component({
   selector: 'app-sidebar',

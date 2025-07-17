@@ -1,4 +1,4 @@
-export interface Size {
+export interface ISize {
   id: string;
   name: string;
   createdAt: Date;

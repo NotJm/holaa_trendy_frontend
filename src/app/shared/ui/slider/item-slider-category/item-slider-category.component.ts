@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICategory } from '../../../../core/interfaces/categories.interface';
-import { ImageControlComponent } from '../../image-control/image-control.component';
+import { ImageControlComponent } from '../../controls/image-control/image-control.component';
 
 @Component({
   selector: 'item-slider-category',

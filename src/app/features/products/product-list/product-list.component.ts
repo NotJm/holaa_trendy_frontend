@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, type OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IApiResponse } from '../../../core/interfaces/api.response.interface';
 import { IColor } from '../../../core/interfaces/color.interface';
 import { IProduct } from '../../../core/interfaces/product.interface';
-import { Size as ISize } from '../../../core/interfaces/size.interface';
-import { SubCategory } from '../../../core/interfaces/sub-category.interface';
+import { ISize } from '../../../core/interfaces/size.interface';
+import { ISubCategory } from '../../../core/interfaces/sub-category.interface';
 import { ColorService } from '../../../core/providers/api/color.service';
 import { ProductService } from '../../../core/providers/api/products.service';
 import { SizeService } from '../../../core/providers/api/size.service';
@@ -34,7 +35,7 @@ import { ProductCardComponent } from '../ui/product-card/product-card.component'
 })
 export class ProductListComponent implements OnInit {
   products: IProduct[] = [];
-  subCategories: SubCategory[] = [];
+  subCategories: ISubCategory[] = [];
   sizes: ISize[] = [];
   colors: IColor[] = [];
 
@@ -112,8 +113,8 @@ export class ProductListComponent implements OnInit {
   async fetchSubCategoriesByCategory(category: string) {
     this.subCategoryService
       .getSubCategoriesByCategory(category)
-      .subscribe((subCategories) => {
-        this.subCategories = subCategories;
+      .subscribe((response: IApiResponse) => {
+        this.subCategories = response.data;
       });
   }
 

@@ -1,14 +1,6 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IconPrefix } from '../../../../core/constants/constants';
 
 @Component({
   selector: 'icon-control',
@@ -16,9 +8,10 @@ import { IconPrefix } from '../../../../core/constants/constants';
   imports: [CommonModule, RouterLink],
   templateUrl: './icon-control.component.html',
 })
-export class IconControlComponent{
+export class IconControlComponent {
   // Only optional properties should be optional
   @Input() hasText: boolean = false;
+  @Input() textClass?: string;
   @Input() text?: string;
   // Only icon properties for all custom icons
   @Input() iconClass?: string;
@@ -27,6 +20,4 @@ export class IconControlComponent{
   @Input() hasLink: boolean = false;
   @Input() isExternalLink: boolean = false;
   @Input() link?: string;
-
-
 }

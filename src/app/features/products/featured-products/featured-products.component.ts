@@ -70,6 +70,9 @@ export class FeaturedProductsComponent {
       1024: {
         items: 4,
       },
+      1280: {
+        items: 5,
+      },
     },
     nav: false,
   };
@@ -83,7 +86,7 @@ export class FeaturedProductsComponent {
     private readonly wishlistService: WishlistService
   ) {}
 
-  fetchProductByCode(productCode: string): void {
+  private fetchProductByCode(productCode: string): void {
     this.productService.getProductByCode(productCode).subscribe({
       next: (response: IApiResponse) => this.productSelected.set(response.data),
     });

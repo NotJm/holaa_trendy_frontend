@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SubCategory } from '../../../../core/interfaces/sub-category.interface';
 import { FormsModule } from '@angular/forms';
+import { ISubCategory } from '../../../../core/interfaces/sub-category.interface';
 
 @Component({
   selector: 'filter-subcategory',
@@ -24,7 +24,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class FilterSubCategoryComponent {
   @Input({ required: true }) categoryName!: string;
-  @Input({ required: true }) subCategories!: SubCategory[];
+  @Input({ required: true }) subCategories!: ISubCategory[];
   @Output() selectedSubCategory = new EventEmitter<string>();
 
   selectValue: string = '';

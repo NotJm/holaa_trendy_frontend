@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SubCategory } from '../../interfaces/sub-category.interface';
+import { ISubCategory } from '../../interfaces/sub-category.interface';
 import { BaseService } from './base.service';
+import { IApiResponse } from '../../interfaces/api.response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,8 @@ export class SubCategoryService extends BaseService {
     super();
   }
 
-  getSubCategoriesByCategory(category: string): Observable<SubCategory[]> {
-    return this.get<SubCategory[]>(`by-category/${category}`, {
+  getSubCategoriesByCategory(category: string): Observable<IApiResponse> {
+    return this.get<IApiResponse>(`by-category/${category}`, {
       withCredentials: true,
     });
   }

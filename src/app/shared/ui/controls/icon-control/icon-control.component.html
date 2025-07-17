@@ -1,6 +1,6 @@
 <ng-container *ngIf="!hasLink; else iconWithLink">
   <span [class]="iconClass"></span>
-  <span *ngIf="hasText">{{ text }}</span>
+  <span *ngIf="hasText" [class]="textClass">{{ text }}</span>
 </ng-container>
 
 <ng-template #iconWithLink>

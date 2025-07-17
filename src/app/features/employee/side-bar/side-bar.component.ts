@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ImageControlComponent } from '../../../shared/ui/image-control/image-control.component';
+import { ImageControlComponent } from '../../../shared/ui/controls/image-control/image-control.component';
 
 @Component({
     selector: 'app-sidebar',

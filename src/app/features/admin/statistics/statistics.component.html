@@ -63,7 +63,7 @@
         [items]="categories"
         idKey="id"
         valueKey="name"
-        (onItemSelected)="onCategorySelected($event)"
+        (onItemSelected)="onCategorySelected($event.item)"
       />
 
       <!-- <date-range

@@ -19,6 +19,7 @@ export interface IFeaturedProduct {
   code: string;
   name: string;
   imgUri: string;
+  images: string[];
   description: string;
   price: number;
   discount: number;
@@ -32,6 +33,7 @@ export interface IFeaturedProduct {
 export interface IVariant {
   sizeName: string;
   stock: number;
+  isNew?: boolean;
 }
 
 export type ProductsWithoutCode = Omit<IProduct, 'code'>;

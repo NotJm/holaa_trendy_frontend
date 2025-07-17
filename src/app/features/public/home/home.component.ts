@@ -8,6 +8,7 @@ import { SliderCategoriesComponent } from '../../../shared/ui/slider/slider-cate
 import { FeaturedProductsComponent } from '../../products/featured-products/featured-products.component';
 import { PromotionalBannerComponent } from '../ui/promotional-banner/promotional-banner.component';
 import { ServiceFeaturesComponent } from '../ui/service-features/service-features.component';
+import { IApiResponse } from '../../../core/interfaces/api.response.interface';
 @Component({
   selector: 'app-home',
   imports: [
@@ -34,27 +35,30 @@ export class HomeComponent implements OnInit {
   fetchBestSellers() {
     this.productsService
       .getProductsByFeatured('best-sellers')
-      .subscribe((bestSellers) => this.bestSellers = bestSellers);
+      .subscribe({
+        next: (response: IApiResponse) => this.bestSellers = response.data
+      });
   }
 
   fetchBestOffers() {
     this.productsService
       .getProductsByFeatured('best-offers')
-      .subscribe((bestOffers) => {
-        this.bestOffers = bestOffers;
+      .subscribe({
+        next: (response: IApiResponse) => this.bestOffers = response.data
       });
   }
 
   fetchNewArribals() {
     this.productsService
       .getProductsByFeatured('new-arrivals')
-      .subscribe((newArrivals) => {
-        this.newArrivals = newArrivals;
+      .subscribe({
+        next: (response: IApiResponse) => this.newArrivals = response.data
       });
   }
 
   fetchFeaturedProducts() {
     this.fetchBestOffers();
+    console.log(this.bestOffers);
     this.fetchBestSellers();
     this.fetchNewArribals();
   }

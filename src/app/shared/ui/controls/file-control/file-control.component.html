@@ -1,0 +1,89 @@
+<div class="relative" *ngIf="!simpleMode; else fileControlSimple">
+  <button-control
+    *ngIf="!imgUri"
+    buttonClass="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors cursor-pointer aspect-square flex flex-col items-center justify-center"
+    (click)="onTriggerUploadImage()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    <icon-control
+      iconClass="icon-[mdi--plus] w-16 h-16 mx-auto text-gray-400 mb-4"
+    />
+
+    <p class="text-gray-600 font-medium text-lg mb-2">Subir imagen principal</p>
+    <p class="text-sm text-gray-500 mb-1">PNG, JPG, WEBP hasta 5MB</p>
+    <p class="text-xs text-gray-400">Recomendado: 800x800px</p>
+  </button-control>
+
+  <div *ngIf="imgUri" class="relative group">
+    <image-control
+      [src]="imgUri"
+      alt="Imagen principal"
+      imageClass="w-full aspect-square object-cover rounded-lg border border-gray-200 shadow-sm"
+    />
+    <div
+      class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg transition-all flex items-center justify-center"
+    >
+      <div
+        class="opacity-0 group-hover:opacity-100 transition-opacity flex space-x-3"
+      >
+        <button-control
+          typeButton="button"
+          (onClick)="onTriggerUploadImage()"
+          buttonClass="bg-white text-gray-700 flex items-center px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors shadow-md"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--cloud-upload] flex w-4 h-4 inline mr-2"
+          textButton="Cambiar"
+        />
+
+        <button-control
+          typeButton="button"
+          (onClick)="onRemoveImage()"
+          buttonClass="bg-red-500 text-white flex items-center px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors shadow-md"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--delete] flex w-4 h-4 inline mr-2"
+          textButton="Eliminar"
+        />
+      </div>
+    </div>
+    <div class="absolute top-3 left-3">
+      <span
+        class="bg-black text-white text-xs px-3 py-1 rounded-full font-medium shadow-sm"
+        >Principal</span
+      >
+    </div>
+  </div>
+
+  <input
+    type="file"
+    #imageInput
+    (change)="onImageSelected($event)"
+    accept="image/*"
+    class="hidden"
+  />
+</div>
+
+<ng-template #fileControlSimple>
+  <button-control
+    
+    buttonClass="aspect-square p-8 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gray-400 hover:bg-gray-50 transition-all"
+    (onClick)="onTriggerUploadImage()"
+    (onDragOver)="onDragOver($event)"
+    (onDragLeave)="onDragLeave($event)"
+    (onDrop)="onDrop($event)"
+    [hasIcon]="true"
+    iconClass="icon-[mdi--plus] w-6 h-6 text-gray-400 mb-1"
+    textButton="Agregar"
+    textClass="text-xs text-gray-500 text-center px-1 font-medium"
+  />
+
+  <input
+    type="file"
+    #imageInput
+    (change)="onImageSelected($event)"
+    accept="image/*"
+    multiple
+    class="hidden"
+  />
+</ng-template>

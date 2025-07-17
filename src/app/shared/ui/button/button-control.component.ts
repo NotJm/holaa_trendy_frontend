@@ -11,7 +11,8 @@ import { IconControlComponent } from "../controls/icon-control/icon-control.comp
 export class ButtonControlComponent {
   // Only properties for the button control component
   @Input() textButton: string = '';
-  @Input() typeButton: string = 'button';
+  @Input() textClass: string = ''
+  @Input() typeButton: 'button' | 'submit' = 'button';
   @Input() buttonClass: string =
     'w-full flex justify-center py-2 sm:py-3 px-4 border border-transparent rounded-lg shadow-xs text-sm font-medium text-white bg-[#E91E63] hover:bg-[#D81B60] focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-[#E91E63] transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100';
 
@@ -32,4 +33,7 @@ export class ButtonControlComponent {
 
   // Only events output for the button control component
   @Output() onClick = new EventEmitter<void>();
+  @Output() onDragOver = new EventEmitter<DragEvent>();
+  @Output() onDragLeave = new EventEmitter<DragEvent>();
+  @Output() onDrop = new EventEmitter<DragEvent>();
 }

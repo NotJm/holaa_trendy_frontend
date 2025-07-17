@@ -33,8 +33,8 @@ export class ProductService extends BaseService {
    */
   getProductsByFeatured(
     view: 'new-arrivals' | 'best-offers' | 'best-sellers',
-  ): Observable<IFeaturedProduct[]> {
-    return this.get<IFeaturedProduct[]>(`view/${view}`);
+  ): Observable<IApiResponse> {
+    return this.get<IApiResponse>(`view/${view}`);
   }
 
   /**

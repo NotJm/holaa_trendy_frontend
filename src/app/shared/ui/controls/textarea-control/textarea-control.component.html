@@ -1,0 +1,44 @@
+<div
+  *ngIf="useFormGroup; else normalTextArea"
+  [formGroup]="form"
+  class="space-y-2"
+>
+  <label [for]="controlName" [class]="labelClass">
+    {{ label }}
+  </label>
+  <div class="relative">
+    <textarea
+      [formControlName]="controlName"
+      [class]="textAreaClass"
+      [class.border-red-300]="isInvalid"
+      [placeholder]="placeholder"
+      [rows]="nRows"
+    ></textarea>
+    <icon-control [iconClass]="iconClass" />
+  </div>
+  <div *ngIf="isInvalid" class="text-red-500 text-sm mt-1 animate-fade-in">
+    {{ errorMessage }}
+  </div>
+</div>
+
+<ng-template #normalTextArea>
+  <div class="space-y-2">
+    <label for="" [class]="labelClass">
+      {{ label }}
+    </label>
+    <div class="relative">
+      <textarea
+        [ngModel]="value"
+        (ngModelChange)="onInputChange($event)"
+        [class]="textAreaClass"
+        [class.border-red-300]="isInvalid"
+        [placeholder]="placeholder"
+        [rows]="nRows"
+      ></textarea>
+      <icon-control [iconClass]="iconClass" />
+    </div>
+    <div *ngIf="isInvalid" class="text-red-500 text-sm mt-1 animate-fade-in">
+      {{ errorMessage }}
+    </div>
+  </div>
+</ng-template>

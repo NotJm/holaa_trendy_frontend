@@ -17,8 +17,8 @@ import { NavbarService } from '../../../core/providers/navbar.service';
 import { AnimatedBackgroundComponent } from '../../../shared/animated-background/animated-background.component';
 import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 import { InputControlComponent } from '../../../shared/ui/controls/input-control/input-control.component';
-import { FormTextAreaControlComponent } from '../../../shared/ui/form-text-area-control/form-text-area-control.component';
-import { ImageControlComponent } from '../../../shared/ui/image-control/image-control.component';
+import { TextAreaControlComponent } from '../../../shared/ui/controls/textarea-control/textarea-control.component';
+import { ImageControlComponent } from '../../../shared/ui/controls/image-control/image-control.component';
 
 interface FormData {
   username: string;
@@ -46,9 +46,9 @@ interface Errors {
     AnimatedBackgroundComponent,
     ButtonControlComponent,
     InputControlComponent,
-    FormTextAreaControlComponent,
-    RouterLink
-  ],
+    RouterLink,
+    TextAreaControlComponent
+],
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit, OnDestroy {

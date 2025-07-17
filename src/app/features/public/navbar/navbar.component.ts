@@ -24,12 +24,12 @@ import { AuthService } from '../../../core/providers/api/auth.service';
 import { UserService } from '../../../core/providers/api/user.service';
 import { NavbarService } from '../../../core/providers/navbar.service';
 import { IconControlComponent } from '../../../shared/ui/controls/icon-control/icon-control.component';
-import { ImageControlComponent } from '../../../shared/ui/image-control/image-control.component';
 import { NavigationLinkComponent } from '../../../shared/ui/navigation-link/navigation-link.component';
 import { SearchComponent } from '../ui/search/search.component';
 import { TopSocialBarComponent } from '../ui/top-social-bar/top-social-bar.component';
 import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 import { IUserWithAvatar } from '../../../core/interfaces/users.interface';
+import { ImageControlComponent } from '../../../shared/ui/controls/image-control/image-control.component';
 
 @Component({
   selector: 'app-navbar',

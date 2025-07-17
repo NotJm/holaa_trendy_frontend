@@ -5,11 +5,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { HotToastService } from '@ngxpert/hot-toast';
 import { ButtonControlComponent } from "../../../shared/ui/button/button-control.component";
 import { InputControlComponent } from "../../../shared/ui/controls/input-control/input-control.component";
-import { FormTextAreaControlComponent } from "../../../shared/ui/form-text-area-control/form-text-area-control.component";
+import { TextAreaControlComponent } from "../../../shared/ui/controls/textarea-control/textarea-control.component";
 
 @Component({
     selector: 'form-contacts',
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputControlComponent, ButtonControlComponent, FormTextAreaControlComponent],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputControlComponent, ButtonControlComponent, TextAreaControlComponent],
     templateUrl: './contacts.component.html',
     styleUrl: './contacts.component.css',
     animations: [

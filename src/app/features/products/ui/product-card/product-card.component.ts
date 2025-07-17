@@ -4,7 +4,7 @@ import {
   IProduct
 } from '../../../../core/interfaces/product.interface';
 import { ButtonControlComponent } from '../../../../shared/ui/button/button-control.component';
-import { ImageControlComponent } from '../../../../shared/ui/image-control/image-control.component';
+import { ImageControlComponent } from '../../../../shared/ui/controls/image-control/image-control.component';
 
 @Component({
   selector: 'product-card',

@@ -61,7 +61,6 @@ export class FormEmailComponent {
   }
 
   onSuccess(response: IApiResponse): void {
-    this.toast.success(response.message, { position: 'top-right' });
     this.onNextStep.emit();
   }
 

@@ -1,0 +1,131 @@
+<div class="min-h-screen bg-white">
+  <!-- Header -->
+  <div class="border-b border-gray-200 bg-white">
+    <div class="px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-semibold text-gray-900">
+            Gestión de Productos
+          </h1>
+          <p class="text-sm text-gray-600 mt-1">
+            Administra el catálogo completo de productos
+          </p>
+        </div>
+        <button-control
+          buttonClass="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md flex items-center space-x-2"
+          (onClick)="openCreateModal()"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--plus] w-4 h-4 me-2 flex"
+          textButton="Nuevo producto"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+    <div class="flex flex-col sm:flex-row gap-4">
+      <div class="relative flex-1">
+        <input-control
+          [useFormControl]="false"
+          [hasLabel]="false"
+          [hasIcon]="true"
+          iconClass="icon-[mdi--search] absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"
+          [(value)]="searchTerm"
+          inputClass="pl-10 bg-white w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+          placeholder="Buscar por nombre, código o categoría..."
+        />
+      </div>
+      <select
+        [(ngModel)]="categorySelected"
+        class="bg-white px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+      >
+        <option selected value="all">Todas las categorías</option>
+        <option *ngFor="let category of categories" [value]="category.name">
+          {{ category.name | titlecase }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Cartas de informacion -->
+  <div class="px-6 py-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <state-card
+        measureTitle="Total de productos"
+        [measure]="products.length"
+        iconClass="icon-[mdi--package] flex w-8 h-8 mr-3 text-indigo-600"
+        cardClass="bg-white border-l-4 border-indigo-500 rounded-r-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6"
+        titleClass="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2"
+        measureClass="text-2xl font-bold text-gray-900"
+      />
+
+      <state-card
+        measureTitle="Con Descuento"
+        [measure]="getProductsWithDiscount()"
+        iconClass="icon-[mdi--discount] flex w-8 h-8 mr-3 text-green-600"
+        cardClass="bg-white border-l-4 border-green-500 rounded-r-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6"
+        titleClass="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2"
+        measureClass="text-2xl font-bold text-green-700"
+      />
+
+      <state-card
+        measureTitle="Sin Stock"
+        [measure]="getOutOfStockProducts()"
+        iconClass="icon-[mdi--package-variant-closed-remove] flex w-8 h-8 mr-3 text-red-600"
+        cardClass="bg-white border-l-4 border-red-500 rounded-r-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6"
+        titleClass="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2"
+        measureClass="text-2xl font-bold text-red-700"
+      />
+
+      <state-card
+        measureTitle="Stock Bajo"
+        [measure]="getLowStockProducts()"
+        iconClass="icon-[mdi--alert-circle] flex w-8 h-8 mr-3 text-amber-600"
+        cardClass="bg-white border-l-4 border-amber-500 rounded-r-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6"
+        titleClass="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2"
+        measureClass="text-2xl font-bold text-amber-700"
+      />
+    </div>
+
+    <!-- Products Table -->
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      <table-product
+        tableClass="min-w-full divide-y divide-gray-200"
+        theadClass="bg-gray-50"
+        tbodyClass="bg-white divide-y divide-gray-200"
+        [colsNames]="[
+          'Producto',
+          'Codigo',
+          'Categoria',
+          'Precio',
+          'Color',
+          'Variantes',
+          'Stock Total',
+          'Acciones'
+        ]"
+        colClass="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+        rowClass="px-6 py-4 whitespace-nowrap"
+        trClass="hover:bg-gray-50"
+        [products]="products"
+        [searchTerm]="searchTerm"
+        [categorySelected]="categorySelected"
+        (editEvent)="editProduct($event)"
+        (deleteEvent)="deleteProduct($event)"
+      />
+    </div>
+
+
+
+    <crud-modal 
+      [show]="showModal()" 
+      [mode]="modeModal()" 
+      [product]="productSelected"
+      [subCategories]="subCategories"
+      [colors]="colors"
+      [sizes]="sizes"
+      (closeEvent)="onCloseModal()"
+      (saveEvent)="onSubmit($event)"
+    />
+  </div>
+</div>

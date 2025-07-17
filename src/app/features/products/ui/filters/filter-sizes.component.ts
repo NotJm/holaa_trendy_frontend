@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Size } from '../../../../core/interfaces/size.interface';
 import { FormsModule } from '@angular/forms';
+import { ISize } from '../../../../core/interfaces/size.interface';
 
 @Component({
   selector: 'filter-sizes',
@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
   </div>`,
 })
 export class FilterSizesComponent {
-  @Input({ required: true }) sizes!: Size[];
+  @Input({ required: true }) sizes!: ISize[];
   @Output() onSelectedSize = new EventEmitter<string>();
 
   selectedSize = ''

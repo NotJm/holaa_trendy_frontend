@@ -3,7 +3,7 @@
   [formGroup]="formGroup"
   class="space-y-2"
 >
-  <label *ngIf="hasLabel" [class]="labelClass">
+  <label for="" *ngIf="hasLabel" [class]="labelClass">
     {{ label }}
   </label>
   <div class="relative">
@@ -11,6 +11,8 @@
 
     <input
       [type]="inputType"
+      [max]="inputType === 'number' ? maxValue : ''"
+      [min]="inputType === 'number' ? minValue : ''"
       [value]="inputValue"
       formControlName="{{ controlName }}"
       [autocomplete]="enableAutocomplete"
@@ -26,7 +28,7 @@
 </div>
 
 <ng-template #normalInput>
-  <label *ngIf="hasLabel" [class]="labelClass">
+  <label for="" *ngIf="hasLabel" [class]="labelClass">
     {{ label }}
   </label>
   <div class="relative">
@@ -34,6 +36,8 @@
     <input
       [type]="inputType"
       [ngModel]="value"
+      [max]="inputType === 'number' ? maxValue : ''"
+      [min]="inputType === 'number' ? minValue : ''"
       (ngModelChange)="onInputChange($event)"
       [autocomplete]="enableAutocomplete"
       [class]="inputClass"

@@ -21,7 +21,7 @@ import { ButtonControlComponent } from '../../../../shared/ui/button/button-cont
 import { InputControlComponent } from '../../../../shared/ui/controls/input-control/input-control.component';
 import { FormPasswordControlComponent } from '../../../../shared/ui/form-password-control/form-password-control.component';
 import { FormPhoneControlComponent } from '../../../../shared/ui/form-phone-control/form-phone-control.component';
-import { ImageControlComponent } from '../../../../shared/ui/image-control/image-control.component';
+import { ImageControlComponent } from '../../../../shared/ui/controls/image-control/image-control.component';
 
 @Component({
   selector: 'signup-form',

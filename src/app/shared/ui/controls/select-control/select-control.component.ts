@@ -11,12 +11,12 @@ import { FormsModule } from '@angular/forms';
     <select
       [(ngModel)]="itemSelected"
       (change)="onSelected()"
-      class="w-full border rounded-sm px-3 py-2 text-sm"
+      [class]="selectClass"
       [ariaLabel]="titleSelect"
     >
-      <option *ngIf="hasDefaultValue && !isDefaultValueInItems()" [value]="defaultValue">{{defaultLabel}}</option>
-      @for(item of items; track getItemId(item)) {
-      <option [value]="getItemValue(item)">{{ getItemValue(item) | titlecase }}</option>
+      <option *ngIf="hasDefaultValue && !isDefaultValueInItems()" [disabled]="disabledFirstOption" [value]="defaultValue">{{defaultLabel}}</option>
+      @for(item of items; track getItemId(item); let i = $index) {
+      <option  [value]="getItemValue(item)">{{ getItemValue(item) | titlecase }}</option>
       }
     </select>
   </div>`,
@@ -24,12 +24,14 @@ import { FormsModule } from '@angular/forms';
 export class SelectControlComponent<T extends Record<string, any>> implements OnInit {
   @Input({ required: true }) titleSelect!: string;
   @Input({ required: true }) hasDefaultValue!: boolean;
+  @Input() disabledFirstOption: boolean = false;
+  @Input() selectClass: string = 'w-full border rounded-sm px-3 py-2 text-sm';
   @Input() defaultValue: string | null = '';
   @Input() defaultLabel: string | null = '';
   @Input({ required: true }) items!: T[];
   @Input({ required: true }) idKey!: keyof T;
   @Input({ required: true }) valueKey!: keyof T;
-  @Output() onItemSelected = new EventEmitter<string>();
+  @Output() onItemSelected = new EventEmitter<{ item: string; index: number }>();
   itemSelected: string = ''
 
   ngOnInit(): void {
@@ -41,7 +43,8 @@ export class SelectControlComponent<T extends Record<string, any>> implements On
   }
 
   onSelected(): void {
-    return this.onItemSelected.emit(this.itemSelected);
+    const index = this.items.findIndex(item => this.getItemValue(item) === this.itemSelected)
+    return this.onItemSelected.emit({ item: this.itemSelected, index});
   }
 
   getItemId(item: T): string | number {

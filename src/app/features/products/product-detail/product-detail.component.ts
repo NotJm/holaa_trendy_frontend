@@ -7,7 +7,7 @@ import { finalize } from 'rxjs';
 import { IApiResponse } from '../../../core/interfaces/api.response.interface';
 import { IProduct } from '../../../core/interfaces/product.interface';
 import { ProductService } from '../../../core/providers/api/products.service';
-import { ImageControlComponent } from '../../../shared/ui/image-control/image-control.component';
+import { ImageControlComponent } from '../../../shared/ui/controls/image-control/image-control.component';
 
 @Component({
   selector: 'app-product-detail',

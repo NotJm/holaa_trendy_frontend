@@ -28,12 +28,12 @@ import { IconControlComponent } from '../icon-control/icon-control.component';
   templateUrl: './input-control.component.html',
   styleUrl: './input-control.component.css',
 })
-export class InputControlComponent implements OnChanges {
+export class InputControlComponent {
   // Only properties if input is used form
   @Input({ required: true }) useFormControl!: boolean;
   @Input() formGroup!: FormGroup;
   @Input() controlName!: string;
-  @Input() inputValue: string = '';
+  @Input() inputValue: string | number = '';
 
   // Only properties for input control component
   @Input() hasLabel: boolean = false;
@@ -45,7 +45,9 @@ export class InputControlComponent implements OnChanges {
   @Input() placeholder?: string = '';
   @Input() enableAutocomplete: 'username' | 'password' | 'off' = 'username';
   @Input() isReadOnly: boolean = false;
-  @Input() value: string = ''
+  @Input() value: any;
+  @Input() maxValue: string = '';
+  @Input() minValue: string = '0';
 
   // Only properties for error input
   @Input() errorClass: string = 'text-red-500 text-sm mt-1 animate-fade-in';
@@ -55,19 +57,13 @@ export class InputControlComponent implements OnChanges {
   @Input() hasIcon: boolean = false;
   @Input() iconClass: string = '';
 
-  @Output() valueChange =  new EventEmitter<string>();
-  @Output() onFocusEvent  =  new EventEmitter<void>();
-  @Output() onBlurEvent   =  new EventEmitter<void>();
-
-  iconClassComplete: string = '';
-
-  ngOnChanges(changes: SimpleChanges): void {
-   
-  }
+  @Output() valueChange = new EventEmitter<any>();
+  @Output() onFocusEvent = new EventEmitter<void>();
+  @Output() onBlurEvent = new EventEmitter<void>();
 
   onInputChange(newValue: string): void {
-    this.value = newValue;
-    this.valueChange.emit(this.value)
+    const parsed = this.inputType === 'number' ? +newValue : newValue;
+    this.valueChange.emit(parsed);
   }
 
   get control(): AbstractControl<any, any> | null {
@@ -77,5 +73,4 @@ export class InputControlComponent implements OnChanges {
   get isInvalid(): boolean | undefined {
     return this.control?.invalid && this.control?.touched;
   }
-
 }

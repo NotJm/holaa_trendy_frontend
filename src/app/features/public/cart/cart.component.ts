@@ -9,6 +9,7 @@ import { ICart } from '../../../core/interfaces/cart.interface';
 import { CartService } from '../../../core/providers/api/cart.service';
 import { SaleService } from '../../../core/providers/api/sale.service';
 import { CartItemComponent } from '../ui/cart-item/cart-item.component';
+import { ButtonControlComponent } from "../../../shared/ui/button/button-control.component";
 
 declare var paypal: any;
 
@@ -19,7 +20,8 @@ declare var paypal: any;
     CommonModule,
     FormsModule,
     CartItemComponent,
-  ],
+    ButtonControlComponent
+],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })

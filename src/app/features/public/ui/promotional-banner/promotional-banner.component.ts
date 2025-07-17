@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ButtonControlComponent } from "../../../../shared/ui/button/button-control.component";
-import { ImageControlComponent } from "../../../../shared/ui/image-control/image-control.component";
+import { ImageControlComponent } from '../../../../shared/ui/controls/image-control/image-control.component';
 
 @Component({
   selector: 'promotional-banner',
