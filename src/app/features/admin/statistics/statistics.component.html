@@ -1,134 +1,262 @@
-<div class="min-h-screen bg-gray-50 p-6">
-  <div class="max-w-7xl mx-auto">
-    <!-- Encabezado -->
-    <div class="mb-8">
-      <div class="flex items-center text-sm text-gray-500 mb-2">
-        <a href="#" class="hover:text-blue-600">Inicio</a>
-        <icon-control
-          iconClass="icon-[hugeicons--arrow-right-01] h-4 w-4 mx-2 mt-1"
-        />
-        <span class="text-blue-600 font-medium">Inventario</span>
+<!-- Statistics Component -->
+<div class="min-h-screen bg-white">
+  <!-- Header -->
+  <div class="border-b border-gray-200 bg-white sticky top-0 z-10">
+    <div class="px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-semibold text-black">Estadísticas</h1>
+          <p class="text-sm text-gray-500 mt-1">Análisis y métricas de rendimiento</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <!-- Date Range -->
+          <select class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+            <option>Últimos 7 días</option>
+            <option>Últimos 30 días</option>
+            <option>Últimos 3 meses</option>
+            <option>Este año</option>
+          </select>
+          <!-- Export -->
+          <button class="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors duration-200">
+            <span class="icon-[mdi--download] w-4 h-4"></span>
+            Exportar
+          </button>
+        </div>
       </div>
-      <h1 class="text-3xl font-bold text-gray-800">Ventas</h1>
-      <p class="mt-2 text-gray-600">
-        HOLAA Trendy - Predicción de Agotamiento de Stock
-      </p>
     </div>
+  </div>
 
-    <!-- Tarjetas de métricas principales -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-      <metric-card
-        titleCard="Stock Inicial"
-        [metric]="886"
-        measurement="Unidades"
-        iconClass="icon-[mdi--package] h-6 w-6 text-sm flex items-center"
-        borderAccentColor="border-blue-500"
-        textAccentColor="text-blue-600"
-      />
-
-      <metric-card
-        titleCard="Ventas Totales"
-        [metric]="141"
-        measurement="Marzo - Abril"
-        iconClass="icon-[mdi--trending-up] h-6 w-6 text-sm flex items-center"
-        borderAccentColor="border-green-500"
-        textAccentColor="text-green-600"
-      />
-
-      <metric-card
-        titleCard="Categoria Top"
-        [metric]="'Pantalones'"
-        measurement="Mas vendidos"
-        iconClass="icon-[hugeicons--crown] h-6 w-6 text-sm flex items-center"
-        borderAccentColor="border-purple-500"
-        textAccentColor="text-purple-600"
-      />
-
-      <metric-card
-        titleCard="Proximo Agotamiento"
-        [metric]="'Interiores'"
-        measurement="Requiere reposicion"
-        iconClass="icon-[hugeicons--alert-circle] h-6 w-6 text-sm flex items-center"
-        borderAccentColor="border-red-500"
-        textAccentColor="text-red-600"
-      />
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-      <select-control
-        titleSelect="Categorias"
-        [hasDefaultValue]="true"
-        defaultValue=""
-        defaultLabel="Seleccione una categoría"
-        [items]="categories"
-        idKey="id"
-        valueKey="name"
-        (onItemSelected)="onCategorySelected($event.item)"
-      />
-
-      <!-- <date-range
-        (onStartDateSelected)="onStartDateSelected($event)"
-        (onEndDateSelected)="onEndDateSelected($event)"
-      /> -->
-      
-      <input-control
-        label="Stock Inicial"
-        iconClass="icon-[hugeicons--backpack-01]"
-        placeholder="Stock Inicial"
-        [inputValue]="'886'"
-        [useFormControl]="false"
-      />
-      <input-control
-        label="Stock Restante"
-        iconClass="icon-[hugeicons--backpack-01]"
-        placeholder="Stock Restante"
-        [inputValue]="isCategorySelected() ? `100` : 'Seleccione una categoria'"
-        [useFormControl]="false"
-      />
-      <!-- <button-control/> -->
-    </div>
-
-    <!-- Contenedor principal que siempre ocupa todo el ancho -->
-    <div class="w-full">
-      <!-- Mensaje de selección de categoría -->
-      <div
-        *ngIf="!isCategorySelected()"
-        class="flex justify-center items-center min-h-[400px]"
-      >
-        <div class="text-center max-w-md px-4 py-8">
-          <icon-control
-            iconClass="w-20 h-20 mx-auto mb-6 text-gray-400 icon-[hugeicons--search-01]"
-          />
-
-          <h1 class="text-2xl font-semibold text-gray-900 mb-4">
-            Selecciona una categoria
-          </h1>
-          <p class="text-gray-500 mb-8">
-            Para comenzar el análisis, selecciona una categoria del menú
-            desplegable.
-          </p>
+  <!-- Stats Overview -->
+  <div class="px-6 py-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Revenue -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-500">Ingresos Totales</p>
+            <p class="text-2xl font-semibold text-black mt-1">$47,230</p>
+          </div>
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+            <span class="icon-[mdi--currency-usd] w-6 h-6 text-green-600"></span>
+          </div>
+        </div>
+        <div class="flex items-center mt-4">
+          <span class="text-sm text-green-600 font-medium">+18.2%</span>
+          <span class="text-sm text-gray-500 ml-2">vs período anterior</span>
         </div>
       </div>
 
-      <!-- Tabla de estadísticas -->
-      <div *ngIf="isCategorySelected() && !isProductSelected()">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8">
-          <product-sales-pie-chart [data]="backupSalesByCategory" [categorySelected]="this.categorySelected"/>
-          <stock-compare-sale-chart [data]="backupSalesByCategory" />
-        </div>  
-        <stadistic-table
-          [salesData]="filterSalesByCategory"
-          (actionClick)="onProductSelected($event)"
-        />
-        
+      <!-- Orders -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-500">Órdenes</p>
+            <p class="text-2xl font-semibold text-black mt-1">1,247</p>
+          </div>
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+            <span class="icon-[mdi--package-variant-closed] w-6 h-6 text-blue-600"></span>
+          </div>
+        </div>
+        <div class="flex items-center mt-4">
+          <span class="text-sm text-green-600 font-medium">+12.5%</span>
+          <span class="text-sm text-gray-500 ml-2">vs período anterior</span>
+        </div>
       </div>
 
-      <product-sale-card 
-        *ngIf="isProductSelected()" 
-        [productSales]="salesByProduct" 
-        (onReturn)="isProductSelected.set($event)"
-      />
-      
+      <!-- Conversion Rate -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-500">Tasa Conversión</p>
+            <p class="text-2xl font-semibold text-black mt-1">3.47%</p>
+          </div>
+          <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+            <span class="icon-[mdi--trending-up] w-6 h-6 text-orange-600"></span>
+          </div>
+        </div>
+        <div class="flex items-center mt-4">
+          <span class="text-sm text-green-600 font-medium">+0.23%</span>
+          <span class="text-sm text-gray-500 ml-2">vs período anterior</span>
+        </div>
+      </div>
+
+      <!-- Average Order Value -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-500">Ticket Promedio</p>
+            <p class="text-2xl font-semibold text-black mt-1">$89.50</p>
+          </div>
+          <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+            <span class="icon-[mdi--calculator] w-6 h-6 text-gray-600"></span>
+          </div>
+        </div>
+        <div class="flex items-center mt-4">
+          <span class="text-sm text-green-600 font-medium">+5.1%</span>
+          <span class="text-sm text-gray-500 ml-2">vs período anterior</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <!-- Revenue Chart -->
+      <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+          <h2 class="text-lg font-semibold text-black">Ingresos por Mes</h2>
+        </div>
+        <div class="p-6">
+          <div class="h-64 flex items-end justify-between space-x-2">
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-black rounded-t" style="height: 120px;"></div>
+              <span class="text-xs text-gray-500 mt-2">Ene</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-black rounded-t" style="height: 140px;"></div>
+              <span class="text-xs text-gray-500 mt-2">Feb</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-black rounded-t" style="height: 180px;"></div>
+              <span class="text-xs text-gray-500 mt-2">Mar</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-black rounded-t" style="height: 160px;"></div>
+              <span class="text-xs text-gray-500 mt-2">Abr</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-black rounded-t" style="height: 200px;"></div>
+              <span class="text-xs text-gray-500 mt-2">May</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-black rounded-t" style="height: 220px;"></div>
+              <span class="text-xs text-gray-500 mt-2">Jun</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Products -->
+      <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+          <h2 class="text-lg font-semibold text-black">Productos Más Vendidos</h2>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="w-2 h-2 bg-black rounded-full mr-3"></div>
+              <span class="text-sm text-black">Vestido Floral Primavera</span>
+            </div>
+            <span class="text-sm font-medium text-black">247 ventas</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="w-2 h-2 bg-gray-600 rounded-full mr-3"></div>
+              <span class="text-sm text-black">Blusa Casual Blanca</span>
+            </div>
+            <span class="text-sm font-medium text-black">198 ventas</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="w-2 h-2 bg-gray-400 rounded-full mr-3"></div>
+              <span class="text-sm text-black">Pantalón Elegante Negro</span>
+            </div>
+            <span class="text-sm font-medium text-black">156 ventas</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="w-2 h-2 bg-gray-300 rounded-full mr-3"></div>
+              <span class="text-sm text-black">Falda Midi Estampada</span>
+            </div>
+            <span class="text-sm font-medium text-black">134 ventas</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="w-2 h-2 bg-gray-200 rounded-full mr-3"></div>
+              <span class="text-sm text-black">Chaqueta Denim</span>
+            </div>
+            <span class="text-sm font-medium text-black">98 ventas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Analytics -->
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <h2 class="text-lg font-semibold text-black">Análisis Detallado</h2>
+      </div>
+      <div class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Traffic Sources -->
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-4">Fuentes de Tráfico</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Búsqueda Orgánica</span>
+                <span class="text-sm font-medium text-black">45.2%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Redes Sociales</span>
+                <span class="text-sm font-medium text-black">28.7%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Directo</span>
+                <span class="text-sm font-medium text-black">16.3%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Email Marketing</span>
+                <span class="text-sm font-medium text-black">9.8%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Device Analytics -->
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-4">Dispositivos</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Móvil</span>
+                <span class="text-sm font-medium text-black">67.4%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Desktop</span>
+                <span class="text-sm font-medium text-black">24.8%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Tablet</span>
+                <span class="text-sm font-medium text-black">7.8%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Geographic Data -->
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-4">Ubicaciones</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Madrid</span>
+                <span class="text-sm font-medium text-black">32.1%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Barcelona</span>
+                <span class="text-sm font-medium text-black">24.5%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Valencia</span>
+                <span class="text-sm font-medium text-black">15.7%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Sevilla</span>
+                <span class="text-sm font-medium text-black">12.3%</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-black">Otros</span>
+                <span class="text-sm font-medium text-black">15.4%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

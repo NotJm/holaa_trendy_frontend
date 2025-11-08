@@ -1,0 +1,19 @@
+<div
+  class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200"
+>
+  <div class="flex items-center justify-between">
+    <div>
+      <p class="text-sm font-medium text-gray-500">{{ titleCard }}</p>
+      <p class="text-2xl font-semibold text-black mt-1">{{ measure }}</p>
+    </div>
+    <div
+      class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center"
+    >
+      <icon-control [iconClass]="iconClass"/>
+    </div>
+  </div>
+  <div class="flex items-center mt-4" *ngIf="hasMoreMetrics">
+    <span class="text-sm text-green-600 font-medium">{{ percentage }}%</span>
+    <span class="text-sm text-gray-500 ml-2">{{ label }}</span>
+  </div>
+</div>

@@ -1,186 +1,321 @@
+<!-- Sidebar Component -->
 <aside
-  class="fixed left-0 top-0 z-40 h-screen w-64 transition-all duration-300 bg-white border-r border-gray-200 shadow-xs"
+  [class]="
+    'fixed left-0 top-0 z-40 h-screen transition-all duration-300 ease-in-out bg-white border-r border-gray-200 flex flex-col ' +
+    (sidebarService.isCollapsed() ? 'w-16' : 'w-64')
+  "
 >
-  <!-- Logo y Encabezado -->
-  <div class="flex items-center gap-3 p-5 border-b border-gray-100">
-    <image-control
-      src="https://res.cloudinary.com/djy0fxyoq/image/upload/v1741215143/logo_ix9ohv.webp"
-      alt="HOLAA Trendy"
-      imageClass=""
-    />
+  <!-- Header con toggle -->
+  <div
+    class="flex items-center justify-between p-4 border-b border-gray-100 flex-shrink-0"
+  >
+    <div
+      [class]="
+        'flex items-center gap-3 transition-all duration-300 ease-in-out ' +
+        (sidebarService.isCollapsed()
+          ? 'opacity-0 scale-95'
+          : 'opacity-100 scale-100 delay-100')
+      "
+    >
+      <image-control
+        src="https://res.cloudinary.com/djy0fxyoq/image/upload/v1741215143/logo_ix9ohv.webp"
+        alt="HOLAA Trendy"
+        imageClass="h-8 w-auto"
+      />
+    </div>
+
+    <!-- Toggle Button -->
+    <button
+      (click)="sidebarService.toggle()"
+      class="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group flex-shrink-0"
+    >
+      <div
+        [class]="
+          'w-4 h-4 transition-transform duration-300 ease-in-out ' +
+          (sidebarService.isCollapsed() ? 'rotate-180' : 'rotate-0')
+        "
+      >
+        <span
+          class="block w-full h-0.5 bg-gray-600 mb-1 transition-all duration-200 group-hover:bg-black"
+        ></span>
+        <span
+          class="block w-full h-0.5 bg-gray-600 mb-1 transition-all duration-200 group-hover:bg-black"
+        ></span>
+        <span
+          class="block w-full h-0.5 bg-gray-600 transition-all duration-200 group-hover:bg-black"
+        ></span>
+      </div>
+    </button>
   </div>
 
-  <!-- Perfil de Usuario -->
+  <!-- User Profile -->
   <div
-    class="flex items-center gap-3 p-4 mx-2 my-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all duration-200"
+    [class]="
+      'p-4 border-b border-gray-100 transition-all duration-300 ease-in-out flex-shrink-0 ' +
+      (sidebarService.isCollapsed() ? 'px-2' : 'px-4')
+    "
   >
-    <div class="flex items-center gap-3 p-2">
+    <div class="flex items-center gap-3">
       <!-- Avatar -->
-      <div class="relative shrink-0">
+      <div class="relative flex-shrink-0">
         <div
-          class="h-12 w-12 rounded-full overflow-hidden shadow-xs border-2 border-white ring-2 ring-indigo-100"
+          class="w-10 h-10 bg-black rounded-full flex items-center justify-center"
         >
-          <image-control
-            [src]="userAvatar"
-            alt="User Avatar"
-            imageClass="h-full w-full object-cover"
-          />
+          <span class="text-white text-sm font-medium">
+            {{ userName.charAt(0).toUpperCase() || "U" }}
+          </span>
         </div>
         <div
-          class="absolute -bottom-1 -right-1 flex items-center justify-center"
+          class="absolute -bottom-1 -right-1 w-3 h-3 bg-white border border-gray-200 rounded-full flex items-center justify-center"
         ></div>
       </div>
 
-      <!-- Información del usuario -->
-      <div class="flex flex-col">
-        <span class="font-semibold font-karla text-gray-800">{{
-          userName | titlecase
-        }}</span>
-        <span class="truncate w-32 font-karla text-xs text-gray-500 mt-0.5">{{
-          userEmail
-        }}</span>
+      <!-- User Info -->
+      <div
+        [class]="
+          'flex flex-col min-w-0 transition-all duration-300 ease-in-out ' +
+          (sidebarService.isCollapsed()
+            ? 'opacity-0 w-0 scale-95'
+            : 'opacity-100 w-auto scale-100 delay-100')
+        "
+      >
+        <span class="text-sm font-medium text-black truncate">
+          {{ userName | titlecase }}
+        </span>
+        <span class="text-xs text-gray-500 truncate">
+          {{ userEmail }}
+        </span>
       </div>
     </div>
   </div>
 
-  <!-- Navegación -->
-  <nav class="mt-2 px-3 overflow-y-auto">
-    <div
-      class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-4 py-2 font-karla"
-    >
-      Menu principal
-    </div>
-
-    <div class="space-y-2">
-      <navigation-link
-        link="/admin/home"
-        linkText="Inicio"
-        linkActiveClass="bg-indigo-50 text-mallow-melon border-l-4 border-mallow-melon"
-        linkClass="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100 transition-all duration-200 font-karla font-semibold"
-        [hasIcon]="true"
-        iconClass="icon-[mdi--home] w-5 h-5 flex items-center"
-      />
-
-      <navigation-link
-        link="#"
-        linkText="Ordenes"
-        linkClass="flex items-center gap-3 rounded-lg px-4 py-3 font-karla text-gray-400 bg-gray-100/50 cursor-not-allowed relative overflow-hidden"
-        [hasIcon]="true"
-        iconClass="icon-[mdi--package-variant-closed] w-5 h-5 flex items-center"
-      >
+  <!-- Navigation - Área scrolleable -->
+  <div class="flex-1 overflow-y-auto overflow-x-hidden">
+    <nav class="py-4">
+      <!-- Main Menu -->
+      <div class="px-3">
         <div
-          class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center"
+          [class]="
+            'text-xs font-medium text-gray-400 uppercase tracking-wider mb-3 transition-all duration-300 ease-in-out ' +
+            (sidebarService.isCollapsed()
+              ? 'opacity-0 scale-95 px-1'
+              : 'opacity-100 scale-100 px-3 delay-100')
+          "
         >
-          <span
-            class="text-xs font-karla bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full"
-            >Próximamente</span
-          >
+          Principal
         </div>
-      </navigation-link>
 
-      <navigation-link
-        link="/"
-        linkText="Clientes"
-        linkClass="flex items-center gap-3 rounded-lg px-4 py-3 font-karla text-gray-400 bg-gray-100/50 cursor-not-allowed relative overflow-hidden"
-        [hasIcon]="true"
-        iconClass="icon-[mdi--user-group] w-5 h-5 flex items-center"
-      >
-        <div
-          class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center"
-        >
-          <span
-            class="text-xs font-karla bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full"
-            >Próximamente</span
-          >
+        <div class="space-y-1">
+          <!-- Dashboard -->
+          <navigation-link
+            link="/admin/home"
+            linkActiveClass="bg-black text-white"
+            [linkClass]="
+              'flex items-center px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-black transition-all duration-300 ease-in-out group ' +
+              (sidebarService.isCollapsed()
+                ? 'justify-center'
+                : 'justify-start gap-3')
+            "
+            linkText="Inicio"
+            [linkTextClass]="
+              'text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out ' +
+              (sidebarService.isCollapsed()
+                ? 'opacity-0 w-0 scale-95'
+                : 'opacity-100 w-auto scale-100 delay-75')
+            "
+            [hasIcon]="true"
+            iconClass="w-5 h-5 flex-shrink-0 icon-[mdi--home]"
+          />
+
+          <navigation-link
+            link="/admin/orders"
+            linkActiveClass="bg-black text-white"
+            [linkClass]="
+              'flex items-center px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-black transition-all duration-300 ease-in-out group ' +
+              (sidebarService.isCollapsed()
+                ? 'justify-center'
+                : 'justify-start gap-3')
+            "
+            linkText="Órdenes"
+            [linkTextClass]="
+              'text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out ' +
+              (sidebarService.isCollapsed()
+                ? 'opacity-0 w-0 scale-95'
+                : 'opacity-100 w-auto scale-100 delay-75')
+            "
+            [hasIcon]="true"
+            iconClass="w-5 h-5 flex-shrink-0 icon-[mdi--package-variant-closed]"
+          />
+
+          <!-- Customers -->
+
+          <navigation-link
+            link="/admin/users"
+            linkActiveClass="bg-black text-white"
+            [linkClass]="
+              'flex items-center px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-black transition-all duration-300 ease-in-out group ' +
+              (sidebarService.isCollapsed()
+                ? 'justify-center'
+                : 'justify-start gap-3')
+            "
+            linkText="Clientes"
+            [linkTextClass]="
+              'text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out ' +
+              (sidebarService.isCollapsed()
+                ? 'opacity-0 w-0 scale-95'
+                : 'opacity-100 w-auto scale-100 delay-75')
+            "
+            [hasIcon]="true"
+            iconClass="w-5 h-5 flex-shrink-0 icon-[mdi--user-group]"
+          />
+
+          <!-- Statistics -->
+
+          <navigation-link
+            link="/admin/statistics"
+            linkActiveClass="bg-black text-white"
+            [linkClass]="
+              'flex items-center px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-black transition-all duration-300 ease-in-out group ' +
+              (sidebarService.isCollapsed()
+                ? 'justify-center'
+                : 'justify-start gap-3')
+            "
+            linkText="Estadisticas"
+            [linkTextClass]="
+              'text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out ' +
+              (sidebarService.isCollapsed()
+                ? 'opacity-0 w-0 scale-95'
+                : 'opacity-100 w-auto scale-100 delay-75')
+            "
+            [hasIcon]="true"
+            iconClass="w-5 h-5 flex-shrink-0 icon-[mdi--trending-up]"
+          />
         </div>
-      </navigation-link>
-
-      <navigation-link
-        link="/admin/statistics"
-        linkText="Estadisticas"
-        linkActiveClass="bg-indigo-50 text-mallow-melon border-l-4 border-mallow-melon"
-        linkClass="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100 transition-all duration-200 font-karla font-semibold"
-        [hasIcon]="true"
-        iconClass="icon-[mdi--trending-up] w-5 h-5 flex items-center"
-      />
-    </div>
-
-    <!-- Seccion de administracion -->
-    <div class="mt-6">
-      <div
-        class="text-xs font-karla font-semibold text-gray-400 uppercase tracking-wider px-4 py-2"
-      >
-        Administration
       </div>
 
-      <div class="space-y-2">
-        <navigation-link
-          link="/"
-          linkText="Ajustes"
-          linkClass="flex items-center gap-3 rounded-lg px-4 py-3 font-karla text-gray-400 bg-gray-100/50 cursor-not-allowed relative overflow-hidden"
-          [hasIcon]="true"
-          iconClass="icon-[mdi--settings] w-5 h-5 flex items-center"
+      <!-- Administration Section -->
+      <div class="px-3 mt-8">
+        <div
+          [class]="
+            'text-xs font-medium text-gray-400 uppercase tracking-wider mb-3 transition-all duration-300 ease-in-out ' +
+            (sidebarService.isCollapsed()
+              ? 'opacity-0 scale-95 px-1'
+              : 'opacity-100 scale-100 px-3 delay-100')
+          "
         >
-          <div
-            class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center"
-          >
-            <span
-              class="text-xs font-karla bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full"
-              >Próximamente</span
-            >
-          </div>
-        </navigation-link>
+          Administración
+        </div>
 
-        <navigation-link
-          link="/admin/audit"
-          linkText="Auditoria"
-          linkActiveClass="bg-indigo-50 text-mallow-melon border-l-4 border-mallow-melon"
-          linkClass="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100 transition-all duration-200 font-karla font-semibold"
-          [hasIcon]="true"
-          iconClass="icon-[mdi--file-search-outline] w-5 h-5 flex items-center"
-        />
+        <div class="space-y-1">
+          <!-- Audit -->
+          <navigation-link
+            link="/admin/audit"
+            linkActiveClass="bg-black text-white"
+            [linkClass]="
+              'flex items-center px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-black transition-all duration-300 ease-in-out group ' +
+              (sidebarService.isCollapsed()
+                ? 'justify-center'
+                : 'justify-start gap-3')
+            "
+            linkText="Auditoria"
+            [linkTextClass]="
+              'text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out ' +
+              (sidebarService.isCollapsed()
+                ? 'opacity-0 w-0 scale-95'
+                : 'opacity-100 w-auto scale-100 delay-75')
+            "
+            [hasIcon]="true"
+            iconClass="w-5 h-5 flex-shrink-0 icon-[mdi--file-search-outline]"
+          />
 
-        <navigation-link
-          link="/admin/incidents"
-          linkText="Incidencias"
-          linkActiveClass="bg-indigo-50 text-mallow-melon border-l-4 border-mallow-melon"
-          linkClass="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100 transition-all duration-200 font-karla font-semibold"
-          [hasIcon]="true"
-          iconClass="icon-[mdi--alert-circle-outline] w-5 h-5 flex items-center"
-        />
+          <!-- Incidents -->
+          <navigation-link
+            link="/admin/incidents"
+            linkActiveClass="bg-black text-white"
+            [linkClass]="
+              'flex items-center px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-black transition-all duration-300 ease-in-out group ' +
+              (sidebarService.isCollapsed()
+                ? 'justify-center'
+                : 'justify-start gap-3')
+            "
+            linkText="Incidencias"
+            [linkTextClass]="
+              'text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out ' +
+              (sidebarService.isCollapsed()
+                ? 'opacity-0 w-0 scale-95'
+                : 'opacity-100 w-auto scale-100 delay-75')
+            "
+            [hasIcon]="true"
+            iconClass="w-5 h-5 flex-shrink-0 icon-[mdi--alert-circle-outline]"
+          />
 
-        <navigation-link
-          link="/admin/business"
-          linkText="Empresa"
-          linkActiveClass="bg-indigo-50 text-mallow-melon border-l-4 border-mallow-melon"
-          linkClass="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100 transition-all duration-200 font-karla font-semibold"
-          [hasIcon]="true"
-          iconClass="icon-[mdi--office-building-outline] w-5 h-5 flex items-center"
-        />
+          <!-- Business -->
+          <navigation-link
+            link="/admin/business"
+            linkActiveClass="bg-black text-white"
+            [linkClass]="
+              'flex items-center px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-black transition-all duration-300 ease-in-out group ' +
+              (sidebarService.isCollapsed()
+                ? 'justify-center'
+                : 'justify-start gap-3')
+            "
+            linkText="Empresa"
+            [linkTextClass]="
+              'text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out ' +
+              (sidebarService.isCollapsed()
+                ? 'opacity-0 w-0 scale-95'
+                : 'opacity-100 w-auto scale-100 delay-75')
+            "
+            [hasIcon]="true"
+            iconClass="w-5 h-5 flex-shrink-0 icon-[mdi--business]"
+          />
 
-        <navigation-link
-          link="/admin/documents"
-          linkText="Documentos"
-          linkActiveClass="bg-indigo-50 text-mallow-melon border-l-4 border-mallow-melon"
-          linkClass="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100 transition-all duration-200 font-karla font-semibold"
-          [hasIcon]="true"
-          iconClass="icon-[mdi--document] w-5 h-5 flex items-center"
-        />
+          <!-- Documents -->
+           <navigation-link
+            link="/admin/documents"
+            linkActiveClass="bg-black text-white"
+            [linkClass]="
+              'flex items-center px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-black transition-all duration-300 ease-in-out group ' +
+              (sidebarService.isCollapsed()
+                ? 'justify-center'
+                : 'justify-start gap-3')
+            "
+            linkText="Documentos"
+            [linkTextClass]="
+              'text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out ' +
+              (sidebarService.isCollapsed()
+                ? 'opacity-0 w-0 scale-95'
+                : 'opacity-100 w-auto scale-100 delay-75')
+            "
+            [hasIcon]="true"
+            iconClass="w-5 h-5 flex-shrink-0 icon-[mdi--document]"
+          />
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 
-  <!-- Footer con botón de logout -->
-  <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100">
+  <!-- Footer - Botón de cerrar sesión FIJO en el fondo -->
+  <div class="border-t border-gray-100 p-4 flex-shrink-0">
     <button-control
-      [textButton]="isLoading() ? 'Cerrando Sesion...' : 'Cerrar Sesion'"
-      buttonClass="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-100 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
       (onClick)="logout()"
-      [hasIcon]="true"
-      iconClass="icon-[mdi--logout] w-5 h-5 flex items-center"
       [hasDisabledCondition]="true"
       [disabledCondition]="isLoading()"
-    
+      [buttonClass]="
+        'flex items-center w-full px-3 py-2.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-black transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed ' +
+        (sidebarService.isCollapsed()
+          ? 'justify-center'
+          : 'justify-start gap-3')
+      "
+      [textButton]="isLoading() ? 'Cerrando...' : 'Cerrar Sesión'"
+      [textClass]="
+        'text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out ' +
+        (sidebarService.isCollapsed()
+          ? 'opacity-0 w-0 scale-95'
+          : 'opacity-100 w-auto scale-100 delay-100')
+      "
+      [hasIcon]="true"
+      iconClass="w-5 h-5 flex-shrink-0 icon-[mdi--logout] transition-all duration-300 ease-in-out"
     />
   </div>
 </aside>

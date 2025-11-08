@@ -20,6 +20,22 @@ export class UserService extends BaseService {
     );
   }
 
+  public getUserCount(): Observable<IApiResponse> {
+    return this.get<IApiResponse>('count', { withCredentials: true })
+  }
+
+  public getUserCountToday(): Observable<IApiResponse> {
+    return this.get<IApiResponse>('count/today', { withCredentials: true })
+  }
+
+  public getUserCountActive(): Observable<IApiResponse> {
+    return this.get<IApiResponse>('count/active', { withCredentials: true })
+  }
+
+  public getActivitys(): Observable<IApiResponse> {
+    return this.get<IApiResponse>('activitys', { withCredentials: true })
+  }
+
   getCachedUser(): IUserWithAvatar | null {
     return this.#userSubject.value;
   }

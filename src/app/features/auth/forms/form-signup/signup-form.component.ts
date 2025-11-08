@@ -50,7 +50,6 @@ export class SignupFormComponent {
     private readonly router: Router,
     private readonly location: Location,
     private readonly authService: AuthService,
-    private readonly cookieService: CookieService,
     private readonly navbarService: NavbarService,
     private readonly footerService: FooterService,
   ) {
@@ -95,18 +94,10 @@ export class SignupFormComponent {
     this.location.back();
   }
 
-  onSubmit(): void {
-    if (!this.registerForm.valid) {
-      return;
-    }
-
+  public onSubmit(): void {
     const phoneNumber = '+52' + this.registerForm.get('phone')?.value;
 
     const user = this.registerForm.value;
-
-    if (!this.enable) {
-      return this.onSuccessTest();
-    }
 
     this.authService
       .signUp({

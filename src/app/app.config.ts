@@ -2,7 +2,7 @@ import {
   ApplicationConfig,
   inject,
   provideAppInitializer,
-  provideZoneChangeDetection,
+  provideZoneChangeDetection, isDevMode,
 } from '@angular/core';
 import {
   PreloadAllModules,
@@ -26,6 +26,7 @@ import { WINDOW } from './core/constants/constants';
 import { QuicklinkStrategy } from 'ngx-quicklink';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { authInterceptor } from './core/interceptor/auth.interceptor';
+import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -43,6 +44,9 @@ export const appConfig: ApplicationConfig = {
     ),
     provideClientHydration(withEventReplay()),
     provideAnimations(),
-    provideHttpClient(withFetch(), withInterceptors([errorInterceptor])), provideCharts(withDefaultRegisterables()),
+    provideHttpClient(withFetch(), withInterceptors([errorInterceptor])), provideCharts(withDefaultRegisterables()), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }),
   ],
 };

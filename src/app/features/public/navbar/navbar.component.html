@@ -59,13 +59,6 @@
 
       <!-- Icons Right  -->
       <div class="flex px-2 items-center justify-end space-x-6">
-        <icon-control
-          *ngIf="!isAdmin()"
-          iconClass="icon-[mdi--cards-heart-outline] text-[#000] w-7 h-7 hover:icon-[mdi--cards-heart] hover:w-7 hover:h-7 hover:text-[#E91E63] transition-colors duration-600"
-          [hasLink]="true"
-          link="/wishlist"
-          linkClass="cursor-pointer"
-        />
 
         <icon-control
           *ngIf="!isAdmin()"
@@ -130,30 +123,6 @@
 
       <!-- Opciones del menú -->
       <div class="py-1">
-        <navigation-link
-          link="auth/profile"
-          linkText="Ver Perfil"
-          linkClass="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-mallow-melon transition-colors group/item cursor-pointer font-karla"
-          [hasIcon]="true"
-          iconClass="icon-[mdi--user] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
-        />
-
-        <navigation-link
-          link="/orders"
-          linkText="Mis Pedidos"
-          linkClass="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-mallow-melon transition-colors group/item cursor-pointer font-karla"
-          [hasIcon]="true"
-          iconClass="icon-[mdi--shopping] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
-        />
-
-        <navigation-link
-          link="/wishlist"
-          linkText="Lista de deseos"
-          linkClass="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-mallow-melon transition-colors group/item cursor-pointer font-karla"
-          [hasIcon]="true"
-          iconClass="icon-[mdi--cards-heart] flex items-center w-5 h-5 mr-3 text-gray-400 group-hover item:text-mallow-melon"
-        />
-
         <navigation-link
           *ngIf="isAdmin()"
           link="/admin"

@@ -16,7 +16,6 @@ interface AuditoriaItem {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './audit.component.html',
-  styleUrls: ['./audit.component.css']
 })
 export class AuditComponent implements OnInit {
 

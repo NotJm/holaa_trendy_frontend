@@ -37,6 +37,10 @@ export class ProductService extends BaseService {
     return this.get<IApiResponse>(`view/${view}`);
   }
 
+  getLowStockProducts(): Observable<IApiResponse> {
+    return this.get<IApiResponse>('low-stock', { withCredentials: true })
+  }
+
   /**
    *
    * @param keyword keyword for search product

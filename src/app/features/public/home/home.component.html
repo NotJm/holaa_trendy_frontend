@@ -45,12 +45,13 @@
 <slider-categories />
 
 <!-- Seccion de productos especiales -->
-<!-- <featured-products
+<featured-products
+  *ngIf="isAuthenticated() && recommendations().length > 0"
   id="bestSellers"
-  titleFeatured="Top 10 de la semana"
-  description="Descubre nuestros productos más populares"
-  [featuredProducts]="bestSellers"
-/> -->
+  [titleFeatured]="'Porque te encantó ' + productBoughtName()"
+  description="Quizá también te gusten estos productos pensados para ti"
+  [featuredProducts]="recommendations()"
+/>
 
 <featured-products
   id="bestOffers"
@@ -59,9 +60,9 @@
   [featuredProducts]="bestOffers"
 />
 
-<featured-products
+<!-- <featured-products
   id="newArrivals"
   titleFeatured="Recien Llegados"
   description="Descubre nuestros productos más recientes"
   [featuredProducts]="newArrivals"
-/>
+/> -->

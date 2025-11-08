@@ -12,8 +12,8 @@ import { SaleService } from '../../../core/providers/api/sale.service';
 import { IconControlComponent } from '../../../shared/ui/controls/icon-control/icon-control.component';
 import { InputControlComponent } from '../../../shared/ui/controls/input-control/input-control.component';
 import { SelectControlComponent } from '../../../shared/ui/controls/select-control/select-control.component';
-import { ProductSalesPieChartComponent } from "../ui/charts/category-sales-pie-chart.component";
-import { StockCompareSaleChartComponent } from "../ui/charts/stock-compare-sale-chart.component";
+import { ProductSalesPieChartComponent } from '../ui/charts/category-sales-pie-chart.component';
+import { StockCompareSaleChartComponent } from '../ui/charts/stock-compare-sale-chart.component';
 import { MetricCardComponent } from '../ui/metric-card/metric-card.component';
 import { StadisticTableComponent } from '../ui/stadisctic-table/stadistic-table.component';
 import { ProductSaleCardComponent } from './ui/product-sales/product-sale-card.component';
@@ -22,18 +22,7 @@ import { ProductSaleCardComponent } from './ui/product-sales/product-sale-card.c
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MetricCardComponent,
-    IconControlComponent,
-    SelectControlComponent,
-    InputControlComponent,
-    StadisticTableComponent,
-    ProductSaleCardComponent,
-    StockCompareSaleChartComponent,
-    ProductSalesPieChartComponent
-],
+  imports: [CommonModule, FormsModule],
 })
 export class StatisticsComponent implements OnInit {
   totalInitialStock: number = 0;
@@ -84,9 +73,11 @@ export class StatisticsComponent implements OnInit {
     this.saleService.getSalesByCategory(categoryName).subscribe({
       next: (response) => {
         this.salesByCategory = this.notDuplicateData(response.data);
-        this.backupSalesByCategory = [...this.salesByCategory]
+        this.backupSalesByCategory = [...this.salesByCategory];
         this.salesByCategory = this.generateData(this.salesByCategory);
-        this.filterSalesByCategory = this.unifySalesByCategory(this.salesByCategory);
+        this.filterSalesByCategory = this.unifySalesByCategory(
+          this.salesByCategory
+        );
         this.cdr.detectChanges();
       },
     });
@@ -108,28 +99,28 @@ export class StatisticsComponent implements OnInit {
   }
 
   private generateData(sales: ISaleByCategory[]): ISaleByCategory[] {
-    const newSales = [...sales]; 
+    const newSales = [...sales];
 
     newSales.forEach((item) => {
       const countOccurrences = this.countProductsOccurrences(
         newSales,
-        item.productName,
+        item.productName
       );
 
       if (countOccurrences === 1) {
         const saleOriginal = newSales.find(
-          (sale) => sale.productName === item.productName,
+          (sale) => sale.productName === item.productName
         );
 
         if (saleOriginal) {
           const saleDuplicated: ISaleByCategory = {
             ...saleOriginal,
-            registerSale: new Date(saleOriginal.registerSale), 
-            saleQuantity: 5, 
+            registerSale: new Date(saleOriginal.registerSale),
+            saleQuantity: 5,
           };
 
           const originalMonth = saleDuplicated.registerSale.getMonth();
-          saleDuplicated.registerSale.setMonth(originalMonth === 2 ? 3 : 2); 
+          saleDuplicated.registerSale.setMonth(originalMonth === 2 ? 3 : 2);
 
           newSales.push(saleDuplicated);
         }
@@ -160,14 +151,14 @@ export class StatisticsComponent implements OnInit {
   private calculateInitialStock(): number {
     return this.stockDepletionTime.reduce(
       (acc, cur) => acc + +cur.stockInit,
-      0,
+      0
     );
   }
 
   private calculateTotalSales(): number {
     return this.stockDepletionTime.reduce(
       (acc, cur) => acc + +cur.salesMarch + +cur.salesApril,
-      0,
+      0
     );
   }
 
@@ -175,19 +166,19 @@ export class StatisticsComponent implements OnInit {
     return this.stockDepletionTime.reduce((max, cur) =>
       cur.salesMarch + cur.salesApril > max.salesMarch + max.salesApril
         ? cur
-        : max,
+        : max
     ).categoryName;
   }
 
   private calculatePredicStockOut(): string {
     return this.stockDepletionTime.reduce((min, cur) =>
-      cur.stockOut < min.stockOut ? cur : min,
+      cur.stockOut < min.stockOut ? cur : min
     ).categoryName;
   }
 
   private calculateLeftStockByCategory(categoryName: string): number {
     const categoryStock = this.stockDepletionTime.find(
-      (item) => item.categoryName === categoryName,
+      (item) => item.categoryName === categoryName
     );
 
     if (!categoryStock) {
@@ -200,7 +191,7 @@ export class StatisticsComponent implements OnInit {
   }
 
   private unifySalesByCategory(
-    sales: ISaleByCategory[],
+    sales: ISaleByCategory[]
   ): Omit<ISaleByCategory, 'registerSale'>[] {
     const groupedSales = new Map<
       string,
@@ -208,12 +199,12 @@ export class StatisticsComponent implements OnInit {
     >();
 
     sales.forEach(({ registerSale, saleQuantity, stockInitial, ...rest }) => {
-      const key = `${rest.categoryName}-${rest.productCode}`; 
+      const key = `${rest.categoryName}-${rest.productCode}`;
 
       if (groupedSales.has(key)) {
         const existingSale = groupedSales.get(key)!;
-        existingSale.saleQuantity += saleQuantity; 
-        existingSale.stockInitial += stockInitial; 
+        existingSale.saleQuantity += saleQuantity;
+        existingSale.stockInitial += stockInitial;
       } else {
         groupedSales.set(key, { ...rest, saleQuantity, stockInitial });
       }
@@ -224,18 +215,18 @@ export class StatisticsComponent implements OnInit {
 
   private filterSalesByProduct(
     sales: ISaleByCategory[],
-    productName: string,
+    productName: string
   ): ISaleByCategory[] {
     return sales.filter((item) => item.productName === productName);
   }
 
   private countProductsOccurrences(
     sales: ISaleByCategory[],
-    name: string,
+    name: string
   ): number {
     return sales.reduce(
       (acc, sale) => acc + (sale.productName === name ? 1 : 0),
-      0,
+      0
     );
   }
 
@@ -252,24 +243,20 @@ export class StatisticsComponent implements OnInit {
     this.isProductSelected.set(false);
     this.categorySelected = category;
     this.leftStockByCategory = this.calculateLeftStockByCategory(
-      this.categorySelected,
+      this.categorySelected
     );
 
-
     this.fetchSalesByCategory(category);
-
-    
   }
 
   onProductSelected(productName: string): void {
-
     this.isProductSelected.set(true);
     this.productSelected = productName;
 
     // Filtrar las ventas por producto
     this.salesByProduct = this.filterSalesByProduct(
       this.salesByCategory,
-      this.productSelected,
+      this.productSelected
     );
   }
 }

@@ -1,0 +1,77 @@
+<!-- Contenido cuando hay actividades -->
+<div *ngIf="activitys && activitys.length > 0; else noActivities">
+  <div
+    *ngFor="let activity of activitys; let last = last"
+    [class]="
+      'flex items-start pb-6 transition-all duration-200 hover:bg-gray-50 hover:shadow-sm rounded-lg px-4 py-3 -mx-4 -my-3 mb-3 cursor-pointer group ' +
+      (last ? '' : 'border-b border-gray-100 mb-6')
+    "
+  >
+    <!-- Avatar con inicial del usuario -->
+    <image-control
+      [src]="avatarPlaceholderUri + activity.username"
+      [alt]="activity.username"
+      imageClass="w-10 h-10 mr-4"
+    />
+
+    <!-- Contenido de la actividad -->
+    <div class="flex-1">
+      <div class="flex items-start justify-between mb-1">
+        <p
+          class="text-sm text-black group-hover:text-gray-900 transition-colors"
+        >
+          <span class="font-medium">{{ activity.username | titlecase }}</span>
+          <span class="font-light ml-1">{{ activity.action }}</span>
+        </p>
+        <!-- Badge del rol -->
+        <span
+          class="text-xs px-2 py-1 bg-gray-100 text-gray-600 font-light uppercase tracking-wider ml-2 flex-shrink-0 transition-all duration-200 group-hover:bg-gray-200"
+          [ngClass]="{
+            'bg-black text-white group-hover:bg-gray-800':
+              activity.role === 'admin',
+            'bg-gray-200 text-gray-700 group-hover:bg-gray-300':
+              activity.role === 'manager',
+            'bg-gray-100 text-gray-600 group-hover:bg-gray-200':
+              activity.role === 'user'
+          }"
+        >
+          {{ activity.role }}
+        </span>
+      </div>
+      <!-- Información adicional -->
+      <div
+        class="flex items-center space-x-3 text-xs text-gray-500 font-light group-hover:text-gray-600 transition-colors"
+      >
+        <span>{{ activity.createdAt | date : "short" }}</span>
+        <span
+          class="w-1 h-1 bg-gray-300 rounded-full group-hover:bg-gray-400 transition-colors"
+        ></span>
+        <span class="capitalize">{{ activity.module }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Estado vacío -->
+<ng-template #noActivities>
+  <div class="p-12 text-center">
+    <div
+      class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
+    >
+      <div
+        class="w-8 h-8 border-2 border-gray-300 rounded-full border-dashed"
+      ></div>
+    </div>
+    <h3 class="text-lg font-light text-gray-800 mb-2">
+      Sin actividad reciente
+    </h3>
+    <p class="text-sm text-gray-500 font-light mb-6">
+      No hay actividades registradas en este momento
+    </p>
+    <button
+      class="text-sm text-black hover:text-gray-600 font-light transition-colors border border-gray-200 px-4 py-2 hover:border-gray-300"
+    >
+      Actualizar
+    </button>
+  </div>
+</ng-template>

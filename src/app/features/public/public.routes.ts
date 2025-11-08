@@ -30,6 +30,11 @@ export const PUBLIC_ROUTES: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'term',
+    loadComponent: () =>
+      import('./term/term.component').then(m => m.TermComponent)
+  },
+  {
     path: 'wishlist',
     loadComponent: () =>
       import('./wishlist/wishlist.component').then(m => m.WishlistComponent),

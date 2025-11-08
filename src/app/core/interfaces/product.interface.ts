@@ -15,20 +15,19 @@ export interface IProduct {
   variants: IVariant[];
 }
 
-export interface IFeaturedProduct {
-  code: string;
-  name: string;
-  imgUri: string;
-  images: string[];
-  description: string;
-  price: number;
-  discount: number;
-  finalPrice: number;
-  categoryName: string;
-  subCategoriesNames: string[];
+export type IFeaturedProduct = Omit<IProduct, 'color' | 'variants'> & {
   colorName: string;
   sizeNames: string[];
+};
+
+export type IRanking = Pick<IProduct, 'name'> & {
+  nSales: number
 }
+
+export type ILowStockProduct = Pick<
+  IProduct,
+  'name' | 'categoryName' | 'subCategoriesNames'
+> & { totalStock: number };
 
 export interface IVariant {
   sizeName: string;
@@ -60,7 +59,7 @@ export const getDefaultIProduct = (): IProduct => {
 
 export const getDefaultIVariant = (): IVariant => {
   return {
-    sizeName: "",
-    stock: 0
-  }
-}
+    sizeName: '',
+    stock: 0,
+  };
+};

@@ -1,11 +1,14 @@
-<!-- Contenedor principal -->
 <div class="min-h-screen bg-gray-50">
-  <!-- Sidebar fijo (ya está fijo por sus propias clases) -->
+  <!-- Sidebar Component -->
   <app-sidebar></app-sidebar>
-
-  <!-- Contenido principal con margen izquierdo para el sidebar -->
-  <main class="ml-64 min-h-screen">
-    <!-- Contenido con padding superior para el header -->
+  
+  <!-- Main Content -->
+  <main 
+    [class]="
+      'transition-all duration-300 min-h-screen ' + 
+      (sidebarService.isCollapsed() ? 'ml-16' : 'ml-64')
+    "
+  >
     <router-outlet></router-outlet>
   </main>
 </div>

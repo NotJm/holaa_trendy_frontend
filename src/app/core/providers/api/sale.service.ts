@@ -9,15 +9,27 @@ import { BaseService } from "./base.service";
 export class SaleService extends BaseService {
   protected override endpoint = "sales";
 
-  add(): Observable<IApiResponse> {
+  public add(): Observable<IApiResponse> {
     return this.post<IApiResponse>('add', {} , { withCredentials: true });
   }
 
-  getStockDepletion(): Observable<IApiResponse> {
+  public getStockDepletion(): Observable<IApiResponse> {
     return this.get<IApiResponse>('stock-depletion', { withCredentials: true })
   }
 
-  getSalesByCategory(categoryName: string): Observable<IApiResponse> {
+  public getSalesByCategory(categoryName: string): Observable<IApiResponse> {
     return this.get<IApiResponse>(`by-category/${categoryName}`, { withCredentials: true })
+  }
+
+  public getCountSaleToday(): Observable<IApiResponse> {
+    return this.get<IApiResponse>('count/today', { withCredentials: true })
+  }
+
+  public getIncomeToday(): Observable<IApiResponse> {
+    return this.get<IApiResponse>('income/today', { withCredentials: true })
+  }
+
+  public getRankingProducts(): Observable<IApiResponse> {
+    return this.get<IApiResponse>('ranking', { withCredentials: true })
   }
 }

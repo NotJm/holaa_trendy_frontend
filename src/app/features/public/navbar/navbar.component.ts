@@ -166,13 +166,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/profile']);
   }
 
-  logout(): void {
+  public logout(): void {
     this.authService
       .logOut()
       .pipe(
         takeUntil(this.#destroy$),
         finalize(() => this.onClose()),
-        tap(() => this.isAuthenticated.set(false))
+        tap(() => {
+          this.userAvatar = '';
+          this.userEmail = '';
+          this.userName = '';
+          this.isAdmin.set(false);
+          this.isEmployee.set(false);
+          this.isAuthenticated.set(false)
+        })
       )
       .subscribe({
         next: () => this.router.navigate(['/auth/login']),

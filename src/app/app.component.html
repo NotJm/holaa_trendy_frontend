@@ -1,14 +1,9 @@
-<ng-container *ngIf="isServerAvailable() else maintenance"> 
-  <app-navbar  *ngIf="isRouterOutletLoaded()"></app-navbar>
+<app-navbar *ngIf="isRouterOutletLoaded()"></app-navbar>
 
-  <router-outlet 
-    (activate)="onActivate()"
-    (deactivate)="onDesactivate()">
-  </router-outlet>
-  
-  <app-footer *ngIf="isRouterOutletLoaded()"></app-footer>
+<router-outlet (activate)="onActivate()" (deactivate)="onDesactivate()">
+</router-outlet>
 
-</ng-container>
+<app-footer *ngIf="isRouterOutletLoaded()"></app-footer>
 
 <ng-template #maintenance>
   <maintenance />

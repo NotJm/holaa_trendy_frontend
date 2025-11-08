@@ -19,7 +19,9 @@ export class NavigationLinkComponent {
   @Input({ required: true }) link!: string;
   @Input({ required: true }) linkText!: string;
   @Input({ required: true }) linkClass: string = '';
+  @Input() linkTextClass: string = '';
   @Input() linkActiveClass: string = '';
+  @Input() isDisabledLink: boolean = false;
 
   // Only properties for custom the link
   @Input() hasIcon?: boolean = false;

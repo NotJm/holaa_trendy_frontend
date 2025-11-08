@@ -6,7 +6,9 @@
   [class]="linkClass"
 >
   <icon-control *ngIf="hasIcon && !isIconRight" [iconClass]="iconClass" />
-  {{ linkText }}
+  <span [class]="linkTextClass">
+    {{ linkText }}
+  </span>
   <icon-control *ngIf="hasIcon && isIconRight" [iconClass]="iconClass" />
   <ng-content></ng-content>
 </a>

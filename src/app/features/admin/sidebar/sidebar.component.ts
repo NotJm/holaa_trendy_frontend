@@ -1,61 +1,62 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { delay, Subject, takeUntil, tap } from 'rxjs';
-import { AuthService } from '../../../core/providers/api/auth.service';
-import { UserService } from '../../../core/providers/api/user.service';
-import { NavigationLinkComponent } from '../../../shared/ui/navigation-link/navigation-link.component';
-import { IUserWithAvatar } from '../../../core/interfaces/users.interface';
-import { IApiResponse } from '../../../core/interfaces/api.response.interface';
-import { ButtonControlComponent } from '../../../shared/ui/button/button-control.component';
 import { ImageControlComponent } from '../../../shared/ui/controls/image-control/image-control.component';
+import { CommonModule } from '@angular/common';
+import { SidebarService } from '../../../core/providers/sidebar.service';
+import { NavigationLinkComponent } from "../../../shared/ui/navigation-link/navigation-link.component";
+import { UserService } from '../../../core/providers/api/user.service';
+import { delay, Subject, takeUntil, tap } from 'rxjs';
+import { IApiResponse } from '../../../core/interfaces/api.response.interface';
+import { IUserWithAvatar } from '../../../core/interfaces/users.interface';
+import { AuthService } from '../../../core/providers/api/auth.service';
+import { Router } from '@angular/router';
+import { ButtonControlComponent } from "../../../shared/ui/button/button-control.component";
 
 @Component({
   selector: 'app-sidebar',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    ImageControlComponent,
-    NavigationLinkComponent,
-    ButtonControlComponent,
-  ],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css',
+  imports: [ImageControlComponent, CommonModule, ButtonControlComponent, NavigationLinkComponent],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  #destroy$ = new Subject<void>();
+  #destroy$ = new Subject<void>()
 
-  userAvatar: string = 'https://avatar.iran.liara.run/public/34';
-  userName: string = 'Admin';
-  userEmail: string = 'user@example.com';
+  isCollapsed = signal(false);
+  isMobile = signal(false);
+  isLoading = signal(false);
 
-  isLoading = signal<boolean>(false);
+  userAvatar: string = '';
+  userName: string = '';
+  userEmail: string = '';
 
 
   constructor(
-    private readonly router: Router,
+    public readonly sidebarService: SidebarService,
     private readonly userService: UserService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.getUserData();
+  public ngOnInit(): void {
+    this.fetchUserData();
   }
 
-  private getUserData(): void {
-    const cachedUser = this.userService.getCachedUser();
+  public ngOnDestroy(): void {
+    this.#destroy$.next();
+    this.#destroy$.complete();
+  }
 
-    if (cachedUser) {
-      this.setUserData(cachedUser);
-    }
+  private fetchUserData(): void {
+  const cachedUser = this.userService.getCachedUser();
 
-    this.userService
-      .getUserData()
-      .pipe(takeUntil(this.#destroy$))
-      .subscribe({
-        next: (response: IApiResponse) => this.setUserData(response.data),
-      });
+  if (cachedUser) {
+    this.setUserData(cachedUser);
+  }
+
+  this.userService
+    .getUserData()
+    .pipe(takeUntil(this.#destroy$))
+    .subscribe({
+      next: (response: IApiResponse) => this.setUserData(response.data),
+    });
   }
 
   private setUserData(userData: IUserWithAvatar): void {
@@ -64,12 +65,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.userName = userData.username ?? '';
   }
 
-  ngOnDestroy(): void {
-    this.#destroy$.next();
-    this.#destroy$.complete();
-  }
 
-  logout(): void {
+
+  public logout(): void {
     this.authService
       .logOut()
       .pipe(
@@ -84,3 +82,5 @@ export class SidebarComponent implements OnInit, OnDestroy {
       });
   }
 }
+
+

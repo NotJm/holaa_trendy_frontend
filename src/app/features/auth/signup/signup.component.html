@@ -3,19 +3,16 @@
   <animated-background></animated-background>
 
   <div class="flex items-center justify-center w-full h-full p-6 z-10">
-    @switch (step()) {
-      @case('signup') {
-        <signup-form />
-      }
-      @case('success') {
-        <success-view
-          successTitle="!Cuenta activada con exito!"
-          successMessage="Ahora puedes iniciar sesión en tu cuenta."        
-          [hasCustomButtonText]="true"
-          [customButtonText]="'Iniciar sesión'"
-          (onClick)="onRedirect()"
-        />
-      }
-    }
+    @switch (step()) { @case('signup') {
+    <signup-form />
+    } @case('success') {
+    <success-view
+      successTitle="!Cuenta activada con exito!"
+      successMessage="Ahora puedes iniciar sesión en tu cuenta."
+      [hasCustomButtonText]="true"
+      [customButtonText]="'Iniciar sesión'"
+      (onClick)="onRedirect()"
+    />
+    } }
   </div>
 </div>

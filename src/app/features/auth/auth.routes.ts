@@ -10,8 +10,10 @@ export const AUTH_ROUTES: Routes = [
   },
   {
     path: 'login/:step/:token',
+    
     loadComponent: () =>
       import('./login/login.component').then((m) => m.LoginComponent),
+    
   },
   {
     path: 'signup',

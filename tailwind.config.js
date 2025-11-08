@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Open Sans", "sans-serif"],
+        sans: [],
         monserrat: ["Monserrat", "sans-serif"],
         inter: ["Inter", "sans-serif"],
         wedgie: ["Wedgie", "sans-serif"],
@@ -14,6 +14,7 @@ module.exports = {
         bebas: ["Bebas Neue", "sans-serif"],
         karla: ["Karla", "sans-serif"],
         "play-fair": ["Playfair", "sans-serif"],
+        jetbrains: ["JetBrains Mono", "monospace"]
       },
       keyframes: {
         marquee: {

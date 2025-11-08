@@ -1,385 +1,307 @@
-<div class="min-h-screen bg-gray-50 p-6">
-  <div class="max-w-7xl mx-auto">
-    <!-- Encabezado-->
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold font-karla text-gray-800">Configuración de Seguridad</h1>
-      <p class="mt-2 font-karla text-gray-600">Administre los parámetros de seguridad y notificaciones del sistema</p>
-    </div>
-
-    <!-- Tarjetas de resumen -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-sm font-medium text-gray-500 uppercase">Intentos Fallidos</p>
-            <p class="text-2xl font-bold text-gray-800 mt-1">47</p>
-            <p class="text-sm text-gray-500 mt-1">Últimas 24 horas</p>
-          </div>
-          <div class="bg-indigo-100 p-3 rounded-full">
-            <svg class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-            </svg>
-          </div>
+<!-- Incidents Component -->
+<div class="min-h-screen bg-white">
+  <!-- Header -->
+  <div class="border-b border-gray-200 bg-white sticky top-0 z-10">
+    <div class="px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-semibold text-black">Incidencias</h1>
+          <p class="text-sm text-gray-500 mt-1">Gestión de problemas y reportes</p>
         </div>
-        <div class="mt-4 flex items-center text-sm">
-          <span class="text-green-500 flex items-center">
-            <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-            </svg>
-            12% menos
-          </span>
-          <span class="text-gray-500 ml-2">que la semana pasada</span>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-sm font-medium text-gray-500 uppercase">Usuarios Bloqueados</p>
-            <p class="text-2xl font-bold text-gray-800 mt-1">12</p>
-            <p class="text-sm text-gray-500 mt-1">Actualmente</p>
-          </div>
-          <div class="bg-red-100 p-3 rounded-full">
-            <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
-            </svg>
-          </div>
-        </div>
-        <div class="mt-4 flex items-center text-sm">
-          <span class="text-red-500 flex items-center">
-            <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-            8% más
-          </span>
-          <span class="text-gray-500 ml-2">que el mes pasado</span>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-sm font-medium text-gray-500 uppercase">Alertas de Seguridad</p>
-            <p class="text-2xl font-bold text-gray-800 mt-1">3</p>
-            <p class="text-sm text-gray-500 mt-1">Requieren atención</p>
-          </div>
-          <div class="bg-yellow-100 p-3 rounded-full">
-            <svg class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-            </svg>
-          </div>
-        </div>
-        <div class="mt-4 flex items-center text-sm">
-          <span class="text-gray-500">Última alerta: hace 2 horas</span>
+        <div class="flex items-center gap-3">
+          <!-- Filter -->
+          <select class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+            <option>Todas</option>
+            <option>Abiertas</option>
+            <option>En progreso</option>
+            <option>Resueltas</option>
+            <option>Cerradas</option>
+          </select>
+          <!-- Priority Filter -->
+          <select class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
+            <option>Todas las prioridades</option>
+            <option>Crítica</option>
+            <option>Alta</option>
+            <option>Media</option>
+            <option>Baja</option>
+          </select>
+          <!-- New Incident -->
+          <button class="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors duration-200">
+            <span class="icon-[mdi--plus] w-4 h-4"></span>
+            Nueva Incidencia
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Pestañas de navegación -->
-    <div class="mb-8 border-b border-gray-200">
-      <nav class="-mb-px flex space-x-8">
-        <a href="#email-config" class="border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-          Configuración de Correo
-        </a>
-        <a href="#security-config" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-          Parámetros de Seguridad
-        </a>
-        <a href="#user-filter" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
-          Usuarios Bloqueados
-        </a>
-      </nav>
-    </div>
-
-    <!-- Configuración del correo -->
-    <section id="email-config" class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
-      <div class="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-        <h2 class="text-lg font-medium text-gray-800">Configuración de Notificaciones por Correo</h2>
-        <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full font-medium">Sistema</span>
-      </div>
-      <div class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <label for="emailTitle" class="block text-sm font-medium text-gray-700 mb-1">Título del Correo</label>
-            <input
-              id="emailTitle"
-              name="title"
-              type="text"
-              [(ngModel)]="emailConfiguration.title"
-              placeholder="Notificación de Seguridad - HOLAA"
-              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-          <div>
-            <label for="emailFooter" class="block text-sm font-medium text-gray-700 mb-1">Pie de Página del Correo</label>
-            <input
-              id="emailFooter"
-              name="footer"
-              type="text"
-              [(ngModel)]="emailConfiguration.footer"
-              placeholder="© 2023 HOLAA Business Management. Todos los derechos reservados."
-              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-        </div>
-        <div class="mb-6">
-          <label for="emailContent" class="block text-sm font-medium text-gray-700 mb-1">Plantilla de Contenido</label>
-          <textarea
-            id="emailContent"
-            name="content"
-            [(ngModel)]="emailConfiguration.content"
-            rows="6"
-            placeholder="Estimado/a {userName}, se ha detectado un intento de acceso inusual a su cuenta. Si no fue usted, por favor cambie su contraseña inmediatamente."
-            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
-          ></textarea>
-          <div class="mt-2 text-xs text-gray-500">
-            <p>Variables disponibles: {{'{userName}'}}, {{'{date}'}}, {{'{time}'}}, {{'{ipAddress}'}}, {{'{deviceInfo}'}}</p>
-          </div>
-        </div>
+  <!-- Incident Stats -->
+  <div class="px-6 py-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Open Incidents -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
         <div class="flex items-center justify-between">
-          <button
-            (click)="editEmailConfiguration()"
-            class="px-6 py-2 bg-indigo-600 text-white font-medium rounded-lg transition duration-200 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            Guardar Configuración
-          </button>
-          <button
-            class="px-4 py-2 text-indigo-600 font-medium rounded-lg transition duration-200 hover:bg-indigo-50 focus:outline-hidden border border-indigo-200"
-          >
-            Vista Previa
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Configuración de intentos fallidos y duración del bloqueo -->
-    <section id="security-config" class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
-      <div class="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-        <h2 class="text-lg font-medium text-gray-800">Parámetros de Seguridad</h2>
-        <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full font-medium">Crítico</span>
-      </div>
-      <div class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <div class="flex items-center mb-3">
-              <div class="bg-indigo-100 p-2 rounded-full mr-3">
-                <svg class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
-                </svg>
-              </div>
-              <label for="maxFailedAttempts" class="block text-sm font-medium text-gray-700">Máximos Intentos Fallidos</label>
-            </div>
-            <div class="relative">
-              <input
-                id="maxFailedAttempts"
-                name="maxFailedAttempts"
-                type="number"
-                [(ngModel)]="incidentConfiguration.maxFailedAttempts"
-                placeholder="5"
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
-              />
-              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <span class="text-gray-500">intentos</span>
-              </div>
-            </div>
-            <p class="mt-2 text-xs text-gray-500">Número de intentos fallidos antes del bloqueo</p>
-          </div>
-          
-          <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <div class="flex items-center mb-3">
-              <div class="bg-indigo-100 p-2 rounded-full mr-3">
-                <svg class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-              <label for="blockDuration" class="block text-sm font-medium text-gray-700">Duración del Bloqueo</label>
-            </div>
-            <div class="relative">
-              <input
-                id="blockDuration"
-                name="blockDuration"
-                type="number"
-                [(ngModel)]="incidentConfiguration.blockDuration"
-                placeholder="30"
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
-              />
-              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <span class="text-gray-500">minutos</span>
-              </div>
-            </div>
-            <p class="mt-2 text-xs text-gray-500">Tiempo que permanecerá bloqueada la cuenta</p>
-          </div>
-          
-          <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <div class="flex items-center mb-3">
-              <div class="bg-indigo-100 p-2 rounded-full mr-3">
-                <svg class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
-              </div>
-              <label for="otpLifeTime" class="block text-sm font-medium text-gray-700">Tiempo de Vida OTP</label>
-            </div>
-            <div class="relative">
-              <input
-                id="otpLifeTime"
-                name="otpLifeTime"
-                type="number"
-                [(ngModel)]="incidentConfiguration.otpLifeTime"
-                placeholder="10"
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
-              />
-              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <span class="text-gray-500">minutos</span>
-              </div>
-            </div>
-            <p class="mt-2 text-xs text-gray-500">Duración de validez del código OTP</p>
-          </div>
-        </div>
-        
-        <div class="flex items-center justify-between">
-          <button
-            (click)="editIncidentConfiguration()"
-            class="px-6 py-2 bg-indigo-600 text-white font-medium rounded-lg transition duration-200 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            Guardar Configuración
-          </button>
-          <button
-            class="px-4 py-2 text-gray-600 font-medium rounded-lg transition duration-200 hover:bg-gray-100 focus:outline-hidden border border-gray-200"
-          >
-            Restaurar Valores Predeterminados
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Filtro de usuarios bloqueados por días -->
-    <section id="user-filter" class="bg-white rounded-lg shadow-md overflow-hidden">
-      <div class="border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-        <h2 class="text-lg font-medium text-gray-800">Filtro de Usuarios Bloqueados</h2>
-        <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-medium">Monitoreo</span>
-      </div>
-      <div class="p-6">
-        <div class="flex flex-col md:flex-row md:items-end gap-4 mb-6">
-          <div class="flex-1">
-            <label for="blockedUserFilterDays" class="block text-sm font-medium text-gray-700 mb-1">Período de Filtrado</label>
-            <div class="relative">
-              <input
-                id="blockedUserFilterDays"
-                name="days"
-                type="number"
-                [(ngModel)]="blockedUserFilterDays"
-                placeholder="30"
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
-              />
-              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <span class="text-gray-500">días</span>
-              </div>
-            </div>
-          </div>
-          <div class="flex-1">
-            <label for="statusFilter" class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
-            <select id="statusFilter" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-500">
-              <option value="">Todos los estados</option>
-              <option value="blocked">Bloqueados</option>
-              <option value="warning">Advertencia</option>
-              <option value="unblocked">Desbloqueados</option>
-            </select>
-          </div>
           <div>
-            <button
-              (click)="editIncidentConfiguration()"
-              class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg transition duration-200 hover:bg-indigo-700 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Aplicar Filtro
+            <p class="text-sm font-medium text-gray-500">Incidencias Abiertas</p>
+            <p class="text-2xl font-semibold text-black mt-1">23</p>
+          </div>
+          <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+            <span class="icon-[mdi--alert-circle-outline] w-6 h-6 text-red-600"></span>
+          </div>
+        </div>
+        <div class="flex items-center mt-4">
+          <span class="text-sm text-red-600 font-medium">5 críticas</span>
+        </div>
+      </div>
+
+      <!-- In Progress -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-500">En Progreso</p>
+            <p class="text-2xl font-semibold text-black mt-1">12</p>
+          </div>
+          <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+            <span class="icon-[mdi--clock-outline] w-6 h-6 text-orange-600"></span>
+          </div>
+        </div>
+        <div class="flex items-center mt-4">
+          <span class="text-sm text-orange-600 font-medium">Tiempo promedio: 2.3h</span>
+        </div>
+      </div>
+
+      <!-- Resolved Today -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-500">Resueltas Hoy</p>
+            <p class="text-2xl font-semibold text-black mt-1">8</p>
+          </div>
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+            <span class="icon-[mdi--check-circle-outline] w-6 h-6 text-green-600"></span>
+          </div>
+        </div>
+        <div class="flex items-center mt-4">
+          <span class="text-sm text-green-600 font-medium">+33% vs ayer</span>
+        </div>
+      </div>
+
+      <!-- Average Resolution Time -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-500">Tiempo Resolución</p>
+            <p class="text-2xl font-semibold text-black mt-1">4.2h</p>
+          </div>
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+            <span class="icon-[mdi--timer-outline] w-6 h-6 text-blue-600"></span>
+          </div>
+        </div>
+        <div class="flex items-center mt-4">
+          <span class="text-sm text-green-600 font-medium">-15% vs mes anterior</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Incidents Table -->
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <h2 class="text-lg font-semibold text-black">Lista de Incidencias</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Título</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reportado por</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prioridad</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asignado a</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr class="hover:bg-gray-50 transition-colors duration-200">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="text-sm font-medium text-black">#INC-001</span>
+              </td>
+              <td class="px-6 py-4">
+                <div class="text-sm font-medium text-black">Error en proceso de pago</div>
+                <div class="text-xs text-gray-500">Los usuarios no pueden completar compras</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xs font-medium">MG</span>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-black">María García</div>
+                    <div class="text-xs text-gray-500">Cliente</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                  Crítica
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                  En progreso
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 bg-black rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xs font-medium">JS</span>
+                  </div>
+                  <span class="ml-2 text-sm text-black">Juan Soporte</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-black">15 Ene 2024</div>
+                <div class="text-xs text-gray-500">10:30 AM</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center gap-2">
+                  <button class="p-1.5 text-gray-400 hover:text-black transition-colors duration-200">
+                    <span class="icon-[mdi--eye-outline] w-4 h-4"></span>
+                  </button>
+                  <button class="p-1.5 text-gray-400 hover:text-black transition-colors duration-200">
+                    <span class="icon-[mdi--pencil-outline] w-4 h-4"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50 transition-colors duration-200">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="text-sm font-medium text-black">#INC-002</span>
+              </td>
+              <td class="px-6 py-4">
+                <div class="text-sm font-medium text-black">Página de productos lenta</div>
+                <div class="text-xs text-gray-500">Tiempo de carga superior a 5 segundos</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xs font-medium">SY</span>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-black">Sistema</div>
+                    <div class="text-xs text-gray-500">Automático</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                  Alta
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  Abierta
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 bg-black rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xs font-medium">AT</span>
+                  </div>
+                  <span class="ml-2 text-sm text-black">Ana Técnica</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-black">15 Ene 2024</div>
+                <div class="text-xs text-gray-500">09:15 AM</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center gap-2">
+                  <button class="p-1.5 text-gray-400 hover:text-black transition-colors duration-200">
+                    <span class="icon-[mdi--eye-outline] w-4 h-4"></span>
+                  </button>
+                  <button class="p-1.5 text-gray-400 hover:text-black transition-colors duration-200">
+                    <span class="icon-[mdi--pencil-outline] w-4 h-4"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50 transition-colors duration-200">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="text-sm font-medium text-black">#INC-003</span>
+              </td>
+              <td class="px-6 py-4">
+                <div class="text-sm font-medium text-black">Error en búsqueda de productos</div>
+                <div class="text-xs text-gray-500">Filtros no funcionan correctamente</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xs font-medium">AL</span>
+                  </div>
+                  <div class="ml-3">
+                    <div class="text-sm text-black">Ana López</div>
+                    <div class="text-xs text-gray-500">Cliente</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                  Media
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  Resuelta
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 bg-black rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xs font-medium">JS</span>
+                  </div>
+                  <span class="ml-2 text-sm text-black">Juan Soporte</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-black">14 Ene 2024</div>
+                <div class="text-xs text-gray-500">16:45 PM</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center gap-2">
+                  <button class="p-1.5 text-gray-400 hover:text-black transition-colors duration-200">
+                    <span class="icon-[mdi--eye-outline] w-4 h-4"></span>
+                  </button>
+                  <button class="p-1.5 text-gray-400 hover:text-black transition-colors duration-200">
+                    <span class="icon-[mdi--pencil-outline] w-4 h-4"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-gray-500">
+            Mostrando 1-3 de 43 incidencias
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="px-3 py-1.5 text-sm border border-gray-200 rounded-lg text-gray-500 hover:bg-white hover:text-black transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+              Anterior
             </button>
-          </div>
-        </div>
-        
-        <!-- Tabla de usuarios bloqueados (ejemplo) -->
-        <div class="overflow-x-auto border border-gray-200 rounded-lg mb-6">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuario</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha de Bloqueo</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Motivo</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <!-- Ejemplo de datos - En producción estos vendrían de una API -->
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
-                      <span class="text-gray-500">JD</span>
-                    </div>
-                    <div class="ml-4">
-                      <div class="text-sm font-medium text-gray-900">Juan Pérez</div>
-                      <div class="text-sm text-gray-500">juan.perez&#64;example.com</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/03/2023 14:30</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Múltiples intentos fallidos</td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Bloqueado</span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button class="text-indigo-600 hover:text-indigo-900 mr-3 flex items-center">
-                    <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                    Desbloquear
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
-                      <span class="text-gray-500">MG</span>
-                    </div>
-                    <div class="ml-4">
-                      <div class="text-sm font-medium text-gray-900">María González</div>
-                      <div class="text-sm text-gray-500">maria.gonzalez&#64;example.com</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12/03/2023 09:15</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Actividad sospechosa</td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Advertencia</span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button class="text-indigo-600 hover:text-indigo-900 mr-3 flex items-center">
-                    <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                    Bloquear
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <span class="text-sm text-gray-700">
-              Mostrando <span class="font-medium">1</span> a <span class="font-medium">2</span> de <span class="font-medium">2</span> resultados
-            </span>
-          </div>
-          <div class="flex items-center space-x-2">
-            <button class="px-4 py-2 text-indigo-600 font-medium rounded-lg transition duration-200 hover:bg-indigo-50 focus:outline-hidden border border-indigo-200 flex items-center">
-              <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-              </svg>
-              Exportar Reporte
+            <div class="flex items-center gap-1">
+              <button class="px-3 py-1.5 text-sm bg-black text-white rounded-lg">1</button>
+              <button class="px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 rounded-lg transition-colors duration-200">2</button>
+              <button class="px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-100 rounded-lg transition-colors duration-200">3</button>
+            </div>
+            <button class="px-3 py-1.5 text-sm border border-gray-200 rounded-lg text-gray-700 hover:bg-white hover:text-black transition-colors duration-200">
+              Siguiente
             </button>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </div>
