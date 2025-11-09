@@ -1,0 +1,19 @@
+<!-- Botón en el header (visible en pantallas >= 992px) -->
+<button
+  class="pwa-install-btn header"
+  *ngIf="canInstall() && !installed()"
+  (click)="install()"
+  aria-label="Instalar aplicación HOLAA Trendy">
+  <!-- Ícono inline -->
+  <svg viewBox="0 0 24 24" class="icon"><path d="M12 3a1 1 0 011 1v8.59l2.3-2.3a1 1 0 011.4 1.42l-4 4a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.42L11 12.59V4a1 1 0 011-1zM5 20a2 2 0 01-2-2v-2a1 1 0 112 0v2h14v-2a1 1 0 112 0v2a2 2 0 01-2 2H5z"/></svg>
+  Instalar
+</button>
+
+<!-- FAB flotante (visible en pantallas < 992px) -->
+<button
+  class="pwa-install-btn fab"
+  *ngIf="canInstall() && !installed()"
+  (click)="install()"
+  aria-label="Instalar aplicación HOLAA Trendy">
+  <svg viewBox="0 0 24 24" class="icon"><path d="M12 3a1 1 0 011 1v8.59l2.3-2.3a1 1 0 011.4 1.42l-4 4a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.42L11 12.59V4a1 1 0 011-1zM5 20a2 2 0 01-2-2v-2a1 1 0 112 0v2h14v-2a1 1 0 112 0v2a2 2 0 01-2 2H5z"/></svg>
+</button>

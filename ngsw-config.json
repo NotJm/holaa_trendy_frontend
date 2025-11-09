@@ -30,12 +30,28 @@
   "dataGroups": [
     {
       "name": "api-products",
-      "urls": ["http://localhost:3000/products"],
+      "urls": [
+        "http://localhost:3000/products",
+        "http://localhost:3000/products/**",
+        "http://localhost:3000/products?**"
+      ],
       "cacheConfig": {
-        "maxSize": 50,
-        "maxAge": "6h",
-        "timeout": "5s",
-        "strategy": "freshness"
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "12h"
+      }
+    },
+    {
+      "name": "api-category",
+      "urls": [
+        "http://localhost:3000/category",
+        "http://localhost:3000/category/**",
+        "http://localhost:3000/category?**"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "12h"
       }
     }
   ]

@@ -1,0 +1,57 @@
+.pwa-install-btn {
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 600;
+  border-radius: 999px;
+  transition: transform .08s ease, box-shadow .2s ease, background-color .2s;
+  user-select: none;
+}
+
+/* Botón del header (desktop) */
+.pwa-install-btn.header {
+  padding: .5rem .9rem;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  color: #e91e63;
+}
+.pwa-install-btn.header:hover {
+  background: #ffe7f0;
+  box-shadow: 0 3px 10px rgba(233,30,99,.15);
+  transform: translateY(-1px);
+}
+
+/* FAB flotante (mobile) */
+.pwa-install-btn.fab {
+  position: fixed;
+  right: 16px;
+  bottom: 20px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff5575, #e91e63);
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(233,30,99,.35);
+  justify-content: center;
+}
+.pwa-install-btn.fab:active {
+  transform: translateY(1px);
+}
+
+/* Ícono */
+.pwa-install-btn .icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Responsivo: muestra uno u otro */
+@media (max-width: 991.98px) {
+  .pwa-install-btn.header { display: none; }
+}
+@media (min-width: 992px) {
+  .pwa-install-btn.fab { display: none; }
+}
