@@ -76,6 +76,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.checkAuthentication();
     this.checkIsAdmin();
+    this.checkIsEmployee(); // <- se invoca para mantener role al día
   }
 
   ngOnDestroy(): void {
@@ -120,9 +121,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       filter((response) => response.data.authenticated),
       tap((response) => {
         this.isAuthenticated.set(response.data.authenticated);
-
         this.isAdmin.set(response.data.role === 'admin');
-
         this.isEmployee.set(response.data.role === 'employee');
       }),
       switchMap(() => this.loadUserData())
@@ -178,12 +177,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.userName = '';
           this.isAdmin.set(false);
           this.isEmployee.set(false);
-          this.isAuthenticated.set(false)
+          this.isAuthenticated.set(false);
         })
       )
       .subscribe({
         next: () => this.router.navigate(['/auth/login']),
         error: () => this.router.navigate(['/auth/login']),
       });
+  }
+
+  /** Handler para el ícono de login cuando NO debe redirigir */
+  onLoginIconClick(): void {
+    // Aquí decides qué hacer: abrir dropdown, modal, etc.
+    this.toggleDropdown();
+    // Si luego quieres abrir un modal, reemplaza por tu lógica aquí.
   }
 }

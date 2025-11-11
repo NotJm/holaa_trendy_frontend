@@ -1,19 +1,41 @@
-<ng-container *ngIf="!hasLink; else iconWithLink">
-  <span [class]="iconClass"></span>
-  <span *ngIf="hasText" [class]="textClass">{{ text }}</span>
-</ng-container>
+<!-- Botón (NO navega) -->
+<button
+  *ngIf="!hasLink; else iconWithLink"
+  type="button"
+  [ngClass]="linkClass"
+  (click)="onClick($event)"
+  aria-label="icon-button"
+>
+  <span [ngClass]="iconClass"></span>
+  <span *ngIf="hasText" [ngClass]="textClass">{{ text }}</span>
+</button>
 
+<!-- Con enlace -->
 <ng-template #iconWithLink>
-  <a *ngIf="isExternalLink; else internalLink" [href]="link" [class]="linkClass" target="_blank" rel="noopener noreferrer">
-    <span [class]="iconClass"></span>
-    <span *ngIf="hasText">{{ text }}</span>
+  <!-- Enlace EXTERNO -->
+  <a
+    *ngIf="isExternalLink; else internalLink"
+    [href]="link"
+    [ngClass]="linkClass"
+    target="_blank"
+    rel="noopener noreferrer"
+    (click)="onClick($event)"
+    aria-label="icon-link-external"
+  >
+    <span [ngClass]="iconClass"></span>
+    <span *ngIf="hasText" [ngClass]="textClass">{{ text }}</span>
   </a>
+
+  <!-- Enlace INTERNO (routerLink) -->
   <ng-template #internalLink>
-    <a [routerLink]="link" [class]="linkClass">
-      <span [class]="iconClass"></span>
-      <span *ngIf="hasText">{{ text }}</span>
+    <a
+      [routerLink]="link"
+      [ngClass]="linkClass"
+      (click)="onClick($event)"
+      aria-label="icon-link-internal"
+    >
+      <span [ngClass]="iconClass"></span>
+      <span *ngIf="hasText" [ngClass]="textClass">{{ text }}</span>
     </a>
   </ng-template>
 </ng-template>
-
-
