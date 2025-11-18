@@ -20,7 +20,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { routes } from './app.routes';
 import { errorInterceptor } from './core/interceptor/error.interceptor';
 import { provideCountdown } from 'ngx-countdown';
-import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { WINDOW } from './core/constants/constants';
 import { QuicklinkStrategy } from 'ngx-quicklink';
@@ -30,7 +30,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    { provide: WINDOW, useFactory: () => window},
+    { provide: WINDOW, useFactory: () => window },
     provideHotToastConfig(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideCountdown({ format: 'mm:ss' }),
@@ -44,9 +44,15 @@ export const appConfig: ApplicationConfig = {
     ),
     provideClientHydration(withEventReplay()),
     provideAnimations(),
-    provideHttpClient(withFetch(), withInterceptors([errorInterceptor])), provideCharts(withDefaultRegisterables()), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([errorInterceptor /*, authInterceptor si corresponde */])
+    ),
+    provideCharts(withDefaultRegisterables()),
+    // ⬇️ Aquí el cambio importante
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerImmediately'
+    }),
   ],
 };
