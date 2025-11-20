@@ -31,9 +31,9 @@
     {
       "name": "api-products",
       "urls": [
-        "http://localhost:3000/products",
-        "http://localhost:3000/products/**",
-        "http://localhost:3000/products?**"
+        "https://server-server-nestjs.xaecbd.easypanel.host/products",
+        "https://server-server-nestjs.xaecbd.easypanel.host/products/**",
+        "https://server-server-nestjs.xaecbd.easypanel.host/products?**"
       ],
       "cacheConfig": {
         "strategy": "performance",
@@ -44,9 +44,9 @@
     {
       "name": "api-category",
       "urls": [
-        "http://localhost:3000/category",
-        "http://localhost:3000/category/**",
-        "http://localhost:3000/category?**"
+        "https://server-server-nestjs.xaecbd.easypanel.host/category",
+        "https://server-server-nestjs.xaecbd.easypanel.host/category/**",
+        "https://server-server-nestjs.xaecbd.easypanel.host/category?**"
       ],
       "cacheConfig": {
         "strategy": "performance",
